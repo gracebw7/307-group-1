@@ -1,0 +1,18 @@
+{
+  "name": "307-group-1",
+  "version": "1.0.0",
+  "description": "**Project Idea:**\r For students who are looking for off-campus housing, **PropHunt** is a review site that allows users to post and view reviews about rental properties. Unlike other typical rental review apps, our product is geared towards the unique challenges faced by student-tenants, such as regular turnover, studying abroad, and campus proximity.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently -n FRONTEND,BACKEND \"npm run -w packages/react-frontend dev\" \"npm run -w packages/express-backend dev\""
+  },
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
