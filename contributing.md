@@ -1,0 +1,2 @@
+Here is where you explain to your teammates how to follow the style that you've decided on. (Imagine there will be more developers who want to join your team in the future, and you need to explain the tools you've set up.)
+prettier and eslint set up?
