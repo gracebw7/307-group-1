@@ -3,11 +3,19 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
+const INVALID_TOKEN = "INVALID_TOKEN";
+const [token, setToken] = useState(INVALID_TOKEN);
+const [message, setMessage] = useState("");
+
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
+      <Route
+        path="/login"
+        element={<Login handleSubmit={loginUser} />}
+      />
       <div>
         <a href="https://vite.dev" target="_blank">
           <img
