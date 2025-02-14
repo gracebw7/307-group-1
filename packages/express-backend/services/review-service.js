@@ -11,9 +11,12 @@ mongoose
   })
   .catch((error) => console.log(error));
 */
+function getReviews() {
+  return reviewModel.find();
+}
 
 function getReviewById(id) {
-  return ReviewModel.findById(id);
+  return reviewModel.findById(id);
 }
 
 function addReview(review, property_id) {
@@ -23,7 +26,13 @@ function addReview(review, property_id) {
   return promise;
 }
 
+function deleteReviewById(id) {
+  return reviewModel.findByIdAndDelete(id);
+}
+
 export default {
   getReviewById,
-  addReview
+  addReview,
+  deleteReviewById,
+  getReviews
 };
