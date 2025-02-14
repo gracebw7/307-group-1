@@ -5,6 +5,7 @@ const ReviewSchema = new mongoose.Schema(
     property: {
       type: Schema.Types.ObjectId,
       ref: "Property",
+      required: true,
       trim: true
     },
     author: {
