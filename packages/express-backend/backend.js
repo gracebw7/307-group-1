@@ -5,7 +5,11 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import property_service from "./services/property-service.js";
 import review_service from "./services/review-service.js";
-
+import {
+  registerUser,
+  authenticateUser,
+  loginUser
+} from "./auth.js";
 dotenv.config();
 
 const { MONGO_CONNECTION_STRING } = process.env;
@@ -21,11 +25,22 @@ const port = 8000;
 app.use(cors());
 app.use(express.json());
 
+function addAuthHeader(otherHeaders = {}) {
+  if (token === INVALID_TOKEN) {
+    return otherHeaders;
+  } else {
+    return {
+      ...otherHeaders,
+      Authorization: `Bearer ${token}`
+    };
+  }
+}
+
 /* GET REQUESTS */
 
 //GET Property Review from property IDs
 //returns array of review id
-app.get("/properties/:_id/reviews", (req, res) => {
+app.get("/properties/:_id/reviews", authenticateUser, (req, res) => {
   const _id = req.params["_id"]; //or req.params.id
   let rev_list = undefined;
   property_service
@@ -43,7 +58,7 @@ app.get("/properties/:_id/reviews", (req, res) => {
 });
 
 //GET review by id
-app.get("/reviews/:_id", (req, res) => {
+app.get("/reviews/:_id", authenticateUser, (req, res) => {
   const _id = req.params["_id"]; //or req.params.id
   review_service
     .getReviewById(_id)
@@ -59,7 +74,7 @@ app.get("/reviews/:_id", (req, res) => {
 });
 
 //GET properties
-app.get("/properties", (req, res) => {
+app.get("/properties", authenticateUser, (req, res) => {
   property_service
     .getProps()
     .then((properties) => {
@@ -73,12 +88,12 @@ app.get("/properties", (req, res) => {
     .catch(console.log((error) => console.error(error)));
 });
 
-app.get("/", (req, res) => {
+app.get("/", authenticateUser, (req, res) => {
   res.send("Hello World!");
 });
 
 //GET reviews
-app.get("/reviews", (req, res) => {
+app.get("/reviews", authenticateUser, (req, res) => {
   review_service
     .getReviews()
     .then((reviews) => {
@@ -92,15 +107,17 @@ app.get("/reviews", (req, res) => {
     .catch(console.log((error) => console.error(error)));
 });
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 /* POST REQUESTS */
+
+//Signup POST
+app.post("/signup", registerUser);
+
+//Login POST
+app.post("/login", loginUser);
 
 //POST new property
 //configrues with blank review array
-app.post("/properties", (req, res) => {
+app.post("/properties", authenticateUser, (req, res) => {
   const propertyToAdd = req.body;
   propertyToAdd["reviews"] = [];
   property_service
@@ -113,7 +130,7 @@ app.post("/properties", (req, res) => {
 //POST new review
 //endpoint requries property id, this id is added to the review
 //the review is additionally added to its property review list
-app.post("/properties/:_id/reviews", (req, res) => {
+app.post("/properties/:_id/reviews", authenticateUser, (req, res) => {
   const _id = req.params["_id"];
 
   const reviewToAdd = { ...req.body };
