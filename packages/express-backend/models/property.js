@@ -21,4 +21,4 @@ const PropertySchema = new mongoose.Schema(
 
 const Property = mongoose.model("Property", PropertySchema);
 
-export default Review;
+export default Property;
