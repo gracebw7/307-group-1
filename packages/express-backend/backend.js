@@ -40,22 +40,26 @@ function addAuthHeader(otherHeaders = {}) {
 
 //GET Property Review from property IDs
 //returns array of review id
-app.get("/properties/:_id/reviews", authenticateUser, (req, res) => {
-  const _id = req.params["_id"]; //or req.params.id
-  let rev_list = undefined;
-  property_service
-    .findPropertyById(_id)
-    .then((property) => {
-      rev_list = property.toObject()["reviews"];
-      if (rev_list === undefined) {
-        res.status(404).send("Resource not found.");
-      } else {
-        console.log(`${rev_list}`);
-        res.send(rev_list);
-      }
-    })
-    .catch(console.log((error) => console.error(error)));
-});
+app.get(
+  "/properties/:_id/reviews",
+  authenticateUser,
+  (req, res) => {
+    const _id = req.params["_id"]; //or req.params.id
+    let rev_list = undefined;
+    property_service
+      .findPropertyById(_id)
+      .then((property) => {
+        rev_list = property.toObject()["reviews"];
+        if (rev_list === undefined) {
+          res.status(404).send("Resource not found.");
+        } else {
+          console.log(`${rev_list}`);
+          res.send(rev_list);
+        }
+      })
+      .catch(console.log((error) => console.error(error)));
+  }
+);
 
 //GET review by id
 app.get("/reviews/:_id", authenticateUser, (req, res) => {
@@ -130,24 +134,28 @@ app.post("/properties", authenticateUser, (req, res) => {
 //POST new review
 //endpoint requries property id, this id is added to the review
 //the review is additionally added to its property review list
-app.post("/properties/:_id/reviews", authenticateUser, (req, res) => {
-  const _id = req.params["_id"];
+app.post(
+  "/properties/:_id/reviews",
+  authenticateUser,
+  (req, res) => {
+    const _id = req.params["_id"];
 
-  const reviewToAdd = { ...req.body };
-  //reviewToAdd.property = _id;
-  review_service
-    .addReview(reviewToAdd, _id)
-    .then((review) => {
-      property_service
-        .addPropertyReview(_id, review["_id"])
-        .then(
-          res
-            .status(201)
-            .send(JSON.stringify(review.toObject()))
-        );
-    })
-    .catch(console.log((error) => console.error(error)));
-});
+    const reviewToAdd = { ...req.body };
+    //reviewToAdd.property = _id;
+    review_service
+      .addReview(reviewToAdd, _id)
+      .then((review) => {
+        property_service
+          .addPropertyReview(_id, review["_id"])
+          .then(
+            res
+              .status(201)
+              .send(JSON.stringify(review.toObject()))
+          );
+      })
+      .catch(console.log((error) => console.error(error)));
+  }
+);
 
 /* DELETE REQUESTS */
 
