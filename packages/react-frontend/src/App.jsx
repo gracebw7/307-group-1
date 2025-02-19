@@ -6,9 +6,12 @@ import {
   Link
 } from "react-router-dom";
 import Reviews from "./pages/Reviews";
-import AddProperty from "./pages/AddProperty"; // ✅ Import the new page
+
+import AddProperty from "./pages/AddProperty";
 import { useState } from "react";
 import Login from "./Login";
+import ReviewForm from "./components/ReviewForm";
+import { ReviewsProvider } from "./reviewsContext";
 
 const API_PREFIX = "http://localhost:8000";
 
@@ -81,52 +84,74 @@ function App() {
 
   return (
     <ChakraProvider>
-      <Router>
-        <Box p={4} bg="gray.100" minH="100vh">
-          <Box as="nav" bg="white" p={4} mb={6} boxShadow="md">
-            <Link to="/reviews" style={{ marginRight: "20px" }}>
-              Reviews
-            </Link>
-            <Link
-              to="/add-property"
-              style={{ marginRight: "20px" }}>
-              Add Property
-            </Link>
-            {/* ✅ New link */}
-            <Link to="/signup" style={{ marginRight: "20px" }}>
-              Sign up
-            </Link>
-            <Link to="/login" style={{ marginRight: "20px" }}>
-              Log in
-            </Link>
-            <Link onClick={logoutUser} style={{ marginLeft: "20px" }}>
-                Logout
-            </Link>
-          </Box>
+      <ReviewsProvider>
+        <Router>
+          <Box p={4} bg="gray.100" minH="100vh">
+            <Box
+              as="nav"
+              bg="white"
+              p={4}
+              mb={6}
+              boxShadow="md">
+              <Link
+                to="/reviews"
+                style={{ marginRight: "20px" }}>
+                Reviews
+              </Link>
+              <Link
+                to="/add-property"
+                style={{ marginRight: "20px" }}>
+                Add Property
+              </Link>
+              <Link
+                to="/create-review"
+                style={{ marginRight: "20px" }}>
+                Create Review
+              </Link>
+              {/* ✅ New link */}
+              <Link
+                to="/signup"
+                style={{ marginRight: "20px" }}>
+                Sign up
+              </Link>
 
-          <Routes>
-            <Route path="/reviews" element={<Reviews />} />
-            <Route
-              path="/add-property"
-              element={<AddProperty />}
-            />{" "}
-            {/* ✅ New route */}
-            <Route
-              path="/login"
-              element={<Login handleSubmit={loginUser} />}
-            />
-            <Route
-              path="/signup"
-              element={
-                <Login
-                  handleSubmit={signupUser}
-                  buttonLabel="Sign Up"
-                />
-              }
-            />
-          </Routes>
-        </Box>
-      </Router>
+              <Link to="/login" style={{ marginRight: "20px" }}>
+                Log in
+              </Link>
+              <Link
+                onClick={logoutUser}
+                style={{ marginLeft: "20px" }}>
+                Logout
+              </Link>
+            </Box>
+
+            <Routes>
+              <Route path="/reviews" element={<Reviews />} />
+              <Route
+                path="/add-property"
+                element={<AddProperty />}
+              />
+              <Route
+                path="/create-review"
+                element={<ReviewForm />}
+              />
+              <Route
+                path="/login"
+                element={<Login handleSubmit={loginUser} />}
+              />
+              <Route
+                path="/signup"
+                element={
+                  <Login
+                    handleSubmit={signupUser}
+                    buttonLabel="Sign Up"
+                  />
+                }
+              />
+            </Routes>
+          </Box>
+        </Router>
+      </ReviewsProvider>
     </ChakraProvider>
   );
 }
