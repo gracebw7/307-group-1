@@ -9,8 +9,6 @@ import Reviews from "./pages/Reviews";
 import AddProperty from "./pages/AddProperty"; // ✅ Import the new page
 import { useState } from "react";
 import Login from "./Login";
-import ReviewForm from './components/ReviewForm';
-import { ReviewsProvider } from './reviewsContext';
 
 const API_PREFIX = "http://localhost:8000";
 
@@ -95,17 +93,15 @@ function App() {
               style={{ marginRight: "20px" }}>
               Add Property
             </Link>
-            <Link to="/create-review" style={{ marginRight: "20px" }}>Create Review</Link>
+            {/* ✅ New link */}
             <Link to="/signup" style={{ marginRight: "20px" }}>
               Sign up
             </Link>
             <Link to="/login" style={{ marginRight: "20px" }}>
               Log in
             </Link>
-            <Link
-              onClick={logoutUser}
-              style={{ marginLeft: "20px" }}>
-              Logout
+            <Link onClick={logoutUser} style={{ marginLeft: "20px" }}>
+                Logout
             </Link>
           </Box>
 

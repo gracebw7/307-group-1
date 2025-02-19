@@ -7,6 +7,7 @@ const AddProperty = () => {
 
   const handleSubmit = async (formData) => {
     try {
+<<<<<<< HEAD
       const response = await fetch(
         "http://localhost:8000/properties",
         {
@@ -20,6 +21,17 @@ const AddProperty = () => {
 
       if (!response.ok)
         throw new Error("Failed to submit property.");
+=======
+      const response = await fetch("http://localhost:8000/properties", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) throw new Error("Failed to submit property.");
+>>>>>>> origin/main
 
       setSubmitted(true);
     } catch (error) {

@@ -1,4 +1,5 @@
 import { useState } from "react";
+<<<<<<< HEAD
 import {
   Box,
   Button,
@@ -6,18 +7,29 @@ import {
   FormLabel,
   VStack
 } from "@chakra-ui/react";
+=======
+import { Box, Button, Input, FormLabel, VStack } from "@chakra-ui/react";
+>>>>>>> origin/main
 import PropTypes from "prop-types";
 
 const PropertyForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     name: "",
+<<<<<<< HEAD
     address: ""
+=======
+    address: "",
+>>>>>>> origin/main
   });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
+<<<<<<< HEAD
       [e.target.name]: e.target.value
+=======
+      [e.target.name]: e.target.value,
+>>>>>>> origin/main
     });
   };
 
@@ -62,7 +74,11 @@ const PropertyForm = ({ onSubmit }) => {
 };
 
 PropertyForm.propTypes = {
+<<<<<<< HEAD
   onSubmit: PropTypes.func.isRequired
+=======
+  onSubmit: PropTypes.func.isRequired,
+>>>>>>> origin/main
 };
 
 export default PropertyForm;
