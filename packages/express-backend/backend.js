@@ -133,7 +133,7 @@ app.post("/properties", (req, res) => {
 //POST new review
 //endpoint requries property id, this id is added to the review
 //the review is additionally added to its property review list
-app.post("/properties/:_id/reviews", authenticateUser, (req, res) => {
+app.post("/properties/:_id/reviews", (req, res) => {
   const _id = req.params["_id"];
 
     const reviewToAdd = { ...req.body };
