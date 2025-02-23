@@ -108,7 +108,6 @@ function App() {
                 style={{ marginRight: "20px" }}>
                 Create Review
               </Link>
-              {/* ✅ New link */}
               <Link
                 to="/signup"
                 style={{ marginRight: "20px" }}>
