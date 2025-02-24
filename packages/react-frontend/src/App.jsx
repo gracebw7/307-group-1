@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ChakraProvider, Box } from "@chakra-ui/react";
 import {
   BrowserRouter as Router,
@@ -5,10 +6,9 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Reviews from "./pages/Reviews";
 
+import Reviews from "./pages/Reviews";
 import AddProperty from "./pages/AddProperty";
-import { useState } from "react";
 import Login from "./Login";
 import ReviewForm from "./components/ReviewForm";
 import { ReviewsProvider } from "./reviewsContext";
@@ -33,7 +33,9 @@ function App() {
           response
             .json()
             .then((payload) => setToken(payload.token));
-          setMessage(`Login successful; auth token saved`);
+          setMessage(
+            `Login successful; auth token saved`
+          );
         } else {
           setMessage(
             `Login Error ${response.status}: ${response.data}`
@@ -41,7 +43,9 @@ function App() {
         }
       })
       .catch((error) => {
-        setMessage(`Login Error: ${error}`);
+        setMessage(
+          `Login Error: ${error}`
+        );
       });
 
     return promise;
@@ -76,7 +80,9 @@ function App() {
         }
       })
       .catch((error) => {
-        setMessage(`Signup Error: ${error}`);
+        setMessage(
+          `Signup Error: ${error}`
+        );
       });
 
     return promise;
@@ -86,7 +92,10 @@ function App() {
     <ChakraProvider>
       <ReviewsProvider>
         <Router>
-          <Box p={4} bg="gray.100" minH="100vh">
+          <Box
+            p={4}
+            bg="gray.100"
+            minH="100vh">
             <Box
               as="nav"
               bg="white"
@@ -96,31 +105,33 @@ function App() {
               <Link
                 to="/reviews"
                 style={{ marginRight: "20px" }}>
-                Reviews
+                  Reviews
               </Link>
               <Link
                 to="/add-property"
                 style={{ marginRight: "20px" }}>
-                Add Property
+                  Add Property
               </Link>
               <Link
                 to="/create-review"
                 style={{ marginRight: "20px" }}>
-                Create Review
+                  Create Review
               </Link>
               <Link
                 to="/signup"
                 style={{ marginRight: "20px" }}>
-                Sign up
+                  Sign up
               </Link>
 
-              <Link to="/login" style={{ marginRight: "20px" }}>
-                Log in
+              <Link
+                to="/login"
+                style={{ marginRight: "20px" }}>
+                  Log in
               </Link>
               <Link
                 onClick={logoutUser}
                 style={{ marginLeft: "20px" }}>
-                Logout
+                  Logout
               </Link>
             </Box>
 
