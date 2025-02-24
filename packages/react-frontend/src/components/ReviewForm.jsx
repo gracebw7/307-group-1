@@ -10,10 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import ReviewCard from "./ReviewCard";
+import { useParams } from "react-router-dom";
 
 const ReviewForm = () => {
+  const { id } = useParams();
+  console.log(id);
+
   const [rating, setRating] = useState(0);
-  const [review, setReview] = useState("");
+  const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
   const [tags, setTags] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -23,11 +27,42 @@ const ReviewForm = () => {
     const newReview = {
       author,
       rating,
-      review,
+      body,
       tags
     };
-    setReviews([...reviews, newReview]);
+
+    console.log(`The id is ${id}`);
+    console.log(`The review is ${JSON.stringify(newReview)}`);
+    postReview(id, newReview)
+      .then((res) => {
+        if (res.status != 201)
+          throw new Error("Content Not Created");
+        return res.json();
+      })
+      .then((review) => {
+        setReviews([...reviews, review]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    //setReviews([...reviews, newReview]);
   };
+
+  function postReview(prop_id, review) {
+    const promise = fetch(
+      `http://localhost:8000/properties/${prop_id}/reviews`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(review)
+      }
+    );
+
+    return promise;
+  }
 
   return (
     <Box>
@@ -45,8 +80,8 @@ const ReviewForm = () => {
         </HStack>
         <Input
           type="text"
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
           placeholder="Write a review"
         />
         <Input
@@ -68,7 +103,7 @@ const ReviewForm = () => {
           key={index}
           author={review.author}
           rating={review.rating}
-          review={review.review}
+          review={review.body}
           tags={review.tags}
         />
       ))}

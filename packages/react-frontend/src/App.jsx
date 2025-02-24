@@ -104,7 +104,7 @@ function App() {
                 Add Property
               </Link>
               <Link
-                to="/create-review"
+                to={`/create-review/67ac37ff87bbc59ba2e00dbb`}
                 style={{ marginRight: "20px" }}>
                 Create Review
               </Link>
@@ -131,7 +131,7 @@ function App() {
                 element={<AddProperty />}
               />
               <Route
-                path="/create-review"
+                path="/create-review/:id"
                 element={<ReviewForm />}
               />
               <Route
