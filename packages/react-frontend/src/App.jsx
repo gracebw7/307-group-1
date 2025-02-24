@@ -6,6 +6,7 @@ import {
   Link
 } from "react-router-dom";
 import Reviews from "./pages/Reviews";
+import PropertyPage from "./pages/PropertyPageDemo";
 
 import AddProperty from "./pages/AddProperty";
 import { useState } from "react";
@@ -122,6 +123,11 @@ function App() {
                 style={{ marginLeft: "20px" }}>
                 Logout
               </Link>
+              <Link
+                to="/PropertyPageDemo"
+                style={{ marginLeft: "20px" }}>
+                Property Page Demo
+              </Link>
             </Box>
 
             <Routes>
@@ -129,6 +135,10 @@ function App() {
               <Route
                 path="/add-property"
                 element={<AddProperty />}
+              />
+              <Route
+                path="/propertypagedemo"
+                element={<PropertyPage />}
               />
               <Route
                 path="/create-review"
