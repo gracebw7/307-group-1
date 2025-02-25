@@ -31,6 +31,8 @@ const ReviewForm = () => {
       tags
     };
 
+    newReview.property = id;
+
     console.log(`The id is ${id}`);
     console.log(`The review is ${JSON.stringify(newReview)}`);
     postReview(id, newReview)
