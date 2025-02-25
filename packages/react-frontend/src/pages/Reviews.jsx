@@ -1,7 +1,29 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
 import ReviewCard from "../components/ReviewCard";
 
 function Reviews() {
+  /*
+  const [reviews, setReviews] = useReviews([]);
+
+  function fetchReviews() {
+    const promise = fetch('http://localhost:8000/properties/${id}/reviews');
+    return promise;
+    }
+
+  function buildReviewList(id_list){
+
+  }
+
+  useEffect(() => {
+    fetchReviews()
+      .then((res) => res.json())
+      .then((json) => setReviews(json["reviews"]))
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+*/
   const reviews = [
     {
       author: "John Doe",
