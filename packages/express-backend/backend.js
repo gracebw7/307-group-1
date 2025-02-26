@@ -48,7 +48,7 @@ app.get("/properties/:_id/reviews", (req, res) => {
   property_service
     .findPropertyById(_id)
     .then((property) => {
-      rev_list = property.toObject()["reviews"];
+      rev_list = { review_ids: property.toObject()["reviews"] };
       if (rev_list === undefined) {
         res.status(404).send("Resource not found.");
       } else {

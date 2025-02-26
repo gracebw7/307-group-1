@@ -1,7 +1,69 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
 import ReviewCard from "../components/ReviewCard";
+import { useParams } from "react-router-dom";
 
 function Reviews() {
+  const { id } = useParams();
+
+  const [reviews, setReviews] = useState([]);
+
+  function fetchReviews(prop_id) {
+    //const promise = fetch(`http://localhost:8000/properties/${prop_id}/reviews`);
+    const promise = fetch(
+      `http://localhost:8000/properties/${id}/reviews`
+    );
+    return promise;
+  }
+
+  function buildReviewList(id_list) {
+    return Promise.all(
+      id_list.map((c_id) =>
+        fetch(`http://localhost:8000/reviews/${c_id}`).then(
+          (res) => res.json()
+        )
+      )
+    );
+    /*
+    let review_list = id_list.map((c_id) =>
+      fetch(`http://localhost:8000/review/${c_id}`).then(
+        (res) => res.json()
+      )
+    );
+    */
+  }
+
+  /*
+  THIS WORKS!
+  fetchReviews(id)
+    .then((res) => res.json())
+    .then((obj) => {
+      console.log(obj["review_ids"]);
+      let review_ids = [...obj["review_ids"]];
+      buildReviewList(review_ids).then((res) => {
+        console.log(res);
+        setReviews(res);
+      });
+    });
+    */
+
+  useEffect(() => {
+    fetchReviews(id)
+      .then((res) => res.json())
+      .then((obj) => {
+        console.log(obj["review_ids"]);
+        let review_ids = [...obj["review_ids"]];
+        buildReviewList(review_ids).then((res) => {
+          console.log(res);
+          setReviews(res);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  /*
   const reviews = [
     {
       author: "John Doe",
@@ -30,6 +92,7 @@ function Reviews() {
       tags: ["Affordable", "Lots of space"]
     }
   ];
+*/
 
   return (
     <Box

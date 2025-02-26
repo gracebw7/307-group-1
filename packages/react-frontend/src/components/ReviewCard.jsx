@@ -47,8 +47,8 @@ const ReviewCard = ({ author, rating, body, tags }) => {
 ReviewCard.propTypes = {
   author: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
-  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  body: PropTypes.string.isRequired
+  body: PropTypes.string.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default ReviewCard;

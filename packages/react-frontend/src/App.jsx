@@ -91,7 +91,7 @@ function App() {
               mb={6}
               boxShadow="md">
               <Link
-                to="/reviews"
+                to="properties/67ac37ff87bbc59ba2e00dbb/reviews"
                 style={{ marginRight: "20px" }}>
                 Reviews
               </Link>
@@ -101,7 +101,7 @@ function App() {
                 Add Property
               </Link>
               <Link
-                to="/create-review"
+                to={`/create-review/67ac37ff87bbc59ba2e00dbb`}
                 style={{ marginRight: "20px" }}>
                 Create Review
               </Link>
@@ -129,7 +129,10 @@ function App() {
             </Box>
 
             <Routes>
-              <Route path="/reviews" element={<Reviews />} />
+              <Route
+                path="/properties/:id/reviews"
+                element={<Reviews />}
+              />
               <Route
                 path="/add-property"
                 element={<AddProperty />}
@@ -143,7 +146,7 @@ function App() {
                 element={<PropertyPageDemo />}
               />
               <Route
-                path="/create-review"
+                path="/create-review/:id"
                 element={<ReviewForm />}
               />
               <Route
