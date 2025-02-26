@@ -14,6 +14,14 @@ const PropertySchema = new mongoose.Schema(
     reviews: {
       type: [Schema.Types.ObjectId],
       ref: "Review"
+    },
+    averageRating: {
+      type: Number,
+      default: 0
+    },
+    tags: {
+      type: [String],
+      default: []
     }
   },
   { collection: "property_list" }

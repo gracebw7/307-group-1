@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import property_service from "./services/property-service.js";
 import review_service from "./services/review-service.js";
+import Property from "./models/property.js";
+import Review from "./models/review.js";
 import {
   registerUser,
   authenticateUser,
@@ -127,6 +129,36 @@ app.post("/properties", (req, res) => {
     );
 });
 
+// Helper function to summarize property attributes
+const updatePropertyStats = (propertyId) => {
+  return Review.find({ property: propertyId })
+    .then((reviews) => {
+      let averageRating = 0;
+
+      if (reviews.length > 0) {
+        let totalRating = 0;
+        for (let i = 0; i < reviews.length; i++) {
+          totalRating += reviews[i].rating;
+        }
+        let rawAverage = totalRating / reviews.length;
+        averageRating = parseFloat(rawAverage.toFixed(2));
+      }
+
+      const tags = [
+        ...new Set(reviews.flatMap((review) => review.tags))
+      ];
+
+      return Property.findByIdAndUpdate(
+        propertyId,
+        { averageRating, tags },
+        { new: true }
+      );
+    })
+    .catch((error) => {
+      console.error("Error updating property stats:", error);
+    });
+};
+
 //POST new review
 //endpoint requries property id, this id is added to the review
 //the review is additionally added to its property review list
@@ -140,6 +172,9 @@ app.post("/properties/:_id/reviews", (req, res) => {
     .then((review) => {
       property_service
         .addPropertyReview(_id, review["_id"])
+        .then((review) => {
+          return updatePropertyStats(_id).then(() => review);
+        })
         .then(
           res
             .status(201)
