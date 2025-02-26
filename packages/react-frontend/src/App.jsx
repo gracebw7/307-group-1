@@ -94,7 +94,7 @@ function App() {
               mb={6}
               boxShadow="md">
               <Link
-                to="/reviews"
+                to="properties/67ac37ff87bbc59ba2e00dbb/reviews"
                 style={{ marginRight: "20px" }}>
                 Reviews
               </Link>
@@ -125,7 +125,10 @@ function App() {
             </Box>
 
             <Routes>
-              <Route path="/reviews" element={<Reviews />} />
+              <Route
+                path="/properties/:id/reviews"
+                element={<Reviews />}
+              />
               <Route
                 path="/add-property"
                 element={<AddProperty />}
