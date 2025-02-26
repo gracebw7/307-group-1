@@ -6,45 +6,71 @@ import {
   Link
 } from "react-router-dom";
 import Reviews from "./pages/Reviews";
-
+import PropertyPageDemo from "./pages/PropertyPageDemo";
 import AddProperty from "./pages/AddProperty";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Login from "./Login";
 import ReviewForm from "./components/ReviewForm";
 import { ReviewsProvider } from "./reviewsContext";
+import PropertyPage from "./pages/PropertyPage";
 
 const API_PREFIX = "http://localhost:8000";
 
 function App() {
   const INVALID_TOKEN = "INVALID_TOKEN";
-  const [token, setToken] = useState(INVALID_TOKEN);
+  const [token, setToken] = useState(
+    localStorage.getItem("token") || INVALID_TOKEN
+  );
   const [message, setMessage] = useState("");
 
+  useEffect(() => {
+    if (token !== INVALID_TOKEN) {
+      localStorage.setItem("token", token);
+    }
+  }, [token]);
+
   function loginUser(creds) {
-    const promise = fetch(`${API_PREFIX}/login`, {
+    return fetch(`${API_PREFIX}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(creds)
     })
-      .then((response) => {
-        if (response.status === 200) {
-          response
-            .json()
-            .then((payload) => setToken(payload.token));
-          setMessage(`Login successful; auth token saved`);
+      .then((response) => response.json())
+      .then((payload) => {
+        if (payload.token) {
+          setToken(payload.token);
+          setMessage("Login successful; auth token saved");
         } else {
           setMessage(
-            `Login Error ${response.status}: ${response.data}`
+            `Login Error: ${payload.error || "Unknown error"}`
           );
         }
       })
-      .catch((error) => {
-        setMessage(`Login Error: ${error}`);
-      });
+      .catch((error) => setMessage(`Login Error: ${error}`));
+  }
 
-    return promise;
+  function signupUser(creds) {
+    return fetch(`${API_PREFIX}/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(creds)
+    })
+      .then((response) => response.json())
+      .then((payload) => {
+        if (payload.token) {
+          setToken(payload.token);
+          setMessage("Signup successful; auth token saved");
+        } else {
+          setMessage(
+            `Signup Error: ${payload.error || "Unknown error"}`
+          );
+        }
+      })
+      .catch((error) => setMessage(`Signup Error: ${error}`));
   }
 
   const logoutUser = () => {
@@ -52,35 +78,6 @@ function App() {
     setToken(INVALID_TOKEN);
     window.location.href = "/login";
   };
-
-  function signupUser(creds) {
-    const promise = fetch(`${API_PREFIX}/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(creds)
-    })
-      .then((response) => {
-        if (response.status === 201) {
-          response
-            .json()
-            .then((payload) => setToken(payload.token));
-          setMessage(
-            `Signup successful for user: ${creds.username}; auth token saved`
-          );
-        } else {
-          setMessage(
-            `Signup Error ${response.status}: ${response.data}`
-          );
-        }
-      })
-      .catch((error) => {
-        setMessage(`Signup Error: ${error}`);
-      });
-
-    return promise;
-  }
 
   return (
     <ChakraProvider>
@@ -113,14 +110,21 @@ function App() {
                 style={{ marginRight: "20px" }}>
                 Sign up
               </Link>
-
               <Link to="/login" style={{ marginRight: "20px" }}>
                 Log in
               </Link>
               <Link
                 onClick={logoutUser}
-                style={{ marginLeft: "20px" }}>
+                style={{
+                  marginLeft: "20px",
+                  cursor: "pointer"
+                }}>
                 Logout
+              </Link>
+              <Link
+                to="/propertypagedemo"
+                style={{ marginLeft: "20px" }}>
+                Property Page Demo
               </Link>
             </Box>
 
@@ -129,6 +133,14 @@ function App() {
               <Route
                 path="/add-property"
                 element={<AddProperty />}
+              />
+              <Route
+                path="/property/:propertyId"
+                element={<PropertyPage />}
+              />
+              <Route
+                path="/propertypagedemo"
+                element={<PropertyPageDemo />}
               />
               <Route
                 path="/create-review"

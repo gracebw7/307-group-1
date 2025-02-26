@@ -58,6 +58,21 @@ app.get("/properties/:_id/reviews", (req, res) => {
     })
     .catch(console.log((error) => console.error(error)));
 });
+//get property by id
+app.get("/properties/:_id", async (req, res) => {
+  const _id = req.params["_id"]; //or req.params.id
+  property_service
+    .findPropertyById(_id)
+    .then((prop) => {
+      const property = prop.toObject();
+      if (property === undefined) {
+        res.status(404).send("Resource not found.");
+      } else {
+        res.send(property);
+      }
+    })
+    .catch(console.log((error) => console.error(error)));
+});
 
 //GET review by id
 app.get("/reviews/:_id", (req, res) => {
