@@ -95,7 +95,8 @@ function App() {
           <Box
             p={4}
             bg="gray.100"
-            minH="100vh">
+            minH="100vh"
+            width="100vw">
             <Box
               as="nav"
               bg="white"
