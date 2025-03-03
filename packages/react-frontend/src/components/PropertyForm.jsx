@@ -1,5 +1,33 @@
 import { useState } from "react";
+<<<<<<< Updated upstream
 import { Box, Button, Input, FormLabel, VStack, NumberInput, NumberInputField } from "@chakra-ui/react";
+=======
+import {
+  Box,
+  Button,
+  Input,
+  FormLabel,
+  VStack,
+  NumberInput,
+  NumberInputField,
+  Tag,
+  TagLabel,
+  Wrap,
+  WrapItem,
+  Checkbox,
+  CheckboxGroup,
+  Stack,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  TagCloseButton
+} from "@chakra-ui/react";
+>>>>>>> Stashed changes
 import PropTypes from "prop-types";
 import Select from "react-select";
 
@@ -26,10 +54,24 @@ const PropertyForm = ({ onSubmit }) => {
     });
   };
 
+<<<<<<< Updated upstream
   const handleTagsChange = (selectedOptions) => {
     setFormData({
       ...formData,
       tags: selectedOptions.map(option => option.value),
+=======
+  const handleTagsChange = (selectedTags) => {
+    setFormData({
+      ...formData,
+      tags: selectedTags,
+    });
+  };
+
+  const handleTagRemove = (tagToRemove) => {
+    setFormData({
+      ...formData,
+      tags: formData.tags.filter(tag => tag !== tagToRemove),
+>>>>>>> Stashed changes
     });
   };
 
@@ -39,9 +81,18 @@ const PropertyForm = ({ onSubmit }) => {
   };
 
   const tagOptions = [
+<<<<<<< Updated upstream
     { value: "apartment", label: "Apartment" },
     { value: "house", label: "House" },
     { value: "close-to-campus", label: "Close to Campus" },
+=======
+    { value: "Apartment", label: "Apartment" },
+    { value: "House", label: "House" },
+    { value: "Close to campus", label: "Close to campus" },
+    { value: "Pet friendly", label: "Pet friendly" },
+    { value: "Studio", label: "Studio" },
+    { value: "Free parking", label: "Free parking" },
+>>>>>>> Stashed changes
   ];
 
   return (
@@ -58,7 +109,6 @@ const PropertyForm = ({ onSubmit }) => {
               required
             />
           </Box>
-
           <Box>
             <FormLabel>Address</FormLabel>
             <Input
@@ -69,7 +119,6 @@ const PropertyForm = ({ onSubmit }) => {
               required
             />
           </Box>
-
           <Box>
             <FormLabel>Bedrooms</FormLabel>
             <NumberInput
@@ -84,6 +133,22 @@ const PropertyForm = ({ onSubmit }) => {
           </Box>
 
           <Box>
+<<<<<<< Updated upstream
+            <FormLabel>Bedrooms</FormLabel>
+            <NumberInput
+              min={0}
+              name="bedrooms"
+              value={formData.bedrooms}
+              onChange={(valueAsString, valueAsNumber) => handleNumberChange(valueAsString, valueAsNumber, "bedrooms")}
+              required
+            >
+              <NumberInputField />
+            </NumberInput>
+          </Box>
+
+          <Box>
+=======
+>>>>>>> Stashed changes
             <FormLabel>Bathrooms</FormLabel>
             <NumberInput
               min={0}
@@ -95,6 +160,7 @@ const PropertyForm = ({ onSubmit }) => {
               <NumberInputField />
             </NumberInput>
           </Box>
+<<<<<<< Updated upstream
 
           <Box>
             <FormLabel>Tags</FormLabel>
@@ -108,6 +174,48 @@ const PropertyForm = ({ onSubmit }) => {
             />
           </Box>
 
+=======
+          <Box>
+            <FormLabel>Tags</FormLabel>
+            <Popover>
+              <PopoverTrigger>
+                <Button>Select Tags</Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader>Select Tags</PopoverHeader>
+                <PopoverBody>
+                  <CheckboxGroup
+                    value={formData.tags}
+                    onChange={handleTagsChange}
+                  >
+                    <Stack spacing={2}>
+                      {tagOptions.map(option => (
+                        <Checkbox key={option.value} value={option.value}>
+                          {option.label}
+                        </Checkbox>
+                      ))}
+                    </Stack>
+                  </CheckboxGroup>
+                </PopoverBody>
+                <PopoverFooter>
+                  <Button onClick={() => setFormData({ ...formData, tags: [] })}>Clear All</Button>
+                </PopoverFooter>
+              </PopoverContent>
+            </Popover>
+          </Box>
+          <Wrap mt={2}>
+            {formData.tags.map((tag, index) => (
+              <WrapItem key={index}>
+                <Tag>
+                  <TagLabel>{tag}</TagLabel>
+                  <TagCloseButton onClick={() => handleTagRemove(tag)} />
+                </Tag>
+              </WrapItem>
+            ))}
+          </Wrap>
+>>>>>>> Stashed changes
           <Button type="submit" colorScheme="blue">
             Add Property
           </Button>
