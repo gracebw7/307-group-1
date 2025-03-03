@@ -1,7 +1,4 @@
 import { useState } from "react";
-<<<<<<< Updated upstream
-import { Box, Button, Input, FormLabel, VStack, NumberInput, NumberInputField } from "@chakra-ui/react";
-=======
 import {
   Box,
   Button,
@@ -27,9 +24,7 @@ import {
   PopoverCloseButton,
   TagCloseButton
 } from "@chakra-ui/react";
->>>>>>> Stashed changes
 import PropTypes from "prop-types";
-import Select from "react-select";
 
 const PropertyForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -54,12 +49,6 @@ const PropertyForm = ({ onSubmit }) => {
     });
   };
 
-<<<<<<< Updated upstream
-  const handleTagsChange = (selectedOptions) => {
-    setFormData({
-      ...formData,
-      tags: selectedOptions.map(option => option.value),
-=======
   const handleTagsChange = (selectedTags) => {
     setFormData({
       ...formData,
@@ -71,7 +60,6 @@ const PropertyForm = ({ onSubmit }) => {
     setFormData({
       ...formData,
       tags: formData.tags.filter(tag => tag !== tagToRemove),
->>>>>>> Stashed changes
     });
   };
 
@@ -81,18 +69,12 @@ const PropertyForm = ({ onSubmit }) => {
   };
 
   const tagOptions = [
-<<<<<<< Updated upstream
-    { value: "apartment", label: "Apartment" },
-    { value: "house", label: "House" },
-    { value: "close-to-campus", label: "Close to Campus" },
-=======
     { value: "Apartment", label: "Apartment" },
     { value: "House", label: "House" },
     { value: "Close to campus", label: "Close to campus" },
     { value: "Pet friendly", label: "Pet friendly" },
     { value: "Studio", label: "Studio" },
     { value: "Free parking", label: "Free parking" },
->>>>>>> Stashed changes
   ];
 
   return (
@@ -133,22 +115,6 @@ const PropertyForm = ({ onSubmit }) => {
           </Box>
 
           <Box>
-<<<<<<< Updated upstream
-            <FormLabel>Bedrooms</FormLabel>
-            <NumberInput
-              min={0}
-              name="bedrooms"
-              value={formData.bedrooms}
-              onChange={(valueAsString, valueAsNumber) => handleNumberChange(valueAsString, valueAsNumber, "bedrooms")}
-              required
-            >
-              <NumberInputField />
-            </NumberInput>
-          </Box>
-
-          <Box>
-=======
->>>>>>> Stashed changes
             <FormLabel>Bathrooms</FormLabel>
             <NumberInput
               min={0}
@@ -160,21 +126,6 @@ const PropertyForm = ({ onSubmit }) => {
               <NumberInputField />
             </NumberInput>
           </Box>
-<<<<<<< Updated upstream
-
-          <Box>
-            <FormLabel>Tags</FormLabel>
-            <Select
-              isMulti
-              name="tags"
-              options={tagOptions}
-              className="basic-multi-select"
-              classNamePrefix="select"
-              onChange={handleTagsChange}
-            />
-          </Box>
-
-=======
           <Box>
             <FormLabel>Tags</FormLabel>
             <Popover>
@@ -215,7 +166,6 @@ const PropertyForm = ({ onSubmit }) => {
               </WrapItem>
             ))}
           </Wrap>
->>>>>>> Stashed changes
           <Button type="submit" colorScheme="blue">
             Add Property
           </Button>

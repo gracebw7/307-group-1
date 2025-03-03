@@ -23,10 +23,14 @@ import {
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import ReviewCard from "./ReviewCard";
+import { useParams } from "react-router-dom";
 
 const ReviewForm = () => {
+  const { id } = useParams();
+  console.log(id);
+
   const [rating, setRating] = useState(0);
-  const [review, setReview] = useState("");
+  const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
   const [tags, setTags] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -36,14 +40,9 @@ const ReviewForm = () => {
     const newReview = {
       author,
       rating,
-      review,
+      body,
       tags
     };
-<<<<<<< Updated upstream
-    setReviews([...reviews, newReview]);
-  };
-
-=======
 
     postReview(id, newReview)
       .then((res) => {
@@ -93,7 +92,6 @@ const ReviewForm = () => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
->>>>>>> Stashed changes
   return (
     <Box>
       <form onSubmit={handleSubmit}>
@@ -110,8 +108,8 @@ const ReviewForm = () => {
         </HStack>
         <Input
           type="text"
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
           placeholder="Write a review"
         />
         <Input
@@ -165,11 +163,7 @@ const ReviewForm = () => {
           key={index}
           author={review.author}
           rating={review.rating}
-<<<<<<< Updated upstream
-          review={review.review}
-=======
           body={review.body}
->>>>>>> Stashed changes
           tags={review.tags}
         />
       ))}
