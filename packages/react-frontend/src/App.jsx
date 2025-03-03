@@ -7,6 +7,7 @@ import {
   Link
 } from "react-router-dom";
 
+import Home from "./Home";
 import Reviews from "./pages/Reviews";
 import AddProperty from "./pages/AddProperty";
 import Login from "./Login";
@@ -100,6 +101,11 @@ function App() {
               mb={6}
               boxShadow="md">
               <Link
+                to="/"
+                style={{ marginRight: "20px" }}>
+                  PropHunt
+              </Link>
+              <Link
                 to="/reviews"
                 style={{ marginRight: "20px" }}>
                   Reviews
@@ -133,6 +139,8 @@ function App() {
             </Box>
 
             <Routes>
+              <Route path="/" element={<Home />} />  {/* Default home route */}
+              <Route path="/home" element={<Home />} />
               <Route path="/reviews" element={<Reviews />} />
               <Route
                 path="/add-property"
