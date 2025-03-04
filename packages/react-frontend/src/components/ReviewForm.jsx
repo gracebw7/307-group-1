@@ -42,14 +42,16 @@ const ReviewForm = () => {
       rating,
       body,
       tags,
-      property: id // Include the property id
     };
-
+    
+    newReview.property = id;
+    
     console.log(`The id is ${id}`);
     console.log(`The review is ${JSON.stringify(newReview)}`);
     postReview(id, newReview)
       .then((res) => {
-        if (res.status !== 201) throw new Error("Content Not Created");
+        if (res.status != 201)
+          throw new Error("Content Not Created");
         return res.json();
       })
       .then((review) => {
@@ -58,7 +60,6 @@ const ReviewForm = () => {
       .catch((error) => {
         console.log(error);
       });
-
     // Clear the form fields after submission
     setRating(0);
     setBody("");
@@ -93,8 +94,24 @@ const ReviewForm = () => {
 
   const handleTagRemove = (tagToRemove) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
+    //setReviews([...reviews, newReview]);
   };
 
+  function postReview(prop_id, review) {
+    const promise = fetch(
+      `http://localhost:8000/properties/${prop_id}/reviews`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(review)
+      }
+    );
+
+    return promise;
+  }
+  
   return (
     <Box>
       <form onSubmit={handleSubmit}>
