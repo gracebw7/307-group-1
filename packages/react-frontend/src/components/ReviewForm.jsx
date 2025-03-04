@@ -41,9 +41,12 @@ const ReviewForm = () => {
       author,
       rating,
       body,
-      tags
+      tags,
+      property: id // Include the property id
     };
 
+    console.log(`The id is ${id}`);
+    console.log(`The review is ${JSON.stringify(newReview)}`);
     postReview(id, newReview)
       .then((res) => {
         if (res.status !== 201) throw new Error("Content Not Created");
