@@ -48,12 +48,27 @@ app.get("/properties/:_id/reviews", (req, res) => {
   property_service
     .findPropertyById(_id)
     .then((property) => {
-      rev_list = property.toObject()["reviews"];
+      rev_list = { review_ids: property.toObject()["reviews"] };
       if (rev_list === undefined) {
         res.status(404).send("Resource not found.");
       } else {
         console.log(`${rev_list}`);
         res.send(rev_list);
+      }
+    })
+    .catch(console.log((error) => console.error(error)));
+});
+//get property by id
+app.get("/properties/:_id", async (req, res) => {
+  const _id = req.params["_id"]; //or req.params.id
+  property_service
+    .findPropertyById(_id)
+    .then((prop) => {
+      const property = prop.toObject();
+      if (property === undefined) {
+        res.status(404).send("Resource not found.");
+      } else {
+        res.send(property);
       }
     })
     .catch(console.log((error) => console.error(error)));

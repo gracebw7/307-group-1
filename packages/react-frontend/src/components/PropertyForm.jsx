@@ -65,6 +65,7 @@ const PropertyForm = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
     onSubmit(formData);
   };
 

@@ -41,11 +41,11 @@ const ReviewForm = () => {
       author,
       rating,
       body,
-      tags,
+      tags
     };
-    
+
     newReview.property = id;
-    
+
     console.log(`The id is ${id}`);
     console.log(`The review is ${JSON.stringify(newReview)}`);
     postReview(id, newReview)
@@ -183,7 +183,7 @@ const ReviewForm = () => {
           key={index}
           author={review.author}
           rating={review.rating}
-          body={review.body}
+          review={review.body}
           tags={review.tags}
         />
       ))}

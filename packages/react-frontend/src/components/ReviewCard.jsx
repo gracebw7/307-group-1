@@ -8,7 +8,7 @@ import {
 import { StarIcon } from "@chakra-ui/icons";
 import PropTypes from "prop-types";
 
-const ReviewCard = ({ author, rating, review, tags }) => {
+const ReviewCard = ({ author, rating, body, tags }) => {
   return (
     <Box
       borderWidth="1px"
@@ -28,7 +28,7 @@ const ReviewCard = ({ author, rating, review, tags }) => {
           ))}
       </HStack>
       <Text fontSize="md" mb={2}>
-        &quot;{review}&quot;
+        &quot;{body}&quot;
       </Text>
       <HStack spacing={2} mb={2} wrap="wrap">
         {tags.map((tag, index) => (
@@ -47,7 +47,7 @@ const ReviewCard = ({ author, rating, review, tags }) => {
 ReviewCard.propTypes = {
   author: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
-  review: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 

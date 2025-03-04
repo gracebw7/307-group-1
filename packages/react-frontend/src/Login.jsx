@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Box, Heading, Input, Button } from "@chakra-ui/react";
 
 function Login(props) {
   const [creds, setCreds] = useState({
@@ -24,27 +25,34 @@ function Login(props) {
   }
 
   return (
-    <form>
-      <label htmlFor="username">UserName</label>
-      <input
-        type="text"
-        name="username"
-        id="username"
-        value={creds.username}
-        onChange={handleChange}
-      />
-      <label htmlFor="password">Password</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        value={creds.pwd}
-        onChange={handleChange}
-      />
-      <button type="button" onClick={submitForm}>
-        {props.buttonLabel || "Log In"}
-      </button>
-    </form>
+    <Box p={6} bg="white" borderRadius="md" boxShadow="md">
+      <Heading mb={4}>Log In</Heading>
+      <form>
+        <Box mb={3}>
+          <label htmlFor="username">Username</label>
+          <Input
+            type="text"
+            name="username"
+            id="username"
+            value={creds.username}
+            onChange={handleChange}
+          />
+        </Box>
+        <Box mb={3}>
+          <label htmlFor="password">Password</label>
+          <Input
+            type="password"
+            name="password"
+            id="password"
+            value={creds.pwd}
+            onChange={handleChange}
+          />
+        </Box>
+        <Button type="button" onClick={submitForm}>
+          {props.buttonLabel || "Log In"}
+        </Button>
+      </form>
+    </Box>
   );
 }
 export default Login;
