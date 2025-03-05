@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Property from "../../models/property";
 import { MongoMemoryServer } from "mongodb-memory-server";
-import { address } from "framer-motion/client";
+
 
 let mongoServer;
 
