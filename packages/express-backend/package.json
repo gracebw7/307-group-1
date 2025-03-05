@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "dev": "cross-env DEBUG=express:router npx nodemon backend.js",
     "lint": "eslint .",
     "start": "cross-env DEBUG=express:router node backend.js"

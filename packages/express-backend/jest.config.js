@@ -1,7 +1,11 @@
 export default {
   testEnvironment: "node",
   collectCoverage: true,
-  collectCoverageFrom: ["src/**/*.js"],
+  collectCoverageFrom: [
+    "models/**/*.js", // Track all models
+    "services/**/*.js", // Track all service files
+    "!**/node_modules/**" // Ignore dependencies
+  ],
   coverageThreshold: {
     global: {
       branches: 80,
