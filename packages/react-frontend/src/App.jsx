@@ -13,6 +13,8 @@ import Login from "./Login";
 import ReviewForm from "./components/ReviewForm";
 import { ReviewsProvider } from "./reviewsContext";
 import PropertyPage from "./pages/PropertyPage";
+import SearchBar from "./components/SearchBar";
+import PropertyDetails from "./components/PropertyDetails";
 
 const API_PREFIX = "http://localhost:8000";
 
@@ -22,12 +24,20 @@ function App() {
     localStorage.getItem("token") || INVALID_TOKEN
   );
   const [message, setMessage] = useState("");
+  const [properties, setProperties] = useState([]); 
 
   useEffect(() => {
     if (token !== INVALID_TOKEN) {
       localStorage.setItem("token", token);
     }
   }, [token]);
+
+  useEffect(() => {
+    fetch(`${API_PREFIX}/properties`)
+      .then((response) => response.json())
+      .then((data) => setProperties(data.properties_list || []))
+      .catch((error) => console.error("Error fetching properties:", error));
+  }, []);
 
   function loginUser(creds) {
     return fetch(`${API_PREFIX}/login`, {
@@ -128,6 +138,8 @@ function App() {
               </Link>
             </Box>
 
+            <SearchBar properties={properties} />
+
             <Routes>
               <Route
                 path="/properties/:id/reviews"
@@ -161,6 +173,10 @@ function App() {
                     buttonLabel="Sign Up"
                   />
                 }
+              />
+              <Route
+                path="/property/:id"
+                element={<PropertyDetails properties={properties} />}
               />
             </Routes>
           </Box>
