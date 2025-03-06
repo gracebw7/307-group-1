@@ -1,10 +1,16 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
-import ReviewCard from "../components/ReviewCard";
+import ReviewCard from "./ReviewCard";
 import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 
-function Reviews() {
-  const { id } = useParams();
+Reviews.propTypes = {
+  prop_id: PropTypes.string.isRequired
+};
+
+function Reviews(props) {
+  //const { id } = useParams();
+  const id = props.prop_id;
 
   const [reviews, setReviews] = useState([]);
 
@@ -24,13 +30,6 @@ function Reviews() {
         )
       )
     );
-    /*
-    let review_list = id_list.map((c_id) =>
-      fetch(`http://localhost:8000/review/${c_id}`).then(
-        (res) => res.json()
-      )
-    );
-    */
   }
 
   /*

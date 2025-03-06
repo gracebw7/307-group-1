@@ -1,11 +1,27 @@
-import { ChakraProvider, Box } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Input,
+  Button,
+  useDisclosure,
+  Box
+} from "@chakra-ui/react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Link
 } from "react-router-dom";
-import Reviews from "./pages/Reviews";
+import Reviews from "./components/Reviews";
 import PropertyPageDemo from "./pages/PropertyPageDemo";
 import AddProperty from "./pages/AddProperty";
 import { useState, useEffect } from "react";
@@ -138,7 +154,7 @@ function App() {
                 element={<AddProperty />}
               />
               <Route
-                path="/property/:propertyId"
+                path="/properties/:propertyId"
                 element={<PropertyPage />}
               />
               <Route

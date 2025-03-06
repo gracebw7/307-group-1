@@ -1,9 +1,27 @@
 import { useEffect, useState, useRef } from "react";
+import {
+  ChakraProvider,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Input,
+  Button,
+  useDisclosure
+} from "@chakra-ui/react";
 import { Box, VStack, Divider, Text } from "@chakra-ui/react";
 import PropertySummary from "../components/PropertySummary";
 import ReviewCard from "../components/ReviewCard";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
+import Reviews from "../components/Reviews.jsx";
+
 PropertyPage.propTypes = {
   propertyId: PropTypes.string.isRequired
 };
@@ -72,11 +90,14 @@ export default function PropertyPage({ propertyId }) {
         address={property.address}
         averageRating={property.averageRating}
         tags={property.tags}
+        id={propertyId}
       />
 
       <Divider my={6} />
 
-      {/* Reviews Section */}
+      <Reviews prop_id={propertyId} />
+
+      {/* Reviews Section
       <VStack spacing={4} align="stretch">
         {reviews.length > 0 ? (
           reviews.map((review, index) => (
@@ -86,6 +107,7 @@ export default function PropertyPage({ propertyId }) {
           <Text>No reviews yet.</Text>
         )}
       </VStack>
+      */}
     </Box>
   );
 }
