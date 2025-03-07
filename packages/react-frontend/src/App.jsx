@@ -10,6 +10,7 @@ import PropertyPageDemo from "./pages/PropertyPageDemo";
 import AddProperty from "./pages/AddProperty";
 import { useState, useEffect } from "react";
 import Login from "./Login";
+import SignUp from "./SignUp";
 import ReviewForm from "./components/ReviewForm";
 import { ReviewsProvider } from "./reviewsContext";
 import PropertyPage from "./pages/PropertyPage";
@@ -30,47 +31,59 @@ function App() {
   }, [token]);
 
   function loginUser(creds) {
-    return fetch(`${API_PREFIX}/login`, {
+    const promise = fetch(`${API_PREFIX}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(creds)
     })
-      .then((response) => response.json())
-      .then((payload) => {
-        if (payload.token) {
-          setToken(payload.token);
-          setMessage("Login successful; auth token saved");
+      .then((response) => {
+        if (response.status === 200) {
+          response
+            .json()
+            .then((payload) => setToken(payload.token));
+          setMessage(`Login successful; auth token saved`);
         } else {
           setMessage(
-            `Login Error: ${payload.error || "Unknown error"}`
+            `Login Error ${response.status}: ${response.data}`
           );
         }
       })
-      .catch((error) => setMessage(`Login Error: ${error}`));
+      .catch((error) => {
+        setMessage(`Login Error: ${error}`);
+      });
+
+    return promise;
   }
 
   function signupUser(creds) {
-    return fetch(`${API_PREFIX}/signup`, {
+    const promise = fetch(`${API_PREFIX}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(creds)
     })
-      .then((response) => response.json())
-      .then((payload) => {
-        if (payload.token) {
-          setToken(payload.token);
-          setMessage("Signup successful; auth token saved");
+      .then((response) => {
+        if (response.status === 201) {
+          response
+            .json()
+            .then((payload) => setToken(payload.token));
+          setMessage(
+            `Signup successful for user: ${creds.username}; auth token saved`
+          );
         } else {
           setMessage(
-            `Signup Error: ${payload.error || "Unknown error"}`
+            `Signup Error ${response.status}: ${response.data}`
           );
         }
       })
-      .catch((error) => setMessage(`Signup Error: ${error}`));
+      .catch((error) => {
+        setMessage(`Signup Error: ${error}`);
+      });
+
+    return promise;
   }
 
   const logoutUser = () => {
@@ -156,7 +169,7 @@ function App() {
               <Route
                 path="/signup"
                 element={
-                  <Login
+                  <SignUp
                     handleSubmit={signupUser}
                     buttonLabel="Sign Up"
                   />

@@ -12,6 +12,19 @@ import { StarIcon } from "@chakra-ui/icons";
 import ReviewCard from "./ReviewCard";
 import { useParams } from "react-router-dom";
 
+function addAuthHeader(otherHeaders = {}) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return otherHeaders;
+  }
+
+  return {
+    ...otherHeaders,
+    Authorization: `Bearer ${token}`
+  };
+}
+
 const ReviewForm = () => {
   const { id } = useParams();
   console.log(id);
@@ -56,9 +69,9 @@ const ReviewForm = () => {
       `http://localhost:8000/properties/${prop_id}/reviews`,
       {
         method: "POST",
-        headers: {
+        headers: addAuthHeader({
           "Content-Type": "application/json"
-        },
+        }),
         body: JSON.stringify(review)
       }
     );

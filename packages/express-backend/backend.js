@@ -134,7 +134,7 @@ app.post("/login", loginUser);
 
 //POST new property
 //configrues with blank review array
-app.post("/properties", (req, res) => {
+app.post("/properties", authenticateUser, (req, res) => {
   const propertyToAdd = req.body;
   propertyToAdd["reviews"] = [];
   property_service
@@ -177,7 +177,7 @@ const updatePropertyStats = (propertyId) => {
 //POST new review
 //endpoint requries property id, this id is added to the review
 //the review is additionally added to its property review list
-app.post("/properties/:_id/reviews", (req, res) => {
+app.post("/properties/:_id/reviews", authenticateUser, (req, res) => {
   const _id = req.params["_id"];
 
   const reviewToAdd = { ...req.body };
