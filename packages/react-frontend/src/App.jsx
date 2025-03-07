@@ -29,6 +29,7 @@ import Login from "./Login";
 import ReviewForm from "./components/ReviewForm";
 import { ReviewsProvider } from "./reviewsContext";
 import PropertyPage from "./pages/PropertyPage";
+import Home from "./pages/Home";
 
 const API_PREFIX = "http://localhost:8000";
 
@@ -107,9 +108,12 @@ function App() {
               mb={6}
               boxShadow="md">
               <Link
-                to="properties/67ac37ff87bbc59ba2e00dbb/reviews"
+                to="properties/67ac37ff87bbc59ba2e00dbb"
                 style={{ marginRight: "20px" }}>
                 Reviews
+              </Link>
+              <Link to="/" style={{ marginRight: "20px" }}>
+                Home
               </Link>
               <Link
                 to="/add-property"
@@ -149,6 +153,7 @@ function App() {
                 path="/properties/:id/reviews"
                 element={<Reviews />}
               />
+              <Route path="/" element={<Home />} />
               <Route
                 path="/add-property"
                 element={<AddProperty />}

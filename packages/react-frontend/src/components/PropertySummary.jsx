@@ -75,7 +75,7 @@ function PropertySummary({
       )}
       <>
         <Button spacing={2} mt={3} wrap="wrap" onClick={onOpen}>
-          Open
+          Add Review
         </Button>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />

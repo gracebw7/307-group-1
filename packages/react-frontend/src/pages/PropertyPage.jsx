@@ -60,6 +60,7 @@ export default function PropertyPage({ propertyId }) {
       .then((res) => res.json())
       .then((reviewIds) => {
         // Fetch each review by ID
+
         Promise.all(
           reviewIds.map((id) =>
             fetch(`http://localhost:8000/reviews/${id}`).then(
