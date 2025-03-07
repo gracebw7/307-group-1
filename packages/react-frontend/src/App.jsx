@@ -115,6 +115,7 @@ function App() {
               <Link to="/" style={{ marginRight: "20px" }}>
                 Home
               </Link>
+              {/*
               <Link
                 to="/add-property"
                 style={{ marginRight: "20px" }}>
@@ -125,6 +126,7 @@ function App() {
                 style={{ marginRight: "20px" }}>
                 Create Review
               </Link>
+              */}
               <Link
                 to="/signup"
                 style={{ marginRight: "20px" }}>
@@ -136,16 +138,18 @@ function App() {
               <Link
                 onClick={logoutUser}
                 style={{
-                  marginLeft: "20px",
+                  marginRight: "20px",
                   cursor: "pointer"
                 }}>
                 Logout
               </Link>
+              {/*
               <Link
                 to="/propertypagedemo"
                 style={{ marginLeft: "20px" }}>
                 Property Page Demo
               </Link>
+              */}
             </Box>
 
             <Routes>

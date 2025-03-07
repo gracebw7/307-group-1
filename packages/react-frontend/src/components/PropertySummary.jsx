@@ -46,7 +46,8 @@ function PropertySummary({
       bg="white"
       boxShadow="md"
       borderRadius="lg"
-      maxW="400px"
+      maxW="40vw"
+      position="center"
       w="100%">
       {/* Property Name */}
       <Heading size="md" mb={2}>

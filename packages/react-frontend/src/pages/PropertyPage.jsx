@@ -13,7 +13,8 @@ import {
   FormHelperText,
   Input,
   Button,
-  useDisclosure
+  useDisclosure,
+  Center
 } from "@chakra-ui/react";
 import { Box, VStack, Divider, Text } from "@chakra-ui/react";
 import PropertySummary from "../components/PropertySummary";
@@ -86,13 +87,15 @@ export default function PropertyPage({ propertyId }) {
   return (
     <Box p={6} maxW="800px" mx="auto">
       {/* Property Summary Component */}
-      <PropertySummary
-        name={property.name}
-        address={property.address}
-        averageRating={property.averageRating}
-        tags={property.tags}
-        id={propertyId}
-      />
+      <Center>
+        <PropertySummary
+          name={property.name}
+          address={property.address}
+          averageRating={property.averageRating}
+          tags={property.tags}
+          id={propertyId}
+        />
+      </Center>
 
       <Divider my={6} />
 

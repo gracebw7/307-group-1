@@ -1,4 +1,4 @@
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid, Center } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import ReviewCard from "./ReviewCard";
 import { useParams } from "react-router-dom";
@@ -94,22 +94,24 @@ function Reviews(props) {
 */
 
   return (
-    <Box
-      p={8}
-      bg="gray.100"
-      minH="100vh"
-      display="flex"
-      justifyContent="center"
-      alignItems="center">
-      <SimpleGrid
-        columns={{ base: 1, md: 2 }}
-        spacing={6}
-        maxW="900px">
-        {reviews.map((review, index) => (
-          <ReviewCard key={index} {...review} />
-        ))}
-      </SimpleGrid>
-    </Box>
+    <Center>
+      <Box
+        p={8}
+        bg="gray.100"
+        minW="60vw"
+        display="flex"
+        justifyContent="center"
+        alignItems="center">
+        <SimpleGrid
+          columns={{ base: 1, md: 2 }}
+          spacing={6}
+          maxW="60vw">
+          {reviews.map((review, index) => (
+            <ReviewCard key={index} {...review} />
+          ))}
+        </SimpleGrid>
+      </Box>
+    </Center>
   );
 }
 

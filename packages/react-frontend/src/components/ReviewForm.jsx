@@ -19,7 +19,8 @@ import {
   TagLabel,
   TagCloseButton,
   Wrap,
-  WrapItem
+  WrapItem,
+  VStack
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import ReviewCard from "./ReviewCard";
@@ -101,7 +102,7 @@ function ReviewForm(props) {
 
   const handleTagRemove = (tagToRemove) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
-    props.onClose();
+    //props.onClose();
 
     //setReviews([...reviews, newReview]);
   };
@@ -117,6 +118,8 @@ function ReviewForm(props) {
         body: JSON.stringify(review)
       }
     );
+
+    props.onClose();
 
     return promise;
   }
@@ -137,19 +140,25 @@ function ReviewForm(props) {
         </HStack>
         <Input
           type="text"
+          mt={2}
+          mb={2}
+          padding={2}
           value={body}
           onChange={(e) => setBody(e.target.value)}
           placeholder="Write a review"
         />
         <Input
           type="text"
+          mt={2}
+          mb={2}
+          padding={2}
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
           placeholder="Your name"
         />
         <Box>
           <Popover>
-            <PopoverTrigger>
+            <PopoverTrigger mt={2} mb={2}>
               <Button>Select Tags</Button>
             </PopoverTrigger>
             <PopoverContent>
@@ -189,7 +198,7 @@ function ReviewForm(props) {
             </WrapItem>
           ))}
         </Wrap>
-        <Button type="submit" mt={4}>
+        <Button type="submit" mt={2} mb={2}>
           Submit Review
         </Button>
       </form>
