@@ -29,11 +29,13 @@ import PropTypes from "prop-types";
 
 ReviewForm.propTypes = {
   prop_id: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  setNewReview: PropTypes.func.isRequired
 };
 
 function ReviewForm(props) {
   const prop_id = props.prop_id;
+
   //const { id } = useParams();
   console.log(prop_id);
 
@@ -41,7 +43,7 @@ function ReviewForm(props) {
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
   const [tags, setTags] = useState([]);
-  const [reviews, setReviews] = useState([]);
+  //const [reviews, setReviews] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,7 +65,8 @@ function ReviewForm(props) {
         return res.json();
       })
       .then((review) => {
-        setReviews([...reviews, review]);
+        //props.setReviews([...reviews, review]);
+        props.setNewReview(review);
       })
       .catch((error) => {
         console.log(error);

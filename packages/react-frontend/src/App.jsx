@@ -100,13 +100,23 @@ function App() {
     <ChakraProvider>
       <ReviewsProvider>
         <Router>
-          <Box p={4} bg="gray.100" minH="100vh" width="100vw">
+          <Box
+            p={4}
+            bg="gray.100"
+            minH="100vh"
+            w="100%"
+            m="0"
+            boxSizing="border-box"
+            position="absolute"
+            top="0"
+            left="0">
             <Box
               as="nav"
               bg="white"
               p={4}
               mb={6}
-              boxShadow="md">
+              boxShadow="md"
+              width="100%">
               <Link
                 to="properties/67ac37ff87bbc59ba2e00dbb"
                 style={{ marginRight: "20px" }}>

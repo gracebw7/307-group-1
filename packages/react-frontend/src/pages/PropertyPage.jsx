@@ -34,7 +34,25 @@ export default function PropertyPage({ propertyId }) {
   console.log("Final Property ID:", propertyId);
   const constantPropertyId = useRef(propertyId).current; // Store propertyId as a constant
   const [property, setProperty] = useState(null);
+
   const [reviews, setReviews] = useState([]);
+  function fetchReviews(prop_id) {
+    //const promise = fetch(`http://localhost:8000/properties/${prop_id}/reviews`);
+    const promise = fetch(
+      `http://localhost:8000/properties/${propertyId}/reviews`
+    );
+    return promise;
+  }
+
+  function buildReviewList(id_list) {
+    return Promise.all(
+      id_list.map((c_id) =>
+        fetch(`http://localhost:8000/reviews/${c_id}`).then(
+          (res) => res.json()
+        )
+      )
+    );
+  }
 
   // Debugging log
   console.log("Constant Property ID:", constantPropertyId);
@@ -54,30 +72,24 @@ export default function PropertyPage({ propertyId }) {
 
   // Fetch reviews for the property
   useEffect(() => {
-    if (!propertyId) return;
-    fetch(
-      `http://localhost:8000/properties/${constantPropertyId}/reviews`
-    )
+    fetchReviews(propertyId)
       .then((res) => res.json())
-      .then((reviewIds) => {
-        // Fetch each review by ID
-
-        Promise.all(
-          reviewIds.map((id) =>
-            fetch(`http://localhost:8000/reviews/${id}`).then(
-              (res) => res.json()
-            )
-          )
-        )
-          .then(setReviews)
-          .catch((err) =>
-            console.error("Error fetching reviews:", err)
-          );
+      .then((obj) => {
+        console.log(obj["review_ids"]);
+        let review_ids = [...obj["review_ids"]];
+        buildReviewList(review_ids).then((res) => {
+          console.log(res);
+          setReviews(res);
+        });
       })
-      .catch((err) =>
-        console.error("Error fetching review IDs:", err)
-      );
+      .catch((error) => {
+        console.log(error);
+      });
   }, [constantPropertyId, propertyId]); // Dependency on constantPropertyId
+
+  function addNewReviewState(new_review) {
+    setReviews([...reviews, new_review]);
+  }
 
   if (!propertyId)
     return <Text>Error: Property ID is missing</Text>;
@@ -85,23 +97,29 @@ export default function PropertyPage({ propertyId }) {
   if (!property) return <Text>Loading...</Text>;
 
   return (
-    <Box p={6} maxW="800px" mx="auto">
-      {/* Property Summary Component */}
-      <Center>
-        <PropertySummary
-          name={property.name}
-          address={property.address}
-          averageRating={property.averageRating}
-          tags={property.tags}
-          id={propertyId}
-        />
-      </Center>
+    <Center>
+      <Box maxW="80vw" width="100%">
+        {/* Property Summary Component */}
+        <Center>
+          <PropertySummary
+            name={property.name}
+            address={property.address}
+            averageRating={property.averageRating}
+            tags={property.tags}
+            id={propertyId}
+            setNewReview={addNewReviewState}
+          />
+        </Center>
 
-      <Divider my={6} />
+        <Divider my={6} />
 
-      <Reviews prop_id={propertyId} />
+        <Center>
+          <Box maxWidth="80vw">
+            <Reviews reviews={reviews} />
+          </Box>
+        </Center>
 
-      {/* Reviews Section
+        {/* Reviews Section
       <VStack spacing={4} align="stretch">
         {reviews.length > 0 ? (
           reviews.map((review, index) => (
@@ -112,6 +130,7 @@ export default function PropertyPage({ propertyId }) {
         )}
       </VStack>
       */}
-    </Box>
+      </Box>
+    </Center>
   );
 }

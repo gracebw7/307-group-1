@@ -131,8 +131,7 @@ function Home() {
             What is Cal Poly Prop Hunt?
           </Heading>
           <Text fontSize="lg">
-            Here is some more content beneath the background
-            image.
+            Will List Site Description Here.
           </Text>
         </Stack>
       </Box>

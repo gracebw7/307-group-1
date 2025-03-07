@@ -28,7 +28,8 @@ PropertySummary.propTypes = {
   address: PropTypes.string.isRequired,
   averageRating: PropTypes.number.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  setNewReview: PropTypes.func.isRequired
 };
 
 function PropertySummary({
@@ -36,7 +37,8 @@ function PropertySummary({
   address,
   averageRating,
   tags,
-  id
+  id,
+  setNewReview
 }) {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
@@ -85,7 +87,11 @@ function PropertySummary({
               <ModalCloseButton />
             </ModalHeader>
             <ModalBody>
-              <ReviewForm prop_id={id} onClose={onClose} />
+              <ReviewForm
+                prop_id={id}
+                onClose={onClose}
+                setNewReview={setNewReview}
+              />
             </ModalBody>
             <ModalFooter></ModalFooter>
           </ModalContent>

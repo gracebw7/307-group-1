@@ -15,8 +15,8 @@ const ReviewCard = ({ author, rating, body, tags }) => {
       borderRadius="lg"
       p={4}
       shadow="md"
-      maxW="60vw"
-      bg="white">
+      bg="white"
+      maxW="800px">
       <HStack spacing={2} mb={2}>
         {Array(5)
           .fill("")

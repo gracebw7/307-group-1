@@ -5,13 +5,16 @@ import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 Reviews.propTypes = {
-  prop_id: PropTypes.string.isRequired
+  //prop_id: PropTypes.string.isRequired
+  reviews: PropTypes.array.isRequired
 };
 
 function Reviews(props) {
+  const reviews = props.reviews;
   //const { id } = useParams();
-  const id = props.prop_id;
+  //const id = props.prop_id;
 
+  /*
   const [reviews, setReviews] = useState([]);
 
   function fetchReviews(prop_id) {
@@ -46,6 +49,7 @@ function Reviews(props) {
     });
     */
 
+  /*
   useEffect(() => {
     fetchReviews(id)
       .then((res) => res.json())
@@ -61,6 +65,7 @@ function Reviews(props) {
         console.log(error);
       });
   }, []);
+  */
 
   /*
   const reviews = [
@@ -94,24 +99,25 @@ function Reviews(props) {
 */
 
   return (
-    <Center>
-      <Box
-        p={8}
-        bg="gray.100"
-        minW="60vw"
-        display="flex"
-        justifyContent="center"
-        alignItems="center">
-        <SimpleGrid
-          columns={{ base: 1, md: 2 }}
-          spacing={6}
-          maxW="60vw">
-          {reviews.map((review, index) => (
-            <ReviewCard key={index} {...review} />
-          ))}
-        </SimpleGrid>
-      </Box>
-    </Center>
+    <Box
+      p={8}
+      bg="gray.100"
+      maxW="80vw"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      overflowX="auto"
+      w="100%">
+      <SimpleGrid
+        columns={{ base: 1, md: 2 }}
+        spacing={6}
+        maxW="80%"
+        w="100%">
+        {reviews.map((review, index) => (
+          <ReviewCard key={index} {...review} />
+        ))}
+      </SimpleGrid>
+    </Box>
   );
 }
 
