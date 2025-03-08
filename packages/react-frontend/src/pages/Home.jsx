@@ -12,7 +12,8 @@ import {
   Text,
   Stack,
   HStack,
-  useDisclosure
+  useDisclosure,
+  Input
 } from "@chakra-ui/react";
 import { Link as HLink } from "react-router-dom";
 import homeImage from "../assets/home.jpg";
@@ -24,6 +25,7 @@ function Home() {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const [submitted, setSubmitted] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const navigate = useNavigate();
 
@@ -60,6 +62,10 @@ function Home() {
     }
   };
 
+  const handleSearch = () => {
+    navigate(`/properties/search?address=${searchQuery}`); // Navigate to the search results page
+  };
+
   return (
     <Box>
       <Box
@@ -79,9 +85,15 @@ function Home() {
             <Heading as="h1" size="xl">
               Welcome to Cal Poly Prop Hunt
             </Heading>
-            <Text fontSize="lg">
-              Place Holder for Search Bar.
-            </Text>
+            <Box display="flex" alignItems="center" justifyContent="center">
+              <Input
+                placeholder="Search properties by address..."
+                size="lg"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
+              />
+              <Button onClick={handleSearch} ml={2}>Search</Button> {/* Add search button */}
+            </Box>
             <Box
               display="flex"
               alignItems="center"
