@@ -85,14 +85,20 @@ function Home() {
             <Heading as="h1" size="xl">
               Welcome to Cal Poly Prop Hunt
             </Heading>
-            <Box display="flex" alignItems="center" justifyContent="center">
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center">
               <Input
                 placeholder="Search properties by address..."
                 size="lg"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
               />
-              <Button onClick={handleSearch} ml={2}>Search</Button> {/* Add search button */}
+              <Button onClick={handleSearch} ml={2}>
+                Search
+              </Button>{" "}
+              {/* Add search button */}
             </Box>
             <Box
               display="flex"
@@ -104,9 +110,6 @@ function Home() {
                   color="teal"
                   size="lg">
                   Search
-                </HLink>
-                <HLink to="/add-property" size="lg">
-                  Add Property
                 </HLink>
 
                 <>

@@ -98,7 +98,7 @@ export default function PropertyPage({ propertyId }) {
 
   return (
     <Center>
-      <Box maxW="80vw" width="100%">
+      <Box w="80vh" maxW="800px" mx="auto">
         {/* Property Summary Component */}
         <Center>
           <PropertySummary
@@ -114,7 +114,7 @@ export default function PropertyPage({ propertyId }) {
         <Divider my={6} />
 
         <Center>
-          <Box maxWidth="80vw">
+          <Box maxWidth="80vw" mx="auto" w="80%">
             <Reviews reviews={reviews} />
           </Box>
         </Center>
