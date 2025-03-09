@@ -13,7 +13,8 @@ import {
   Input,
   Button,
   useDisclosure,
-  Box
+  Box,
+  Image
 } from "@chakra-ui/react";
 import {
   BrowserRouter as Router,
@@ -96,6 +97,14 @@ function App() {
     window.location.href = "/login";
   };
 
+  const linkStyle = {
+    marginRight: "20px",
+    display: "flex",
+    alignItems: "center",
+    fontSize: "1em",
+    height: "1.5em" // Matches the default line height
+  };
+
   return (
     <ChakraProvider>
       <ReviewsProvider>
@@ -116,15 +125,22 @@ function App() {
               p={4}
               mb={6}
               boxShadow="md"
-              width="100%">
+              width="100%"
+              justifyContent="flex-start"
+              display="flex">
+              <Link to="/" style={linkStyle}>
+                <Image
+                  src="../public/PHLogo.png"
+                  alt="Home"
+                  style={{ height: "3em", width: "auto" }}
+                />
+              </Link>
               <Link
                 to="properties/67ac37ff87bbc59ba2e00dbb"
-                style={{ marginRight: "20px" }}>
+                style={linkStyle}>
                 Reviews
               </Link>
-              <Link to="/" style={{ marginRight: "20px" }}>
-                Home
-              </Link>
+
               {/*
               <Link
                 to="/add-property"
@@ -137,18 +153,16 @@ function App() {
                 Create Review
               </Link>
               */}
-              <Link
-                to="/signup"
-                style={{ marginRight: "20px" }}>
+              <Link to="/signup" style={linkStyle}>
                 Sign up
               </Link>
-              <Link to="/login" style={{ marginRight: "20px" }}>
+              <Link to="/login" style={linkStyle}>
                 Log in
               </Link>
               <Link
                 onClick={logoutUser}
                 style={{
-                  marginRight: "20px",
+                  ...linkStyle,
                   cursor: "pointer"
                 }}>
                 Logout
