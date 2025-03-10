@@ -21,6 +21,19 @@ import PropertyForm from "../components/PropertyForm";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+function addAuthHeader(otherHeaders = {}) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return otherHeaders;
+  }
+
+  return {
+    ...otherHeaders,
+    Authorization: `Bearer ${token}`
+  };
+}
+
 function Home() {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
@@ -35,9 +48,9 @@ function Home() {
         "http://localhost:8000/properties",
         {
           method: "POST",
-          headers: {
+          headers: addAuthHeader({
             "Content-Type": "application/json"
-          },
+          }),
           body: JSON.stringify(formData)
         }
       );
