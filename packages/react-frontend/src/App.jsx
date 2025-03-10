@@ -41,14 +41,11 @@ function App() {
       .then((payload) => {
         if (payload.token) {
           setToken(payload.token);
-          setMessage("Login successful; auth token saved");
-        } else {
-          setMessage(
-            `Login Error: ${payload.error || "Unknown error"}`
-          );
         }
       })
-      .catch((error) => setMessage(`Login Error: ${error}`));
+      .catch((error) => {
+        console.error("Error logging in:", error);
+      });
   }
 
   function signupUser(creds) {
@@ -63,105 +60,51 @@ function App() {
       .then((payload) => {
         if (payload.token) {
           setToken(payload.token);
-          setMessage("Signup successful; auth token saved");
-        } else {
-          setMessage(
-            `Signup Error: ${payload.error || "Unknown error"}`
-          );
         }
       })
-      .catch((error) => setMessage(`Signup Error: ${error}`));
+      .catch((error) => {
+        console.error("Error signing up:", error);
+      });
   }
 
   const logoutUser = () => {
     localStorage.removeItem("token");
     setToken(INVALID_TOKEN);
-    window.location.href = "/login";
   };
 
   return (
     <ChakraProvider>
       <ReviewsProvider>
         <Router>
-          <Box p={4} bg="gray.100" minH="100vh" width="100vw">
-            <Box
-              as="nav"
-              bg="white"
-              p={4}
-              mb={6}
-              boxShadow="md">
-              <Link
-                to="properties/67ac37ff87bbc59ba2e00dbb/reviews"
-                style={{ marginRight: "20px" }}>
+          <Box p={4} bg="gray.100" minH="100vh">
+            <Box as="nav" bg="white" p={4} mb={6} boxShadow="md">
+              <Link to="/reviews" style={{ marginRight: "20px" }}>
                 Reviews
               </Link>
-              <Link
-                to="/add-property"
-                style={{ marginRight: "20px" }}>
+              <Link to="/add-property" style={{ marginRight: "20px" }}>
                 Add Property
               </Link>
-              <Link
-                to={`/create-review/67ac37ff87bbc59ba2e00dbb`}
-                style={{ marginRight: "20px" }}>
+              <Link to="/properties/:id/reviews" style={{ marginRight: "20px" }}>
                 Create Review
               </Link>
-              <Link
-                to="/signup"
-                style={{ marginRight: "20px" }}>
+              <Link to="/signup" style={{ marginRight: "20px" }}>
                 Sign up
               </Link>
               <Link to="/login" style={{ marginRight: "20px" }}>
                 Log in
               </Link>
-              <Link
-                onClick={logoutUser}
-                style={{
-                  marginLeft: "20px",
-                  cursor: "pointer"
-                }}>
+              <Link onClick={logoutUser} style={{ marginLeft: "20px" }}>
                 Logout
-              </Link>
-              <Link
-                to="/propertypagedemo"
-                style={{ marginLeft: "20px" }}>
-                Property Page Demo
               </Link>
             </Box>
 
             <Routes>
-              <Route
-                path="/properties/:id/reviews"
-                element={<Reviews />}
-              />
-              <Route
-                path="/add-property"
-                element={<AddProperty />}
-              />
-              <Route
-                path="/property/:propertyId"
-                element={<PropertyPage />}
-              />
-              <Route
-                path="/propertypagedemo"
-                element={<PropertyPageDemo />}
-              />
-              <Route
-                path="/create-review/:id"
-                element={<ReviewForm />}
-              />
-              <Route
-                path="/login"
-                element={<Login handleSubmit={loginUser} />}
-              />
-              <Route
-                path="/signup"
-                element={
-                  <Login
-                    handleSubmit={signupUser}
-                    buttonLabel="Sign Up"
-                  />
-                }
-              />
+              <Route path="/reviews" element={<Reviews />} />
+              <Route path="/add-property" element={<AddProperty />} />
+              <Route path="/properties/:id/reviews" element={<ReviewForm />} />
+              <Route path="/login" element={<Login handleSubmit={loginUser} />} />
+              <Route path="/signup" element={<Login handleSubmit={signupUser} buttonLabel="Sign Up" />} />
+              <Route path="/property/:id" element={<PropertyPage />} />
             </Routes>
           </Box>
         </Router>

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Box, VStack, Divider, Text } from "@chakra-ui/react";
 import PropertySummary from "../components/PropertySummary";
 import ReviewCard from "../components/ReviewCard";
@@ -8,16 +8,15 @@ PropertyPage.propTypes = {
   propertyId: PropTypes.string.isRequired
 };
 
-export default function PropertyPage({ propertyId }) {
+const PropertyPage = ({ propertyId }) => {
   const params = useParams();
-  propertyId = propertyId || params.propertyId; // Use route param if prop is missing
+  propertyId = propertyId || params.propertyId;
 
   console.log("Final Property ID:", propertyId);
-  const constantPropertyId = useRef(propertyId).current; // Store propertyId as a constant
+  const constantPropertyId = propertyId;
   const [property, setProperty] = useState(null);
   const [reviews, setReviews] = useState([]);
 
-  // Debugging log
   console.log("Constant Property ID:", constantPropertyId);
 
   // Fetch property details
@@ -31,10 +30,10 @@ export default function PropertyPage({ propertyId }) {
       .catch((err) =>
         console.error("Error fetching property:", err)
       );
-  }, [propertyId, constantPropertyId]); // Dependency on constantPropertyId (which never changes)
+  }, [propertyId, constantPropertyId]);
 
-  // Fetch reviews for the property
-  useEffect(() => {
+  // Define fetchReviews using useCallback
+  const fetchReviews = useCallback(() => {
     if (!propertyId) return;
     fetch(
       `http://localhost:8000/properties/${constantPropertyId}/reviews`
@@ -57,7 +56,12 @@ export default function PropertyPage({ propertyId }) {
       .catch((err) =>
         console.error("Error fetching review IDs:", err)
       );
-  }, [constantPropertyId, propertyId]); // Dependency on constantPropertyId
+  }, [constantPropertyId, propertyId]);
+
+  // Fetch reviews for the property
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]); // Include fetchReviews in the dependency array
 
   if (!propertyId)
     return <Text>Error: Property ID is missing</Text>;
@@ -88,4 +92,6 @@ export default function PropertyPage({ propertyId }) {
       </VStack>
     </Box>
   );
-}
+};
+
+export default PropertyPage;
