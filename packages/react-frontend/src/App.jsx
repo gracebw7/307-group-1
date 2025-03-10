@@ -1,11 +1,28 @@
-import { ChakraProvider, Box } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Input,
+  Button,
+  useDisclosure,
+  Box,
+  Image
+} from "@chakra-ui/react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Link
 } from "react-router-dom";
-import Reviews from "./pages/Reviews";
+import Reviews from "./components/Reviews";
 import PropertyPageDemo from "./pages/PropertyPageDemo";
 import AddProperty from "./pages/AddProperty";
 import { useState, useEffect } from "react";
@@ -14,6 +31,7 @@ import SignUp from "./SignUp";
 import ReviewForm from "./components/ReviewForm";
 import { ReviewsProvider } from "./reviewsContext";
 import PropertyPage from "./pages/PropertyPage";
+import Home from "./pages/Home";
 
 const API_PREFIX = "http://localhost:8000";
 
@@ -92,22 +110,51 @@ function App() {
     window.location.href = "/login";
   };
 
+  const linkStyle = {
+    marginRight: "20px",
+    display: "flex",
+    alignItems: "center",
+    fontSize: "1em",
+    height: "1.5em" // Matches the default line height
+  };
+
   return (
     <ChakraProvider>
       <ReviewsProvider>
         <Router>
-          <Box p={4} bg="gray.100" minH="100vh" width="100vw">
+          <Box
+            p={4}
+            bg="gray.100"
+            minH="100vh"
+            w="100%"
+            m="0"
+            boxSizing="border-box"
+            position="absolute"
+            top="0"
+            left="0">
             <Box
               as="nav"
               bg="white"
               p={4}
               mb={6}
-              boxShadow="md">
+              boxShadow="md"
+              width="100%"
+              justifyContent="flex-start"
+              display="flex">
+              <Link to="/" style={linkStyle}>
+                <Image
+                  src="../public/PHLogo.png"
+                  alt="Home"
+                  style={{ height: "3em", width: "auto" }}
+                />
+              </Link>
               <Link
-                to="properties/67ac37ff87bbc59ba2e00dbb/reviews"
-                style={{ marginRight: "20px" }}>
+                to="properties/67ac37ff87bbc59ba2e00dbb"
+                style={linkStyle}>
                 Reviews
               </Link>
+
+              {/*
               <Link
                 to="/add-property"
                 style={{ marginRight: "20px" }}>
@@ -118,27 +165,28 @@ function App() {
                 style={{ marginRight: "20px" }}>
                 Create Review
               </Link>
-              <Link
-                to="/signup"
-                style={{ marginRight: "20px" }}>
+              */}
+              <Link to="/signup" style={linkStyle}>
                 Sign up
               </Link>
-              <Link to="/login" style={{ marginRight: "20px" }}>
+              <Link to="/login" style={linkStyle}>
                 Log in
               </Link>
               <Link
                 onClick={logoutUser}
                 style={{
-                  marginLeft: "20px",
+                  ...linkStyle,
                   cursor: "pointer"
                 }}>
                 Logout
               </Link>
+              {/*
               <Link
                 to="/propertypagedemo"
                 style={{ marginLeft: "20px" }}>
                 Property Page Demo
               </Link>
+              */}
             </Box>
 
             <Routes>
@@ -146,12 +194,13 @@ function App() {
                 path="/properties/:id/reviews"
                 element={<Reviews />}
               />
+              <Route path="/" element={<Home />} />
               <Route
                 path="/add-property"
                 element={<AddProperty />}
               />
               <Route
-                path="/property/:propertyId"
+                path="/properties/:propertyId"
                 element={<PropertyPage />}
               />
               <Route

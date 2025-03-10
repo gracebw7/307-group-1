@@ -1,11 +1,26 @@
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import {
+  Box,
+  SimpleGrid,
+  Center,
+  VStack,
+  Text
+} from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
-import ReviewCard from "../components/ReviewCard";
+import ReviewCard from "./ReviewCard";
 import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 
-function Reviews() {
-  const { id } = useParams();
+Reviews.propTypes = {
+  //prop_id: PropTypes.string.isRequired
+  reviews: PropTypes.array.isRequired
+};
 
+function Reviews(props) {
+  const reviews = props.reviews;
+  //const { id } = useParams();
+  //const id = props.prop_id;
+
+  /*
   const [reviews, setReviews] = useState([]);
 
   function fetchReviews(prop_id) {
@@ -24,13 +39,6 @@ function Reviews() {
         )
       )
     );
-    /*
-    let review_list = id_list.map((c_id) =>
-      fetch(`http://localhost:8000/review/${c_id}`).then(
-        (res) => res.json()
-      )
-    );
-    */
   }
 
   /*
@@ -47,6 +55,7 @@ function Reviews() {
     });
     */
 
+  /*
   useEffect(() => {
     fetchReviews(id)
       .then((res) => res.json())
@@ -62,6 +71,7 @@ function Reviews() {
         console.log(error);
       });
   }, []);
+  */
 
   /*
   const reviews = [
@@ -95,21 +105,37 @@ function Reviews() {
 */
 
   return (
-    <Box
-      p={8}
-      bg="gray.100"
-      minH="100vh"
-      display="flex"
-      justifyContent="center"
-      alignItems="center">
-      <SimpleGrid
-        columns={{ base: 1, md: 2 }}
-        spacing={6}
-        maxW="900px">
-        {reviews.map((review, index) => (
-          <ReviewCard key={index} {...review} />
-        ))}
-      </SimpleGrid>
+    <Box>
+      {/*<Box
+        p={8}
+        bg="gray.100"
+        maxW="80vw"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        overflowX="auto"
+        w="100%"> */}
+      <VStack spacing={4} align="stretch" w="100%" mx="auto">
+        {reviews.length > 0 ? (
+          reviews.map((review, index) => (
+            <ReviewCard key={index} {...review} />
+          ))
+        ) : (
+          <Text>No reviews yet.</Text>
+        )}
+      </VStack>
+      {/*
+        <SimpleGrid
+          columns={{ base: 1, md: 2 }}
+          spacing={150}
+          maxW="80%"
+          w="100%">
+          {reviews.map((review, index) => (
+            <ReviewCard key={index} {...review} />
+          ))}
+        </SimpleGrid>
+        */}
+      {/*</Box> */}
     </Box>
   );
 }
