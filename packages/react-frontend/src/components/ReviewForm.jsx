@@ -19,21 +19,31 @@ import {
   TagLabel,
   TagCloseButton,
   Wrap,
-  WrapItem
+  WrapItem,
+  VStack
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import ReviewCard from "./ReviewCard";
 import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const ReviewForm = () => {
-  const { id } = useParams();
-  console.log(id);
+ReviewForm.propTypes = {
+  prop_id: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  setNewReview: PropTypes.func.isRequired
+};
+
+function ReviewForm(props) {
+  const prop_id = props.prop_id;
+
+  //const { id } = useParams();
+  console.log(prop_id);
 
   const [rating, setRating] = useState(0);
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
   const [tags, setTags] = useState([]);
-  const [reviews, setReviews] = useState([]);
+  //const [reviews, setReviews] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,18 +54,19 @@ const ReviewForm = () => {
       tags
     };
 
-    newReview.property = id;
+    newReview.property = prop_id;
 
-    console.log(`The id is ${id}`);
+    console.log(`The id is ${prop_id}`);
     console.log(`The review is ${JSON.stringify(newReview)}`);
-    postReview(id, newReview)
+    postReview(prop_id, newReview)
       .then((res) => {
         if (res.status != 201)
           throw new Error("Content Not Created");
         return res.json();
       })
       .then((review) => {
-        setReviews([...reviews, review]);
+        //props.setReviews([...reviews, review]);
+        props.setNewReview(review);
       })
       .catch((error) => {
         console.log(error);
@@ -94,6 +105,8 @@ const ReviewForm = () => {
 
   const handleTagRemove = (tagToRemove) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
+    //props.onClose();
+
     //setReviews([...reviews, newReview]);
   };
 
@@ -109,9 +122,11 @@ const ReviewForm = () => {
       }
     );
 
+    props.onClose();
+
     return promise;
   }
-  
+
   return (
     <Box>
       <form onSubmit={handleSubmit}>
@@ -128,19 +143,25 @@ const ReviewForm = () => {
         </HStack>
         <Input
           type="text"
+          mt={2}
+          mb={2}
+          padding={2}
           value={body}
           onChange={(e) => setBody(e.target.value)}
           placeholder="Write a review"
         />
         <Input
           type="text"
+          mt={2}
+          mb={2}
+          padding={2}
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
           placeholder="Your name"
         />
         <Box>
           <Popover>
-            <PopoverTrigger>
+            <PopoverTrigger mt={2} mb={2}>
               <Button>Select Tags</Button>
             </PopoverTrigger>
             <PopoverContent>
@@ -151,7 +172,9 @@ const ReviewForm = () => {
                 <CheckboxGroup value={tags} onChange={setTags}>
                   <Stack spacing={2}>
                     {tagOptions.map((option) => (
-                      <Checkbox key={option.value} value={option.value}>
+                      <Checkbox
+                        key={option.value}
+                        value={option.value}>
                         {option.label}
                       </Checkbox>
                     ))}
@@ -159,7 +182,9 @@ const ReviewForm = () => {
                 </CheckboxGroup>
               </PopoverBody>
               <PopoverFooter>
-                <Button onClick={() => setTags([])}>Clear All</Button>
+                <Button onClick={() => setTags([])}>
+                  Clear All
+                </Button>
               </PopoverFooter>
             </PopoverContent>
           </Popover>
@@ -169,15 +194,18 @@ const ReviewForm = () => {
             <WrapItem key={index}>
               <Tag>
                 <TagLabel>{tag}</TagLabel>
-                <TagCloseButton onClick={() => handleTagRemove(tag)} />
+                <TagCloseButton
+                  onClick={() => handleTagRemove(tag)}
+                />
               </Tag>
             </WrapItem>
           ))}
         </Wrap>
-        <Button type="submit" mt={4}>
+        <Button type="submit" mt={2} mb={2}>
           Submit Review
         </Button>
       </form>
+      {/*
       {reviews.map((review, index) => (
         <ReviewCard
           key={index}
@@ -187,8 +215,9 @@ const ReviewForm = () => {
           tags={review.tags}
         />
       ))}
+      */}
     </Box>
   );
-};
+}
 
 export default ReviewForm;
