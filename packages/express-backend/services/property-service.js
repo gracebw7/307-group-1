@@ -22,19 +22,22 @@ function findPropertyById(id) {
 
 async function removePropReview(id, rev_id) {
   console.log("Removing Property Review");
-  findPropertyById(id)
-    .then((prop) => {
-      const revId = new mongoose.Types.ObjectId(rev_id);
-      if (prop["reviews"].includes(revId)) {
-        prop["reviews"].splice(
-          prop["reviews"].findIndex(revId),
-          1
-        );
-      } else {
-        throw new Error("Review id not in property");
-      }
-    })
-    .catch(console.log((error) => console.error(error)));
+  try {
+    const prop = await findPropertyById(id);
+    const reviewIndex = prop.reviews.findIndex(
+      (rev) => rev.toString() === rev_id.toString()
+    );
+
+    if (reviewIndex !== -1) {
+      prop.reviews.splice(reviewIndex, 1);
+      const updatedProperty = await prop.save();
+      return updatedProperty;
+    } else {
+      throw new Error("Review id not in property");
+    }
+  } catch (error) {
+    console.error("Error removing review:", error);
+  }
 }
 
 function addProperty(property) {
@@ -48,12 +51,14 @@ function deletePropertyById(id) {
 }
 
 async function addPropertyReview(id, review_id) {
-  findPropertyById(id)
-    .then((prop) => {
-      prop.reviews.push(review_id);
-      return prop.save();
-    })
-    .catch(console.log((error) => console.error(error)));
+  try {
+    const prop = await findPropertyById(id);
+    prop.reviews.push(review_id);
+    const updatedProperty = await prop.save(); // Ensure it returns the updated property
+    return updatedProperty; // This should return the updated property
+  } catch (error) {
+    console.error("Error adding review:", error);
+  }
 }
 
 /*
