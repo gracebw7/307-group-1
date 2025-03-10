@@ -27,17 +27,6 @@ const port = 8000;
 app.use(cors());
 app.use(express.json());
 
-function addAuthHeader(otherHeaders = {}) {
-  if (token === INVALID_TOKEN) {
-    return otherHeaders;
-  } else {
-    return {
-      ...otherHeaders,
-      Authorization: `Bearer ${token}`
-    };
-  }
-}
-
 /* GET REQUESTS */
 
 //GET Property Review from property IDs

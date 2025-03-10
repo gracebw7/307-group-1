@@ -1,5 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import UserSchema from "./models/user.js";
+import mongoose, { Schema } from "mongoose";
 
 const creds = [];
 
@@ -19,9 +21,26 @@ export function registerUser(req, res) {
           console.log("Token:", token);
           res.status(201).send({ token: token });
           creds.push({ username, hashedPassword });
+          saveUserToDatabase(username, hashedPassword);
         });
       });
   }
+}
+
+function saveUserToDatabase(username, password) {
+  const { MONGO_CONNECTION_STRING } = process.env;
+
+  mongoose.set("debug", true);
+  mongoose
+    .connect(MONGO_CONNECTION_STRING + "users")
+    .catch((error) => console.log(error));
+
+  var testUser = new UserSchema({
+    username: username,
+    password: password
+  });
+
+  testUser.save();
 }
 
 function generateAccessToken(username) {
@@ -65,30 +84,51 @@ export function authenticateUser(req, res, next) {
   }
 }
 
-export function loginUser(req, res) {
+export async function loginUser(req, res) {
   const { username, pwd } = req.body; // from form
-  const retrievedUser = creds.find(
-    (c) => c.username === username
-  );
 
-  if (!retrievedUser) {
-    // invalid username
-    res.status(401).send("Unauthorized");
-  } else {
+  if (!username || !pwd) {
+    return res
+      .status(400)
+      .send("Bad request: Invalid input data.");
+  }
+
+  try {
+    // Find user in the database
+    const retrievedUser = await UserSchema.findOne({
+      username
+    }).exec();
+
+    if (!retrievedUser) {
+      return res
+        .status(401)
+        .send("Unauthorized: User not found.");
+    }
+
     bcrypt
-      .compare(pwd, retrievedUser.hashedPassword)
-      .then((matched) => {
-        if (matched) {
-          generateAccessToken(username).then((token) => {
-            res.status(200).send({ token: token });
-          });
-        } else {
-          // invalid password
-          res.status(401).send("Unauthorized");
-        }
-      })
-      .catch(() => {
-        res.status(401).send("Unauthorized");
+      .hash("aa", 10)
+      .then((hash) => console.log("Test Hash:", hash));
+
+    // Compare password with hashed password in DB
+    const matched = await bcrypt.compare(
+      pwd,
+      retrievedUser.password
+    );
+    console.log(pwd);
+    console.log(retrievedUser.password);
+    console.log(matched);
+    if (matched) {
+      const token = await generateAccessToken(username);
+      return res.status(200).send({
+        token: token
       });
+    } else {
+      return res
+        .status(401)
+        .send("Unauthorized: Incorrect password.");
+    }
+  } catch (error) {
+    console.error("Login Error:", error);
+    return res.status(500).send("Internal Server Error");
   }
 }
