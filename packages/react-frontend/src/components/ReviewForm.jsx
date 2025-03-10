@@ -33,6 +33,19 @@ ReviewForm.propTypes = {
   setNewReview: PropTypes.func.isRequired
 };
 
+function addAuthHeader(otherHeaders = {}) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return otherHeaders;
+  }
+
+  return {
+    ...otherHeaders,
+    Authorization: `Bearer ${token}`
+  };
+}
+
 function ReviewForm(props) {
   const prop_id = props.prop_id;
 
@@ -83,9 +96,9 @@ function ReviewForm(props) {
       `http://localhost:8000/properties/${prop_id}/reviews`,
       {
         method: "POST",
-        headers: {
+        headers: addAuthHeader({
           "Content-Type": "application/json"
-        },
+        }),
         body: JSON.stringify(review)
       }
     );
@@ -115,9 +128,9 @@ function ReviewForm(props) {
       `http://localhost:8000/properties/${prop_id}/reviews`,
       {
         method: "POST",
-        headers: {
+        headers: addAuthHeader({
           "Content-Type": "application/json"
-        },
+        }),
         body: JSON.stringify(review)
       }
     );

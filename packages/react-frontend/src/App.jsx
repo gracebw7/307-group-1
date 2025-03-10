@@ -27,6 +27,7 @@ import PropertyPageDemo from "./pages/PropertyPageDemo";
 import AddProperty from "./pages/AddProperty";
 import { useState, useEffect } from "react";
 import Login from "./Login";
+import SignUp from "./SignUp";
 import ReviewForm from "./components/ReviewForm";
 import { ReviewsProvider } from "./reviewsContext";
 import PropertyPage from "./pages/PropertyPage";
@@ -205,7 +206,7 @@ function App() {
               <Route
                 path="/signup"
                 element={
-                  <Login
+                  <SignUp
                     handleSubmit={signupUser}
                     buttonLabel="Sign Up"
                   />
