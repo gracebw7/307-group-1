@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import Property from "../../models/property";
 import { MongoMemoryServer } from "mongodb-memory-server";
 
-
 let mongoServer;
 
 beforeAll(async () => {

@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({ properties }) => {
-  const [address, setAddress] = useState('');
-  const [error, setError] = useState('');
+  const [address, setAddress] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSearch = () => {
     if (!address.trim()) {
-      setError('Please enter an address');
+      setError("Please enter an address");
       return;
     }
 
     // Find the property by address (case-insensitive)
-    const foundProperty = properties.find(
-      prop => prop.address.toLowerCase().includes(address.toLowerCase())
+    const foundProperty = properties.find((prop) =>
+      prop.address.toLowerCase().includes(address.toLowerCase())
     );
 
     if (foundProperty) {
       // Navigate to the property details page
       navigate(`/property/${foundProperty._id}`);
-      setError('');
+      setError("");
     } else {
-      setError('No property found with this address');
+      setError("No property found with this address");
     }
   };
 
@@ -33,12 +33,12 @@ const SearchBar = ({ properties }) => {
         value={address}
         onChange={(e) => {
           setAddress(e.target.value);
-          setError(''); // Clear error when user starts typing
+          setError(""); // Clear error when user starts typing
         }}
         placeholder="Enter property address"
       />
       <button onClick={handleSearch}>Search</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 };

@@ -32,34 +32,38 @@ const PropertyForm = ({ onSubmit }) => {
     address: "",
     bedrooms: 0,
     bathrooms: 0,
-    tags: [],
+    tags: []
   });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
-  const handleNumberChange = (valueAsString, valueAsNumber, name) => {
+  const handleNumberChange = (
+    valueAsString,
+    valueAsNumber,
+    name
+  ) => {
     setFormData({
       ...formData,
-      [name]: valueAsNumber,
+      [name]: valueAsNumber
     });
   };
 
   const handleTagsChange = (selectedTags) => {
     setFormData({
       ...formData,
-      tags: selectedTags,
+      tags: selectedTags
     });
   };
 
   const handleTagRemove = (tagToRemove) => {
     setFormData({
       ...formData,
-      tags: formData.tags.filter(tag => tag !== tagToRemove),
+      tags: formData.tags.filter((tag) => tag !== tagToRemove)
     });
   };
 
@@ -75,7 +79,7 @@ const PropertyForm = ({ onSubmit }) => {
     { value: "Close to campus", label: "Close to campus" },
     { value: "Pet friendly", label: "Pet friendly" },
     { value: "Studio", label: "Studio" },
-    { value: "Free parking", label: "Free parking" },
+    { value: "Free parking", label: "Free parking" }
   ];
 
   return (
@@ -108,9 +112,14 @@ const PropertyForm = ({ onSubmit }) => {
               min={0}
               name="bedrooms"
               value={formData.bedrooms}
-              onChange={(valueAsString, valueAsNumber) => handleNumberChange(valueAsString, valueAsNumber, "bedrooms")}
-              required
-            >
+              onChange={(valueAsString, valueAsNumber) =>
+                handleNumberChange(
+                  valueAsString,
+                  valueAsNumber,
+                  "bedrooms"
+                )
+              }
+              required>
               <NumberInputField />
             </NumberInput>
           </Box>
@@ -121,9 +130,14 @@ const PropertyForm = ({ onSubmit }) => {
               min={0}
               name="bathrooms"
               value={formData.bathrooms}
-              onChange={(valueAsString, valueAsNumber) => handleNumberChange(valueAsString, valueAsNumber, "bathrooms")}
-              required
-            >
+              onChange={(valueAsString, valueAsNumber) =>
+                handleNumberChange(
+                  valueAsString,
+                  valueAsNumber,
+                  "bathrooms"
+                )
+              }
+              required>
               <NumberInputField />
             </NumberInput>
           </Box>
@@ -140,11 +154,12 @@ const PropertyForm = ({ onSubmit }) => {
                 <PopoverBody>
                   <CheckboxGroup
                     value={formData.tags}
-                    onChange={handleTagsChange}
-                  >
+                    onChange={handleTagsChange}>
                     <Stack spacing={2}>
-                      {tagOptions.map(option => (
-                        <Checkbox key={option.value} value={option.value}>
+                      {tagOptions.map((option) => (
+                        <Checkbox
+                          key={option.value}
+                          value={option.value}>
                           {option.label}
                         </Checkbox>
                       ))}
@@ -152,7 +167,12 @@ const PropertyForm = ({ onSubmit }) => {
                   </CheckboxGroup>
                 </PopoverBody>
                 <PopoverFooter>
-                  <Button onClick={() => setFormData({ ...formData, tags: [] })}>Clear All</Button>
+                  <Button
+                    onClick={() =>
+                      setFormData({ ...formData, tags: [] })
+                    }>
+                    Clear All
+                  </Button>
                 </PopoverFooter>
               </PopoverContent>
             </Popover>
@@ -162,7 +182,9 @@ const PropertyForm = ({ onSubmit }) => {
               <WrapItem key={index}>
                 <Tag>
                   <TagLabel>{tag}</TagLabel>
-                  <TagCloseButton onClick={() => handleTagRemove(tag)} />
+                  <TagCloseButton
+                    onClick={() => handleTagRemove(tag)}
+                  />
                 </Tag>
               </WrapItem>
             ))}
@@ -177,7 +199,7 @@ const PropertyForm = ({ onSubmit }) => {
 };
 
 PropertyForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default PropertyForm;

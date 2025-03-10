@@ -54,8 +54,8 @@ async function addPropertyReview(id, review_id) {
   try {
     const prop = await findPropertyById(id);
     prop.reviews.push(review_id);
-    const updatedProperty = await prop.save(); // Ensure it returns the updated property
-    return updatedProperty; // This should return the updated property
+    const updatedProperty = await prop.save();
+    return updatedProperty;
   } catch (error) {
     console.error("Error adding review:", error);
   }
