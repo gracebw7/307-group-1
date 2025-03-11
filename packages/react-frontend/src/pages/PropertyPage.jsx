@@ -29,10 +29,10 @@ PropertyPage.propTypes = {
 
 export default function PropertyPage({ propertyId }) {
   const params = useParams();
-  propertyId = propertyId || params.propertyId; // Use route param if prop is missing
+  propertyId = propertyId || params.propertyId;
 
   console.log("Final Property ID:", propertyId);
-  const constantPropertyId = useRef(propertyId).current; // Store propertyId as a constant
+  const constantPropertyId = useRef(propertyId).current;
   const [property, setProperty] = useState(null);
 
   const [reviews, setReviews] = useState([]);
@@ -54,10 +54,9 @@ export default function PropertyPage({ propertyId }) {
     );
   }
 
-  // Debugging log
+
   console.log("Constant Property ID:", constantPropertyId);
 
-  // Fetch property details
   useEffect(() => {
     if (!propertyId) return;
     fetch(
@@ -68,9 +67,9 @@ export default function PropertyPage({ propertyId }) {
       .catch((err) =>
         console.error("Error fetching property:", err)
       );
-  }, [propertyId, constantPropertyId]); // Dependency on constantPropertyId (which never changes)
+  }, [propertyId, constantPropertyId]); 
 
-  // Fetch reviews for the property
+  
   useEffect(() => {
     fetchReviews(propertyId)
       .then((res) => res.json())
@@ -85,7 +84,7 @@ export default function PropertyPage({ propertyId }) {
       .catch((error) => {
         console.log(error);
       });
-  }, [constantPropertyId, propertyId]); // Dependency on constantPropertyId
+  }, [constantPropertyId, propertyId]);
 
   function addNewReviewState(new_review) {
     setReviews([...reviews, new_review]);
@@ -99,7 +98,6 @@ export default function PropertyPage({ propertyId }) {
   return (
     <Center>
       <Box maxW="80vw" width="100%">
-        {/* Property Summary Component */}
         <Center>
           <PropertySummary
             name={property.name}

@@ -18,6 +18,7 @@ import {
 import { Link as HLink } from "react-router-dom";
 import homeImage from "../assets/home.jpg";
 import PropertyForm from "../components/PropertyForm";
+import SearchBar from "../components/SearchBar";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -26,8 +27,31 @@ function Home() {
 
   const [submitted, setSubmitted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [properties, setProperties] = useState([]);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/properties");
+        if (!response.ok) {
+          throw new Error("Failed to fetch properties");
+        }
+        const data = await response.json();
+        setProperties(data);
+        console.log("Fetched properties:", data);
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+      }
+    };
+  
+    fetchProperties();
+  }, []);
+  
+  <Box display="flex" alignItems="center" justifyContent="center">
+    <SearchBar properties={properties} />
+  </Box>
 
   const handlePropertySubmit = async (formData) => {
     try {
@@ -44,14 +68,13 @@ function Home() {
 
       if (!response.ok) {
         throw new Error("Failed to submit property.");
-      } else {
       }
 
       const data = await response.json();
       console.log("Response data:", data);
 
       if (data._id) {
-        navigate(`/properties/${data._id}`); // Use the _id from the response
+        navigate(`/properties/${data._id}`);
       } else {
         throw new Error("No _id returned from the server.");
       }
@@ -63,7 +86,7 @@ function Home() {
   };
 
   const handleSearch = () => {
-    navigate(`/properties/search?address=${searchQuery}`); // Navigate to the search results page
+    navigate(`/properties/search?address=${searchQuery}`);
   };
 
   return (
@@ -86,13 +109,7 @@ function Home() {
               Welcome to Cal Poly Prop Hunt
             </Heading>
             <Box display="flex" alignItems="center" justifyContent="center">
-              <Input
-                placeholder="Search properties by address..."
-                size="lg"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
-              />
-              <Button onClick={handleSearch} ml={2}>Search</Button> {/* Add search button */}
+              <SearchBar properties={properties} /> {/* Use SearchBar component */}
             </Box>
             <Box
               display="flex"

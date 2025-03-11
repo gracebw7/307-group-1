@@ -164,8 +164,8 @@ function App() {
 
             <Routes>
               <Route
-                path="/properties/:id/reviews"
-                element={<Reviews />}
+                path="/properties/:propertyId"
+                element={<PropertyPage />}
               />
               <Route path="/" element={<Home />} />
               <Route
