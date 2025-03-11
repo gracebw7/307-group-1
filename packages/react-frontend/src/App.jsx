@@ -33,7 +33,7 @@ import { ReviewsProvider } from "./reviewsContext";
 import PropertyPage from "./pages/PropertyPage";
 import Home from "./pages/Home";
 
-const API_PREFIX = "http://localhost:8000";
+const API_PREFIX = "https://prophunt-acaxc3bufkbpa2ga.westus3-01.azurewebsites.net";
 
 function App() {
   const INVALID_TOKEN = "INVALID_TOKEN";

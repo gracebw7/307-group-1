@@ -254,8 +254,8 @@ app.delete("/properties/_id", (req, res) => {
 });
 */
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(
-    `Example app listening at http://localhost:${port}`
+    "Rest API is listening."
   );
 });
