@@ -1,24 +1,24 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import {
-  ChakraProvider,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  FormControl,
-  FormLabel,
-  FormHelperText,
-  Input,
-  Button,
-  useDisclosure,
+  // ChakraProvider,
+  // Modal,
+  // ModalOverlay,
+  // ModalContent,
+  // ModalHeader,
+  // ModalFooter,
+  // ModalBody,
+  // ModalCloseButton,
+  // FormControl,
+  // FormLabel,
+  // FormHelperText,
+  // Input,
+  // Button,
+  // useDisclosure,
   Center
 } from "@chakra-ui/react";
 import { Box, VStack, Divider, Text } from "@chakra-ui/react";
 import PropertySummary from "../components/PropertySummary";
-import ReviewCard from "../components/ReviewCard";
+//import ReviewCard from "../components/ReviewCard";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import Reviews from "../components/Reviews.jsx";

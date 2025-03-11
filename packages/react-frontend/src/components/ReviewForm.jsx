@@ -20,11 +20,11 @@ import {
   TagCloseButton,
   Wrap,
   WrapItem,
-  VStack
+  //VStack
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
-import ReviewCard from "./ReviewCard";
-import { useParams } from "react-router-dom";
+//import ReviewCard from "./ReviewCard";
+//import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 ReviewForm.propTypes = {
