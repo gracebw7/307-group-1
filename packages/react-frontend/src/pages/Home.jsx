@@ -39,8 +39,8 @@ function Home() {
           throw new Error("Failed to fetch properties");
         }
         const data = await response.json();
-        setProperties(data);
-        console.log("Fetched properties:", data);
+        setProperties(data.properties_list);
+        console.log("Fetched properties:", data.properties_list);
       } catch (error) {
         console.error("Error fetching properties:", error);
       }

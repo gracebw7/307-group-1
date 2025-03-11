@@ -2,54 +2,64 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button, Box, List, ListItem, Text } from "@chakra-ui/react";
 
-const SearchBar = ({ properties }) => {
+const SearchBar = () => {
   const [address, setAddress] = useState('');
   const [error, setError] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const [properties, setProperties] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Properties in SearchBar:", properties);
-  }, [properties]);
+    const fetchProperties = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/properties");
+        if (!response.ok) {
+          throw new Error("Failed to fetch properties");
+        }
+        const data = await response.json();
+        setProperties(data);
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+      }
+    };
 
-  const handleSearch = () => {
+    fetchProperties();
+  }, []);
+
+  const handleSearch = async () => {
     if (!address.trim()) {
-      setError('Please enter an address');
+      setError("Please enter an address");
       return;
     }
-
-    console.log("Searching for address:", address);
-    console.log("Available properties:", properties);
-
-    if (!properties || properties.length === 0) {
-      console.error("No properties available to search");
-      setError('No properties available to search');
-      return;
-    }
-
-    const matchingProperties = properties.filter(
-      prop => prop.address && prop.address.toLowerCase().includes(address.toLowerCase())
-    );
-
-    console.log("Matching properties:", matchingProperties);
-
-    if (matchingProperties.length === 1) {
-      const property = matchingProperties[0];
-      console.log("Navigating to property:", property);
-      navigate(`/properties/${property._id}/reviews`);
-      setError('');
-      setSuggestions([]);
-    } else if (matchingProperties.length > 1) {
-      setSuggestions(matchingProperties);
-      setError('');
-    } else {
-      setError('No properties found with this address');
+  
+    try {
+      const response = await fetch(`http://localhost:8000/properties/search?address=${encodeURIComponent(address)}`);
+      
+      if (!response.ok) {
+        throw new Error("No matching properties found");
+      }
+  
+      const matchingProperties = await response.json();
+  
+      if (matchingProperties.length === 1) {
+        navigate(`/properties/${matchingProperties[0]._id}/reviews`);
+        setError("");
+        setSuggestions([]);
+      } else if (matchingProperties.length > 1) {
+        setSuggestions(matchingProperties);
+        setError("");
+      } else {
+        setError("No properties found with this address");
+        setSuggestions([]);
+      }
+    } catch (error) {
+      console.error("Search error:", error);
+      setError("No properties found");
       setSuggestions([]);
     }
   };
 
   const handleSuggestionClick = (propertyId) => {
-    console.log("Suggestion clicked for property ID:", propertyId);
     navigate(`/properties/${propertyId}/reviews`);
     setSuggestions([]);
     setAddress('');
@@ -57,19 +67,8 @@ const SearchBar = ({ properties }) => {
   };
 
   const handleInputChange = (e) => {
-    const value = e.target.value;
-    setAddress(value);
+    setAddress(e.target.value);
     setError('');
-    
-    // show possible addresses to choose from when user types
-    if (value.length >= 3 && properties && properties.length > 0) {
-      const matches = properties.filter(
-        prop => prop.address && prop.address.toLowerCase().includes(value.toLowerCase())
-      );
-      setSuggestions(matches.slice(0, 5));
-    } else {
-      setSuggestions([]);
-    }
   };
 
   const handleKeyDown = (e) => {
