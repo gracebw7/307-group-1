@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, Heading, Input, Button } from "@chakra-ui/react";
 
 function Login(props) {

@@ -18,7 +18,7 @@ import {
 import { Link as HLink } from "react-router-dom";
 import homeImage from "../assets/home.jpg";
 import PropertyForm from "../components/PropertyForm";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 function addAuthHeader(otherHeaders = {}) {
@@ -57,7 +57,6 @@ function Home() {
 
       if (!response.ok) {
         throw new Error("Failed to submit property.");
-      } else {
       }
 
       const data = await response.json();

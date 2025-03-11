@@ -16,7 +16,7 @@ import {
   // useDisclosure,
   Center
 } from "@chakra-ui/react";
-import { Box, VStack, Divider, Text } from "@chakra-ui/react";
+import { Box, Divider, Text } from "@chakra-ui/react";
 import PropertySummary from "../components/PropertySummary";
 //import ReviewCard from "../components/ReviewCard";
 import PropTypes from "prop-types";
@@ -38,7 +38,7 @@ export default function PropertyPage({ propertyId }) {
   const fetchReviews = useCallback((prop_id) =>{
     //const promise = fetch(`http://localhost:8000/properties/${prop_id}/reviews`);
     const promise = fetch(
-      `https://prophunt-acaxc3bufkbpa2ga.westus3-01.azurewebsites.net/properties/${propertyId}/reviews`
+      `https://prophunt-acaxc3bufkbpa2ga.westus3-01.azurewebsites.net/properties/${prop_id}/reviews`
     );
     return promise;
   }, [propertyId]);
