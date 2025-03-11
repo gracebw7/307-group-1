@@ -102,6 +102,7 @@ function ReviewForm(props) {
         body: JSON.stringify(review)
       }
     );
+    props.onClose();
 
     return promise;
   }
@@ -123,22 +124,7 @@ function ReviewForm(props) {
     //setReviews([...reviews, newReview]);
   };
 
-  function postReview(prop_id, review) {
-    const promise = fetch(
-      `http://localhost:8000/properties/${prop_id}/reviews`,
-      {
-        method: "POST",
-        headers: addAuthHeader({
-          "Content-Type": "application/json"
-        }),
-        body: JSON.stringify(review)
-      }
-    );
-
-    props.onClose();
-
-    return promise;
-  }
+  
 
   return (
     <Box>

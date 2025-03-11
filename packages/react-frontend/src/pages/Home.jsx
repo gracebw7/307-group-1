@@ -57,7 +57,6 @@ function Home() {
 
       if (!response.ok) {
         throw new Error("Failed to submit property.");
-      } else {
       }
 
       const data = await response.json();
