@@ -47,9 +47,9 @@ export default function PropertyPage({ propertyId }) {
   function buildReviewList(id_list) {
     return Promise.all(
       id_list.map((c_id) =>
-        fetch(`https://prophunt-acaxc3bufkbpa2ga.westus3-01.azurewebsites.net/reviews/${c_id}`).then(
-          (res) => res.json()
-        )
+        fetch(
+          `https://prophunt-acaxc3bufkbpa2ga.westus3-01.azurewebsites.net/reviews/${c_id}`
+        ).then((res) => res.json())
       )
     );
   }

@@ -166,27 +166,31 @@ const updatePropertyStats = (propertyId) => {
 //POST new review
 //endpoint requries property id, this id is added to the review
 //the review is additionally added to its property review list
-app.post("/properties/:_id/reviews", authenticateUser, (req, res) => {
-  const _id = req.params["_id"];
+app.post(
+  "/properties/:_id/reviews",
+  authenticateUser,
+  (req, res) => {
+    const _id = req.params["_id"];
 
-  const reviewToAdd = { ...req.body };
-  //reviewToAdd.property = _id;
-  review_service
-    .addReview(reviewToAdd, _id)
-    .then((review) => {
-      property_service
-        .addPropertyReview(_id, review["_id"])
-        .then((review) => {
-          return updatePropertyStats(_id).then(() => review);
-        })
-        .then(
-          res
-            .status(201)
-            .send(JSON.stringify(review.toObject()))
-        );
-    })
-    .catch(console.log((error) => console.error(error)));
-});
+    const reviewToAdd = { ...req.body };
+    //reviewToAdd.property = _id;
+    review_service
+      .addReview(reviewToAdd, _id)
+      .then((review) => {
+        property_service
+          .addPropertyReview(_id, review["_id"])
+          .then((review) => {
+            return updatePropertyStats(_id).then(() => review);
+          })
+          .then(
+            res
+              .status(201)
+              .send(JSON.stringify(review.toObject()))
+          );
+      })
+      .catch(console.log((error) => console.error(error)));
+  }
+);
 
 /* DELETE REQUESTS */
 
@@ -255,7 +259,5 @@ app.delete("/properties/_id", (req, res) => {
 */
 
 app.listen(process.env.PORT || port, () => {
-  console.log(
-    "Rest API is listening."
-  );
+  console.log("Rest API is listening.");
 });
