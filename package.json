@@ -6,8 +6,10 @@
   "scripts": {
     "test": "npm run test -w packages/express-backend",
     "test:coverage": "npm run test:coverage -w packages/express-backend",
-    "build": "npm run build -w packages/react-frontend",
-    "start": "concurrently -n FRONTEND,BACKEND \"npm run -w packages/react-frontend dev\" \"npm run -w packages/express-backend dev\"",
+    "dev": "concurrently -n FRONTEND,BACKEND \"npm run -w packages/react-frontend dev\" \"npm run -w packages/express-backend dev\"",
+    "start": "npm run -w packages/express-backend start",
+    "build": "npm run -w packages/react-frontend build",
+    "postinstall": "npm run build",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "author": "",
