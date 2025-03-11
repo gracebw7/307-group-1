@@ -41,7 +41,7 @@ export default function PropertyPage({ propertyId }) {
       `https://prophunt-acaxc3bufkbpa2ga.westus3-01.azurewebsites.net/properties/${prop_id}/reviews`
     );
     return promise;
-  }, [propertyId]);
+  });
 
   function buildReviewList(id_list) {
     return Promise.all(
