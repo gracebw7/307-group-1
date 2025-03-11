@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   HStack,
@@ -20,11 +20,11 @@ import {
   TagCloseButton,
   Wrap,
   WrapItem,
-  VStack
+  //VStack
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
-import ReviewCard from "./ReviewCard";
-import { useParams } from "react-router-dom";
+//import ReviewCard from "./ReviewCard";
+//import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 ReviewForm.propTypes = {
@@ -93,7 +93,7 @@ function ReviewForm(props) {
 
   function postReview(prop_id, review) {
     const promise = fetch(
-      `http://localhost:8000/properties/${prop_id}/reviews`,
+      `https://prophunt-acaxc3bufkbpa2ga.westus3-01.azurewebsites.net/properties/${prop_id}/reviews`,
       {
         method: "POST",
         headers: addAuthHeader({
