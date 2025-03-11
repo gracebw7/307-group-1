@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import {
   ChakraProvider,
   Modal,
@@ -30,19 +30,18 @@ PropertyPage.propTypes = {
 export default function PropertyPage({ propertyId }) {
   const params = useParams();
   propertyId = propertyId || params.propertyId; // Use route param if prop is missing
-
   console.log("Final Property ID:", propertyId);
   const constantPropertyId = useRef(propertyId).current; // Store propertyId as a constant
   const [property, setProperty] = useState(null);
-
   const [reviews, setReviews] = useState([]);
-  function fetchReviews(prop_id) {
+
+  const fetchReviews = useCallback((prop_id) =>{
     //const promise = fetch(`http://localhost:8000/properties/${prop_id}/reviews`);
     const promise = fetch(
       `http://localhost:8000/properties/${propertyId}/reviews`
     );
     return promise;
-  }
+  }, [propertyId]);
 
   function buildReviewList(id_list) {
     return Promise.all(
@@ -85,7 +84,7 @@ export default function PropertyPage({ propertyId }) {
       .catch((error) => {
         console.log(error);
       });
-  }, [constantPropertyId, propertyId]); // Dependency on constantPropertyId
+  }, [constantPropertyId, propertyId, fetchReviews]); // Dependency on constantPropertyId
 
   function addNewReviewState(new_review) {
     setReviews([...reviews, new_review]);

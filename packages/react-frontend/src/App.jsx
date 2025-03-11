@@ -1,18 +1,5 @@
 import {
   ChakraProvider,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  FormControl,
-  FormLabel,
-  FormHelperText,
-  Input,
-  Button,
-  useDisclosure,
   Box,
   Image
 } from "@chakra-ui/react";
