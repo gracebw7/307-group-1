@@ -4,9 +4,10 @@
   "description": "**Project Idea:**\r For students who are looking for off-campus housing, **PropHunt** is a review site that allows users to post and view reviews about rental properties. Unlike other typical rental review apps, our product is geared towards the unique challenges faced by student-tenants, such as regular turnover, studying abroad, and campus proximity.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"No test specified\"",
     "start": "concurrently -n FRONTEND,BACKEND \"npm run -w packages/react-frontend dev\" \"npm run -w packages/express-backend dev\"",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "lint": "npx eslint . && npx prettier --check ."
   },
   "author": "",
   "license": "ISC",
