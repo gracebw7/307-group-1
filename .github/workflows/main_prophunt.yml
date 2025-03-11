@@ -77,4 +77,5 @@ jobs:
           app-name: 'PropHunt'
           slot-name: ''
           package: ./app
+          clean: true
           

@@ -71,4 +71,5 @@ jobs:
           app-name: 'devProp'
           slot-name: ''
           package: .
+          clean: true
           
