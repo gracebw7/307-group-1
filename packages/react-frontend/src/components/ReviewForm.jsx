@@ -93,7 +93,7 @@ function ReviewForm(props) {
 
   function postReview(prop_id, review) {
     const promise = fetch(
-      `http://localhost:8000/properties/${prop_id}/reviews`,
+      `https://prophunt-acaxc3bufkbpa2ga.westus3-01.azurewebsites.net/properties/${prop_id}/reviews`,
       {
         method: "POST",
         headers: addAuthHeader({
@@ -125,7 +125,7 @@ function ReviewForm(props) {
 
   function postReview(prop_id, review) {
     const promise = fetch(
-      `http://localhost:8000/properties/${prop_id}/reviews`,
+      `https://prophunt-acaxc3bufkbpa2ga.westus3-01.azurewebsites.net/properties/${prop_id}/reviews`,
       {
         method: "POST",
         headers: addAuthHeader({
