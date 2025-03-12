@@ -34,7 +34,7 @@ import PropertyPage from "./pages/PropertyPage";
 import Home from "./pages/Home";
 import PHLogo from "./assets/PHLogo.png";
 
-const API_PREFIX = "prophuntapi.azurewebsites.net";
+const API_PREFIX = "https://prophuntapi.azurewebsites.net";
 
 function App() {
   const INVALID_TOKEN = "INVALID_TOKEN";
