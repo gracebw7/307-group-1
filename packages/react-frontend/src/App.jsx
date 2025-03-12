@@ -33,13 +33,11 @@ import { ReviewsProvider } from "./reviewsContext";
 import PropertyPage from "./pages/PropertyPage";
 import Home from "./pages/Home";
 import PHLogo from "./assets/PHLogo.png";
-import { useNavigate } from "react-router-dom";
 
 const API_PREFIX = "https://prophuntapi.azurewebsites.net";
 
 function App() {
   const INVALID_TOKEN = "INVALID_TOKEN";
-  const navigate = useNavigate();
   const [token, setToken] = useState(
     localStorage.getItem("token") || INVALID_TOKEN
   );
@@ -98,7 +96,6 @@ function App() {
   const logoutUser = () => {
     localStorage.removeItem("token");
     setToken(INVALID_TOKEN);
-    navigate("/");
   };
 
   const linkStyle = {
@@ -165,6 +162,7 @@ function App() {
                 Log in
               </Link>
               <Link
+                to="/"
                 onClick={logoutUser}
                 style={{
                   ...linkStyle,
@@ -172,6 +170,7 @@ function App() {
                 }}>
                 Logout
               </Link>
+
               {/*
               <Link
                 to="/propertypagedemo"
