@@ -32,6 +32,7 @@ import ReviewForm from "./components/ReviewForm";
 import { ReviewsProvider } from "./reviewsContext";
 import PropertyPage from "./pages/PropertyPage";
 import Home from "./pages/Home";
+import PHLogo from "./assets/PHLogo.png";
 
 const API_PREFIX = "http://localhost:8000";
 
@@ -131,11 +132,12 @@ function App() {
               display="flex">
               <Link to="/" style={linkStyle}>
                 <Image
-                  src="../public/PHLogo.png"
+                  src={PHLogo}
                   alt="Home"
                   style={{ height: "3em", width: "auto" }}
                 />
               </Link>
+              {/*
               <Link
                 to="properties/67ac37ff87bbc59ba2e00dbb"
                 style={linkStyle}>

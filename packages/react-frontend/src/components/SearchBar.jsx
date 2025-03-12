@@ -83,7 +83,7 @@ const SearchBar = () => {
   };
 
   return (
-    <Box>
+    <Box display="flex" alignItems="center" spacing={4}>
       <Input
         type="text"
         value={address}
@@ -91,13 +91,14 @@ const SearchBar = () => {
           setAddress(e.target.value);
           setError("");
         }}
-        placeholder="Enter property address"
+        placeholder="Enter Property Address..."
+        _placeholder={{ color: "white" }}
       />
-      <Button onClick={handleSearch} ml={2}>
+      <Button onClick={handleSearch} m={2}>
         Search
       </Button>
       {error && (
-        <Text color="red" mt={2}>
+        <Text color="white" mt={2}>
           {error}
         </Text>
       )}
@@ -129,7 +130,7 @@ const SearchBar = () => {
                 ))}
               </List>
             ) : (
-              <Text>
+              <Text color="white">
                 No properties found matching your search.
               </Text>
             )}

@@ -134,13 +134,6 @@ function Home() {
               alignItems="center"
               justifyContent="center">
               <HStack spacing={4}>
-                <HLink
-                  to="properties/67ac37ff87bbc59ba2e00dbb"
-                  color="teal"
-                  size="lg">
-                  Search
-                </HLink>
-
                 <>
                   <Button
                     spacing={2}
@@ -174,9 +167,30 @@ function Home() {
           <Heading as="h1" size="xl">
             What is Cal Poly Prop Hunt?
           </Heading>
-          <Text fontSize="lg">
-            Will List Site Description Here.
-          </Text>
+          <Box>
+            <Text
+              justifyContent="center"
+              alignItems="center"
+              fontSize="lg"
+              textIndent="2em"
+              w="50vw">
+              Cal Poly Prop Hunt is a website designed to
+              support students looking for housing in San Luis
+              Obispo. Prop Hunt provides an open forum for
+              student to share their opinions about their
+              current housing arrangement and view reviews left
+              by other students to gain insights into housing
+              options in the future. What makes Prop Hunt unique
+              is that we recognize and support the unique
+              challenges faced by student renters; integrating
+              housing attributes like proximity to campus,
+              ability to sublease, roommate assignment, and many
+              more. Get started by searching up a property
+              above! Don’t see your property? Feel free to add
+              it to our site and help grow and support our
+              community of Cal Poly student tenants. Enjoy!
+            </Text>
+          </Box>
         </Stack>
       </Box>
     </Box>
