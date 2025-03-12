@@ -89,6 +89,17 @@ export default function PropertyPage({ propertyId }) {
 
   function addNewReviewState(new_review) {
     setReviews([...reviews, new_review]);
+    //Get new propety
+    if (!propertyId) return;
+    fetch(
+      `http://localhost:8000/properties/${constantPropertyId}`
+    )
+      .then((res) => res.json())
+      .then(setProperty)
+      .catch((err) =>
+        console.error("Error fetching property:", err)
+      );
+    //set
   }
 
   if (!propertyId)
