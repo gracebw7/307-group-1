@@ -84,6 +84,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: "PropHunt"
-          slot-name: ""
           package: ./app
           clean: true
