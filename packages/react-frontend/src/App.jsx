@@ -96,6 +96,7 @@ function App() {
   const logoutUser = () => {
     localStorage.removeItem("token");
     setToken(INVALID_TOKEN);
+    setMessage("Logged out");
     //window.location.href = "/";
   };
 
