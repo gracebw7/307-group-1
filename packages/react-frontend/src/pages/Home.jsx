@@ -48,7 +48,7 @@ function Home() {
     const fetchProperties = async () => {
       try {
         const response = await fetch(
-          "http://prophuntapi.azurewebsites.net/properties"
+          "https://prophuntapi.azurewebsites.net/properties"
         );
         if (!response.ok) {
           throw new Error("Failed to fetch properties");
