@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input, Button, Box, List, ListItem, Text } from "@chakra-ui/react";
+import { 
+  Input, 
+  Button, 
+  Box, 
+  List, 
+  ListItem, 
+  Text,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure
+} from "@chakra-ui/react";
 
 const SearchBar = () => {
   const [address, setAddress] = useState('');
@@ -8,6 +22,7 @@ const SearchBar = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [properties, setProperties] = useState([]);
   const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -45,17 +60,21 @@ const SearchBar = () => {
       console.log("Found properties:", matchingProperties);
   
       if (matchingProperties.length === 1) {
-        // If only one result, navigate directly to that property
         navigate(`/properties/${matchingProperties[0]._id}`);
         setError("");
-      } else {
-        // If multiple results, show them as suggestions
+      } else if (matchingProperties.length > 1) {
         setSuggestions(matchingProperties);
+        onOpen();
       }
     } catch (error) {
       console.error("Search error:", error);
       setError(error.message);
     }
+  };
+
+  const handlePropertySelect = (propertyId) => {
+    navigate(`/properties/${propertyId}`);
+    onClose(); 
   };
 
   return (
@@ -69,23 +88,38 @@ const SearchBar = () => {
         }}
         placeholder="Enter property address"
       />
-      <Button onClick={handleSearch}>Search</Button>
-      {error && <Text color="red">{error}</Text>}
-      {suggestions.length > 0 && (
-  <List mt={2} bg="white" borderRadius="md" boxShadow="sm">
-    {suggestions.map((property) => (
-      <ListItem 
-        key={property._id}
-        onClick={() => navigate(`/properties/${property._id}`)}
-        cursor="pointer"
-        _hover={{ bg: "gray.100" }}
-        p={2}
-      >
-        {property.address}
-      </ListItem>
-    ))}
-  </List>
-)}
+      <Button onClick={handleSearch} ml={2}>Search</Button>
+      {error && <Text color="red" mt={2}>{error}</Text>}
+      
+      {/* Modal for multiple search results */}
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Search Results</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            {suggestions.length > 0 ? (
+              <List spacing={2}>
+                {suggestions.map((property) => (
+                  <ListItem 
+                    key={property._id}
+                    onClick={() => handlePropertySelect(property._id)}
+                    cursor="pointer"
+                    _hover={{ bg: "gray.100" }}
+                    p={3}
+                    borderRadius="md"
+                  >
+                    <Text fontWeight="bold">{property.name}</Text>
+                    <Text>{property.address}</Text>
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <Text>No properties found matching your search.</Text>
+            )}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
