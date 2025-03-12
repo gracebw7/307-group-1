@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   HStack,
@@ -20,11 +20,14 @@ import {
   TagCloseButton,
   Wrap,
   WrapItem,
-  VStack
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
-import ReviewCard from "./ReviewCard";
-import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 ReviewForm.propTypes = {
@@ -33,20 +36,43 @@ ReviewForm.propTypes = {
   setNewReview: PropTypes.func.isRequired
 };
 
+function addAuthHeader(otherHeaders = {}) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return otherHeaders;
+  }
+
+  return {
+    ...otherHeaders,
+    Authorization: `Bearer ${token}`
+  };
+}
+
 function ReviewForm(props) {
   const prop_id = props.prop_id;
-
-  //const { id } = useParams();
-  console.log(prop_id);
 
   const [rating, setRating] = useState(0);
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
   const [tags, setTags] = useState([]);
-  //const [reviews, setReviews] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check token on component mount
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token); // Set to true if token exists
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!isAuthenticated) {
+      setIsOpen(true);
+      return;
+    }
+
     const newReview = {
       author,
       rating,
@@ -60,17 +86,17 @@ function ReviewForm(props) {
     console.log(`The review is ${JSON.stringify(newReview)}`);
     postReview(prop_id, newReview)
       .then((res) => {
-        if (res.status != 201)
+        if (res.status !== 201)
           throw new Error("Content Not Created");
         return res.json();
       })
       .then((review) => {
-        //props.setReviews([...reviews, review]);
         props.setNewReview(review);
       })
       .catch((error) => {
         console.log(error);
       });
+
     // Clear the form fields after submission
     setRating(0);
     setBody("");
@@ -78,18 +104,23 @@ function ReviewForm(props) {
     setTags([]);
   };
 
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
   function postReview(prop_id, review) {
     const promise = fetch(
       `http://localhost:8000/properties/${prop_id}/reviews`,
       {
         method: "POST",
-        headers: {
+        headers: addAuthHeader({
           "Content-Type": "application/json"
-        },
+        }),
         body: JSON.stringify(review)
       }
     );
 
+    props.onClose();
     return promise;
   }
 
@@ -105,27 +136,7 @@ function ReviewForm(props) {
 
   const handleTagRemove = (tagToRemove) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
-    //props.onClose();
-
-    //setReviews([...reviews, newReview]);
   };
-
-  function postReview(prop_id, review) {
-    const promise = fetch(
-      `http://localhost:8000/properties/${prop_id}/reviews`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(review)
-      }
-    );
-
-    props.onClose();
-
-    return promise;
-  }
 
   return (
     <Box>
@@ -201,21 +212,25 @@ function ReviewForm(props) {
             </WrapItem>
           ))}
         </Wrap>
-        <Button type="submit" mt={2} mb={2}>
+        <Button colorScheme="blue" type="submit" mt={2} mb={2}>
           Submit Review
         </Button>
       </form>
-      {/*
-      {reviews.map((review, index) => (
-        <ReviewCard
-          key={index}
-          author={review.author}
-          rating={review.rating}
-          review={review.body}
-          tags={review.tags}
-        />
-      ))}
-      */}
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Login Required</ModalHeader>
+          <ModalBody>
+            You must log in to post a review.
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 }

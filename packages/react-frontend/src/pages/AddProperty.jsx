@@ -2,6 +2,19 @@ import { useState } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 import PropertyForm from "../components/PropertyForm";
 
+function addAuthHeader(otherHeaders = {}) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return otherHeaders;
+  }
+
+  return {
+    ...otherHeaders,
+    Authorization: `Bearer ${token}`
+  };
+}
+
 const AddProperty = () => {
   const [submitted, setSubmitted] = useState(false);
 
@@ -11,9 +24,9 @@ const AddProperty = () => {
         "http://localhost:8000/properties",
         {
           method: "POST",
-          headers: {
+          headers: addAuthHeader({
             "Content-Type": "application/json"
-          },
+          }),
           body: JSON.stringify(formData)
         }
       );
