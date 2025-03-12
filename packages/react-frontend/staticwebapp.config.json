@@ -1,0 +1,50 @@
+{
+    "routes": [
+      {
+        "route": "/",
+        "serve": "/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/properties/:id/reviews",
+        "serve": "/properties/:id/reviews/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/add-property",
+        "serve": "/add-property/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/properties/:propertyId",
+        "serve": "/properties/:propertyId/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/propertypagedemo",
+        "serve": "/propertypagedemo/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/create-review/:id",
+        "serve": "/create-review/:id/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/login",
+        "serve": "/login/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/signup",
+        "serve": "/signup/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/logout",
+        "serve": "/logout/index.html",
+        "statusCode": 200
+      }
+    ]
+  }
+  
