@@ -21,7 +21,7 @@ const AddProperty = () => {
   const handleSubmit = async (formData) => {
     try {
       const response = await fetch(
-        "prophuntapi.azurewebsites.net/properties",
+        "https://prophuntapi.azurewebsites.net/properties",
         {
           method: "POST",
           headers: addAuthHeader({

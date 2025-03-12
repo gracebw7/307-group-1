@@ -110,7 +110,7 @@ function ReviewForm(props) {
 
   function postReview(prop_id, review) {
     const promise = fetch(
-      `prophuntapi.azurewebsites.net/properties/${prop_id}/reviews`,
+      `https://prophuntapi.azurewebsites.net/properties/${prop_id}/reviews`,
       {
         method: "POST",
         headers: addAuthHeader({
