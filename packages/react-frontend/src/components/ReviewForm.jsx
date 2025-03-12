@@ -51,7 +51,7 @@ function addAuthHeader(otherHeaders = {}) {
 
 function ReviewForm(props) {
   const prop_id = props.prop_id;
-  
+
   const [rating, setRating] = useState(0);
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
@@ -67,7 +67,7 @@ function ReviewForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!isAuthenticated) {
       setIsOpen(true);
       return;
@@ -96,7 +96,7 @@ function ReviewForm(props) {
       .catch((error) => {
         console.log(error);
       });
-    
+
     // Clear the form fields after submission
     setRating(0);
     setBody("");
@@ -212,7 +212,7 @@ function ReviewForm(props) {
             </WrapItem>
           ))}
         </Wrap>
-        <Button type="submit" mt={2} mb={2}>
+        <Button colorScheme="blue" type="submit" mt={2} mb={2}>
           Submit Review
         </Button>
       </form>
@@ -221,7 +221,9 @@ function ReviewForm(props) {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Login Required</ModalHeader>
-          <ModalBody>You must log in to post a review.</ModalBody>
+          <ModalBody>
+            You must log in to post a review.
+          </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" onClick={onClose}>
               Close

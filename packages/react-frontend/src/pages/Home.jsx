@@ -18,6 +18,7 @@ import {
 import { Link as HLink } from "react-router-dom";
 import homeImage from "../assets/home.jpg";
 import PropertyForm from "../components/PropertyForm";
+import SearchBar from "../components/SearchBar";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -39,8 +40,32 @@ function Home() {
 
   const [submitted, setSubmitted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [properties, setProperties] = useState([]);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8000/properties"
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch properties");
+        }
+        const data = await response.json();
+        setProperties(data.properties_list);
+        console.log(
+          "Fetched properties:",
+          data.properties_list
+        );
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+      }
+    };
+
+    fetchProperties();
+  }, []);
 
   const handlePropertySubmit = async (formData) => {
     try {
@@ -57,14 +82,13 @@ function Home() {
 
       if (!response.ok) {
         throw new Error("Failed to submit property.");
-      } else {
       }
 
       const data = await response.json();
       console.log("Response data:", data);
 
       if (data._id) {
-        navigate(`/properties/${data._id}`); // Use the _id from the response
+        navigate(`/properties/${data._id}`);
       } else {
         throw new Error("No _id returned from the server.");
       }
@@ -76,7 +100,7 @@ function Home() {
   };
 
   const handleSearch = () => {
-    navigate(`/properties/search?address=${searchQuery}`); // Navigate to the search results page
+    navigate(`/properties/search?address=${searchQuery}`);
   };
 
   return (
@@ -102,29 +126,14 @@ function Home() {
               display="flex"
               alignItems="center"
               justifyContent="center">
-              <Input
-                placeholder="Search properties by address..."
-                size="lg"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
-              />
-              <Button onClick={handleSearch} ml={2}>
-                Search
-              </Button>{" "}
-              {/* Add search button */}
+              <SearchBar properties={properties} />{" "}
+              {/* Use SearchBar component */}
             </Box>
             <Box
               display="flex"
               alignItems="center"
               justifyContent="center">
               <HStack spacing={4}>
-                <HLink
-                  to="properties/67ac37ff87bbc59ba2e00dbb"
-                  color="teal"
-                  size="lg">
-                  Search
-                </HLink>
-
                 <>
                   <Button
                     spacing={2}
@@ -158,9 +167,30 @@ function Home() {
           <Heading as="h1" size="xl">
             What is Cal Poly Prop Hunt?
           </Heading>
-          <Text fontSize="lg">
-            Will List Site Description Here.
-          </Text>
+          <Box>
+            <Text
+              justifyContent="center"
+              alignItems="center"
+              fontSize="lg"
+              textIndent="2em"
+              w="50vw">
+              Cal Poly Prop Hunt is a website designed to
+              support students looking for housing in San Luis
+              Obispo. Prop Hunt provides an open forum for
+              student to share their opinions about their
+              current housing arrangement and view reviews left
+              by other students to gain insights into housing
+              options in the future. What makes Prop Hunt unique
+              is that we recognize and support the unique
+              challenges faced by student renters; integrating
+              housing attributes like proximity to campus,
+              ability to sublease, roommate assignment, and many
+              more. Get started by searching up a property
+              above! Don’t see your property? Feel free to add
+              it to our site and help grow and support our
+              community of Cal Poly student tenants. Enjoy!
+            </Text>
+          </Box>
         </Stack>
       </Box>
     </Box>
