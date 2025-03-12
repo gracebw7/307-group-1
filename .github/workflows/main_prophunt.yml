@@ -24,8 +24,18 @@ jobs:
           node-version: "20.x"
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --workspace packages/express-backend
         working-directory: packages/express-backend
+
+      - name: Install dependencies for React frontend
+        run: npm install --workspace packages/react-frontend
+        working-directory: packages/react-frontend
+      
+      - name: Build React frontend
+        run: npm run build
+        working-directory: packages/react-frontend
+      
+        
 
       - name: Build and test
         run: |
