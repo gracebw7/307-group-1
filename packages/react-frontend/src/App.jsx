@@ -96,7 +96,7 @@ function App() {
   const logoutUser = () => {
     localStorage.removeItem("token");
     setToken(INVALID_TOKEN);
-    window.location.href = "/login";
+    window.location.href = "/";
   };
 
   const linkStyle = {
