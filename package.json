@@ -15,7 +15,9 @@
   "author": "",
   "license": "ISC",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/express-backend",
+    "packages/react-frontend"
   ],
   "devDependencies": {
     "concurrently": "^9.1.2",
