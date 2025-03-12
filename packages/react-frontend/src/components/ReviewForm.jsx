@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   HStack,
@@ -19,12 +19,15 @@ import {
   TagLabel,
   TagCloseButton,
   Wrap,
-  WrapItem
-  //VStack
+  WrapItem,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
-//import ReviewCard from "./ReviewCard";
-//import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 ReviewForm.propTypes = {
@@ -49,17 +52,27 @@ function addAuthHeader(otherHeaders = {}) {
 function ReviewForm(props) {
   const prop_id = props.prop_id;
 
-  //const { id } = useParams();
-  console.log(prop_id);
-
   const [rating, setRating] = useState(0);
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
   const [tags, setTags] = useState([]);
-  //const [reviews, setReviews] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check token on component mount
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token); // Set to true if token exists
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!isAuthenticated) {
+      setIsOpen(true);
+      return;
+    }
+
     const newReview = {
       author,
       rating,
@@ -73,22 +86,26 @@ function ReviewForm(props) {
     console.log(`The review is ${JSON.stringify(newReview)}`);
     postReview(prop_id, newReview)
       .then((res) => {
-        if (res.status != 201)
+        if (res.status !== 201)
           throw new Error("Content Not Created");
         return res.json();
       })
       .then((review) => {
-        //props.setReviews([...reviews, review]);
         props.setNewReview(review);
       })
       .catch((error) => {
         console.log(error);
       });
+
     // Clear the form fields after submission
     setRating(0);
     setBody("");
     setAuthor("");
     setTags([]);
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
   };
 
   function postReview(prop_id, review) {
@@ -104,6 +121,7 @@ function ReviewForm(props) {
     );
     props.onClose();
 
+    props.onClose();
     return promise;
   }
 
@@ -119,9 +137,6 @@ function ReviewForm(props) {
 
   const handleTagRemove = (tagToRemove) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
-    //props.onClose();
-
-    //setReviews([...reviews, newReview]);
   };
 
   return (
@@ -198,21 +213,25 @@ function ReviewForm(props) {
             </WrapItem>
           ))}
         </Wrap>
-        <Button type="submit" mt={2} mb={2}>
+        <Button colorScheme="blue" type="submit" mt={2} mb={2}>
           Submit Review
         </Button>
       </form>
-      {/*
-      {reviews.map((review, index) => (
-        <ReviewCard
-          key={index}
-          author={review.author}
-          rating={review.rating}
-          review={review.body}
-          tags={review.tags}
-        />
-      ))}
-      */}
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Login Required</ModalHeader>
+          <ModalBody>
+            You must log in to post a review.
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 }
