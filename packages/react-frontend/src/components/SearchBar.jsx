@@ -65,7 +65,9 @@ const SearchBar = () => {
       console.log("Found properties:", matchingProperties);
 
       if (matchingProperties.length === 1) {
-        navigate(`/properties/${matchingProperties[0]._id}`);
+        navigate(
+          `https://prophuntapi.azurewebsites.net/properties/${matchingProperties[0]._id}`
+        );
         setError("");
       } else if (matchingProperties.length > 1) {
         setSuggestions(matchingProperties);
@@ -78,7 +80,9 @@ const SearchBar = () => {
   };
 
   const handlePropertySelect = (propertyId) => {
-    navigate(`/properties/${propertyId}`);
+    navigate(
+      `https://prophuntapi.azurewebsites.net/properties/${propertyId}`
+    );
     onClose();
   };
 
