@@ -54,7 +54,6 @@ export default function PropertyPage({ propertyId }) {
     );
   }
 
-
   console.log("Constant Property ID:", constantPropertyId);
 
   useEffect(() => {
@@ -67,9 +66,8 @@ export default function PropertyPage({ propertyId }) {
       .catch((err) =>
         console.error("Error fetching property:", err)
       );
-  }, [propertyId, constantPropertyId]); 
+  }, [propertyId, constantPropertyId]);
 
-  
   useEffect(() => {
     fetchReviews(propertyId)
       .then((res) => res.json())
@@ -97,7 +95,8 @@ export default function PropertyPage({ propertyId }) {
 
   return (
     <Center>
-      <Box maxW="80vw" width="100%">
+      <Box w="80vh" maxW="800px" mx="auto">
+        {/* Property Summary Component */}
         <Center>
           <PropertySummary
             name={property.name}
@@ -112,7 +111,7 @@ export default function PropertyPage({ propertyId }) {
         <Divider my={6} />
 
         <Center>
-          <Box maxWidth="80vw">
+          <Box maxWidth="80vw" mx="auto" w="80%">
             <Reviews reviews={reviews} />
           </Box>
         </Center>

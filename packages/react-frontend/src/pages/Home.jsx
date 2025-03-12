@@ -22,6 +22,19 @@ import SearchBar from "../components/SearchBar";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+function addAuthHeader(otherHeaders = {}) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return otherHeaders;
+  }
+
+  return {
+    ...otherHeaders,
+    Authorization: `Bearer ${token}`
+  };
+}
+
 function Home() {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
@@ -34,22 +47,25 @@ function Home() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await fetch("http://localhost:8000/properties");
+        const response = await fetch(
+          "http://localhost:8000/properties"
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch properties");
         }
         const data = await response.json();
         setProperties(data.properties_list);
-        console.log("Fetched properties:", data.properties_list);
+        console.log(
+          "Fetched properties:",
+          data.properties_list
+        );
       } catch (error) {
         console.error("Error fetching properties:", error);
       }
     };
-  
+
     fetchProperties();
   }, []);
-  
-  
 
   const handlePropertySubmit = async (formData) => {
     try {
@@ -57,9 +73,9 @@ function Home() {
         "http://localhost:8000/properties",
         {
           method: "POST",
-          headers: {
+          headers: addAuthHeader({
             "Content-Type": "application/json"
-          },
+          }),
           body: JSON.stringify(formData)
         }
       );
@@ -106,8 +122,12 @@ function Home() {
             <Heading as="h1" size="xl">
               Welcome to Cal Poly Prop Hunt
             </Heading>
-            <Box display="flex" alignItems="center" justifyContent="center">
-              <SearchBar properties={properties} /> {/* Use SearchBar component */}
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center">
+              <SearchBar properties={properties} />{" "}
+              {/* Use SearchBar component */}
             </Box>
             <Box
               display="flex"
@@ -119,9 +139,6 @@ function Home() {
                   color="teal"
                   size="lg">
                   Search
-                </HLink>
-                <HLink to="/add-property" size="lg">
-                  Add Property
                 </HLink>
 
                 <>

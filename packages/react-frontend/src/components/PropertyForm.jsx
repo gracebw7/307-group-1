@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -22,7 +22,13 @@ import {
   PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  TagCloseButton
+  TagCloseButton,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
@@ -32,41 +38,57 @@ const PropertyForm = ({ onSubmit }) => {
     address: "",
     bedrooms: 0,
     bathrooms: 0,
-    tags: [],
+    tags: []
   });
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check token on component mount
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token); // Set to true if token exists
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
   const handleNumberChange = (valueAsString, valueAsNumber, name) => {
     setFormData({
       ...formData,
-      [name]: valueAsNumber,
+      [name]: valueAsNumber
     });
   };
 
   const handleTagsChange = (selectedTags) => {
     setFormData({
       ...formData,
-      tags: selectedTags,
+      tags: selectedTags
     });
   };
 
   const handleTagRemove = (tagToRemove) => {
     setFormData({
       ...formData,
-      tags: formData.tags.filter(tag => tag !== tagToRemove),
+      tags: formData.tags.filter((tag) => tag !== tagToRemove)
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!isAuthenticated) {
+      setIsOpen(true);
+      return;
+    }
     console.log(formData);
     onSubmit(formData);
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
   };
 
   const tagOptions = [
@@ -75,7 +97,7 @@ const PropertyForm = ({ onSubmit }) => {
     { value: "Close to campus", label: "Close to campus" },
     { value: "Pet friendly", label: "Pet friendly" },
     { value: "Studio", label: "Studio" },
-    { value: "Free parking", label: "Free parking" },
+    { value: "Free parking", label: "Free parking" }
   ];
 
   return (
@@ -108,20 +130,23 @@ const PropertyForm = ({ onSubmit }) => {
               min={0}
               name="bedrooms"
               value={formData.bedrooms}
-              onChange={(valueAsString, valueAsNumber) => handleNumberChange(valueAsString, valueAsNumber, "bedrooms")}
+              onChange={(valueAsString, valueAsNumber) =>
+                handleNumberChange(valueAsString, valueAsNumber, "bedrooms")
+              }
               required
             >
               <NumberInputField />
             </NumberInput>
           </Box>
-
           <Box>
             <FormLabel>Bathrooms</FormLabel>
             <NumberInput
               min={0}
               name="bathrooms"
               value={formData.bathrooms}
-              onChange={(valueAsString, valueAsNumber) => handleNumberChange(valueAsString, valueAsNumber, "bathrooms")}
+              onChange={(valueAsString, valueAsNumber) =>
+                handleNumberChange(valueAsString, valueAsNumber, "bathrooms")
+              }
               required
             >
               <NumberInputField />
@@ -143,7 +168,7 @@ const PropertyForm = ({ onSubmit }) => {
                     onChange={handleTagsChange}
                   >
                     <Stack spacing={2}>
-                      {tagOptions.map(option => (
+                      {tagOptions.map((option) => (
                         <Checkbox key={option.value} value={option.value}>
                           {option.label}
                         </Checkbox>
@@ -152,7 +177,11 @@ const PropertyForm = ({ onSubmit }) => {
                   </CheckboxGroup>
                 </PopoverBody>
                 <PopoverFooter>
-                  <Button onClick={() => setFormData({ ...formData, tags: [] })}>Clear All</Button>
+                  <Button
+                    onClick={() => setFormData({ ...formData, tags: [] })}
+                  >
+                    Clear All
+                  </Button>
                 </PopoverFooter>
               </PopoverContent>
             </Popover>
@@ -172,12 +201,25 @@ const PropertyForm = ({ onSubmit }) => {
           </Button>
         </VStack>
       </form>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Login Required</ModalHeader>
+          <ModalBody>You must log in to post a review.</ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
 
 PropertyForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default PropertyForm;
