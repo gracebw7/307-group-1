@@ -31,30 +31,31 @@ const SearchBar = () => {
       setError("Please enter an address");
       return;
     }
-  
+    
     try {
-      const response = await fetch(`http://localhost:8000/properties/search?address=${encodeURIComponent(address)}`);
+      console.log("Searching for:", address);
+      const response = await fetch(`http://localhost:8000/search?address=${encodeURIComponent(address)}`);
       
       if (!response.ok) {
-        throw new Error("No matching properties found");
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Search failed");
       }
   
       const matchingProperties = await response.json();
+      console.log("Found properties:", matchingProperties);
   
       if (matchingProperties.length === 1) {
+        // If only one result, navigate directly to that property
         navigate(`/properties/${matchingProperties[0]._id}`);
         setError("");
       } else {
+        // If multiple results, show them as suggestions
         setSuggestions(matchingProperties);
       }
     } catch (error) {
+      console.error("Search error:", error);
       setError(error.message);
     }
-  };
-
-  const handleSuggestionClick = (propertyId) => {
-    navigate(`/properties/${propertyId}`);
-    setSuggestions([]); 
   };
 
   return (
@@ -71,28 +72,20 @@ const SearchBar = () => {
       <Button onClick={handleSearch}>Search</Button>
       {error && <Text color="red">{error}</Text>}
       {suggestions.length > 0 && (
-        <List 
-          mt={2} 
-          bg="white" 
-          borderRadius="md" 
-          boxShadow="sm" 
-          position="absolute" 
-          zIndex="1"
-          width="100%"
-        >
-          {suggestions.map((property) => (
-            <ListItem 
-              key={property._id}
-              onClick={() => handleSuggestionClick(property._id)}
-              cursor="pointer"
-              _hover={{ bg: "gray.100" }}
-              p={2}
-            >
-              {property.address}
-            </ListItem>
-          ))}
-        </List>
-      )}
+  <List mt={2} bg="white" borderRadius="md" boxShadow="sm">
+    {suggestions.map((property) => (
+      <ListItem 
+        key={property._id}
+        onClick={() => navigate(`/properties/${property._id}`)}
+        cursor="pointer"
+        _hover={{ bg: "gray.100" }}
+        p={2}
+      >
+        {property.address}
+      </ListItem>
+    ))}
+  </List>
+)}
     </Box>
   );
 };
