@@ -37,7 +37,6 @@ export default function PropertyPage({ propertyId }) {
 
   const [reviews, setReviews] = useState([]);
   function fetchReviews(prop_id) {
-    //const promise = fetch(`http://localhost:8000/properties/${prop_id}/reviews`);
     const promise = fetch(
       `prophuntapi.azurewebsites.net/properties/${propertyId}/reviews`
     );

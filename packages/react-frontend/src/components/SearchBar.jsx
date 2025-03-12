@@ -28,7 +28,7 @@ const SearchBar = () => {
     const fetchProperties = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/properties"
+          "http://prophuntapi.azurewebsites.net/properties"
         );
         if (!response.ok) {
           throw new Error("Failed to fetch properties");
@@ -53,7 +53,7 @@ const SearchBar = () => {
     try {
       console.log("Searching for:", address);
       const response = await fetch(
-        `http://localhost:8000/search?address=${encodeURIComponent(address)}`
+        `http://prophuntapi.azurewebsites.net/search?address=${encodeURIComponent(address)}`
       );
 
       if (!response.ok) {
