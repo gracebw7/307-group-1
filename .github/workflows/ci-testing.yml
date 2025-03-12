@@ -17,6 +17,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "22.x"
+          
       - run: npm ci
       - run: npm run -w express-backend lint
       - run: npm run -w react-frontend lint
