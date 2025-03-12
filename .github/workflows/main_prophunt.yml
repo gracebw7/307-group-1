@@ -75,6 +75,9 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: "PropHunt"
-          package: packages/express-backend
-          clean: true # Optional, remove if files should persist between deployments
+          app-name: 'PropHunt'
+          slot-name: ''
+          package: ./app
+          clean: true
+      - name: 'Set startup command'
+          run: az webapp config set --resource-group YOUR_RESOURCE_GROUP --name PropHunt --startup-file "npm start"
