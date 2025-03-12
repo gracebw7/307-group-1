@@ -259,5 +259,5 @@ app.delete("/properties/_id", (req, res) => {
 */
 
 app.listen(process.env.PORT || port, () => {
-  console.log("Rest API is listening.");
+  console.log("REST API is listening.");
 });
