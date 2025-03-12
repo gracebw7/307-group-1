@@ -17,7 +17,7 @@ const { MONGO_CONNECTION_STRING } = process.env;
 
 mongoose.set("debug", true);
 mongoose
-  .connect(MONGO_CONNECTION_STRING + "users") // connect to Db "users"
+  .connect(MONGO_CONNECTION_STRING + "users")
   .catch((error) => console.log(error));
 
 const app = express();

@@ -42,7 +42,6 @@ const SearchBar = () => {
       const matchingProperties = await response.json();
   
       if (matchingProperties.length === 1) {
-        // Navigate to the property page, not the reviews page
         navigate(`/properties/${matchingProperties[0]._id}`);
         setError("");
       } else {
@@ -53,10 +52,9 @@ const SearchBar = () => {
     }
   };
 
-  // Add this function to handle clicking on a suggestion
   const handleSuggestionClick = (propertyId) => {
     navigate(`/properties/${propertyId}`);
-    setSuggestions([]); // Clear suggestions after clicking
+    setSuggestions([]); 
   };
 
   return (
