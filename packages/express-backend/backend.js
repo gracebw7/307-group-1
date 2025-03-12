@@ -22,7 +22,7 @@ mongoose
   .catch((error) => console.log(error));
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = 8000;
 
 app.use(cors());
 app.use(express.json());
@@ -259,5 +259,5 @@ app.delete("/properties/_id", (req, res) => {
 */
 
 app.listen(process.env.PORT || port, () => {
-  console.log("REST API is listening.");
+  console.log("Rest API is listening.");
 });
