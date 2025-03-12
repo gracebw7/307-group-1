@@ -5,14 +5,13 @@ name: CI Testing
 
 on:
   push:
-    branches: [ "main", "CI_CD" ]
-    
+    branches: ["main", "CI_CD"]
+
   pull_request:
-    branches: [ "main" , "CI_CD" ]
+    branches: ["main", "CI_CD"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -21,12 +20,14 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run -w express-backend test
-    - run: npm run -w react-frontend build
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm ci
+      - run: npm run -w express-backend test
+      - run: npm run -w express-backend lint
+      - run: npm run -w react-frontend lint
+      - run: npm run -w react-frontend build
