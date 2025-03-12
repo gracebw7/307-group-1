@@ -5,9 +5,10 @@ name: CI Testing
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "CI_CD" ]
+    
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main" , "CI_CD" ]
 
 jobs:
   build:
