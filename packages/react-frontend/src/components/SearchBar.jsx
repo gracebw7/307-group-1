@@ -17,7 +17,7 @@ const SearchBar = () => {
           throw new Error("Failed to fetch properties");
         }
         const data = await response.json();
-        setProperties(data);
+        setProperties(data.properties_list || []);
       } catch (error) {
         console.error("Error fetching properties:", error);
       }
@@ -42,82 +42,53 @@ const SearchBar = () => {
       const matchingProperties = await response.json();
   
       if (matchingProperties.length === 1) {
-        navigate(`/properties/${matchingProperties[0]._id}/reviews`);
-        setError("");
-        setSuggestions([]);
-      } else if (matchingProperties.length > 1) {
-        setSuggestions(matchingProperties);
+        // Navigate to the property page, not the reviews page
+        navigate(`/properties/${matchingProperties[0]._id}`);
         setError("");
       } else {
-        setError("No properties found with this address");
-        setSuggestions([]);
+        setSuggestions(matchingProperties);
       }
     } catch (error) {
-      console.error("Search error:", error);
-      setError("No properties found");
-      setSuggestions([]);
+      setError(error.message);
     }
   };
 
+  // Add this function to handle clicking on a suggestion
   const handleSuggestionClick = (propertyId) => {
-    navigate(`/properties/${propertyId}/reviews`);
-    setSuggestions([]);
-    setAddress('');
-    setError('');
-  };
-
-  const handleInputChange = (e) => {
-    setAddress(e.target.value);
-    setError('');
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
+    navigate(`/properties/${propertyId}`);
+    setSuggestions([]); // Clear suggestions after clicking
   };
 
   return (
-    <Box display="flex" flexDirection="column" width="100%" position="relative">
-      <Box display="flex" alignItems="center" width="100%">
-        <Input
-          type="text"
-          value={address}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          placeholder="Enter property address"
-          size="lg"
-          variant="filled"
-          bg="rgba(255, 255, 255, 0.8)"
-          _placeholder={{ color: 'gray.500' }}
-          mr={2}
-        />
-        <Button onClick={handleSearch} colorScheme="teal" size="lg">Search</Button>
-      </Box>
-      
-      {error && <Text color="red.500" mt={2}>{error}</Text>}
-      
+    <Box>
+      <Input
+        type="text"
+        value={address}
+        onChange={(e) => {
+          setAddress(e.target.value);
+          setError('');
+        }}
+        placeholder="Enter property address"
+      />
+      <Button onClick={handleSearch}>Search</Button>
+      {error && <Text color="red">{error}</Text>}
       {suggestions.length > 0 && (
         <List 
-          position="absolute" 
-          top="100%" 
-          left="0" 
-          right="0" 
-          zIndex="10" 
+          mt={2} 
           bg="white" 
-          boxShadow="md" 
-          borderRadius="md"
-          mt={1}
-          maxH="200px"
-          overflowY="auto"
+          borderRadius="md" 
+          boxShadow="sm" 
+          position="absolute" 
+          zIndex="1"
+          width="100%"
         >
           {suggestions.map((property) => (
             <ListItem 
-              key={property._id} 
-              p={3} 
-              _hover={{ bg: "gray.100" }}
-              cursor="pointer"
+              key={property._id}
               onClick={() => handleSuggestionClick(property._id)}
+              cursor="pointer"
+              _hover={{ bg: "gray.100" }}
+              p={2}
             >
               {property.address}
             </ListItem>

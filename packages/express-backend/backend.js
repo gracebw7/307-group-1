@@ -1,4 +1,3 @@
-// backend.js
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -74,6 +73,30 @@ app.get("/properties/:_id", async (req, res) => {
     .catch(console.log((error) => console.error(error)));
 });
 
+// search bar
+app.get("/properties/search", async (req, res) => {
+  const { address } = req.query;
+
+  if (!address) {
+    return res.status(400).json({ error: "Address is required" });
+  }
+
+  try {
+    const matchingProperties = await Property.find({
+      address: { $regex: new RegExp(address, "i") },
+    });
+
+    if (matchingProperties.length === 0) {
+      return res.status(404).json({ error: "No properties found" });
+    }
+
+    res.json(matchingProperties);
+  } catch (error) {
+    console.error("Error searching properties:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 //GET review by id
 app.get("/reviews/:_id", (req, res) => {
   const _id = req.params["_id"]; //or req.params.id
@@ -124,29 +147,7 @@ app.get("/reviews", (req, res) => {
     .catch(console.log((error) => console.error(error)));
 });
 
-// search bar
-app.get("/properties/search", async (req, res) => {
-  const { address } = req.query;
 
-  if (!address) {
-    return res.status(400).json({ error: "Address is required" });
-  }
-
-  try {
-    const matchingProperties = await Property.find({
-      address: { $regex: new RegExp(address, "i") },
-    });
-
-    if (matchingProperties.length === 0) {
-      return res.status(404).json({ error: "No properties found" });
-    }
-
-    res.json(matchingProperties);
-  } catch (error) {
-    console.error("Error searching properties:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
 
 /* POST REQUESTS */
 

@@ -49,9 +49,7 @@ function Home() {
     fetchProperties();
   }, []);
   
-  <Box display="flex" alignItems="center" justifyContent="center">
-    <SearchBar properties={properties} />
-  </Box>
+  
 
   const handlePropertySubmit = async (formData) => {
     try {
