@@ -19,7 +19,7 @@ import {
   TagLabel,
   TagCloseButton,
   Wrap,
-  WrapItem,
+  WrapItem
   //VStack
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
@@ -123,8 +123,6 @@ function ReviewForm(props) {
 
     //setReviews([...reviews, newReview]);
   };
-
-  
 
   return (
     <Box>
