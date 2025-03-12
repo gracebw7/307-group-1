@@ -39,7 +39,7 @@ export default function PropertyPage({ propertyId }) {
   function fetchReviews(prop_id) {
     //const promise = fetch(`http://localhost:8000/properties/${prop_id}/reviews`);
     const promise = fetch(
-      `https://prophunt-acaxc3bufkbpa2ga.westus3-01.azurewebsites.net/properties/${propertyId}/reviews`
+      `prophuntapi.azurewebsites.net/properties/${propertyId}/reviews`
     );
     return promise;
   }
@@ -48,7 +48,7 @@ export default function PropertyPage({ propertyId }) {
     return Promise.all(
       id_list.map((c_id) =>
         fetch(
-          `https://prophunt-acaxc3bufkbpa2ga.westus3-01.azurewebsites.net/reviews/${c_id}`
+          `prophuntapi.azurewebsites.net/reviews/${c_id}`
         ).then((res) => res.json())
       )
     );
@@ -59,7 +59,7 @@ export default function PropertyPage({ propertyId }) {
   useEffect(() => {
     if (!propertyId) return;
     fetch(
-      `https://prophunt-acaxc3bufkbpa2ga.westus3-01.azurewebsites.net/properties/${constantPropertyId}`
+      `prophuntapi.azurewebsites.net/properties/${constantPropertyId}`
     )
       .then((res) => res.json())
       .then(setProperty)
