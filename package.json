@@ -27,6 +27,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "ci": "^2.3.0",
     "framer-motion": "^12.4.2"
   }
 }
