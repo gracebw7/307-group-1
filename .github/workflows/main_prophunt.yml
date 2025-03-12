@@ -79,7 +79,4 @@ jobs:
           package: ./app
           clean: true
       - name: 'Set startup command'
-          run: |
-            az webapp config set --resource-group YOUR_RESOURCE_GROUP --name PropHunt --startup-file "npm start"
-  
-          
+          run: az webapp config set --resource-group YOUR_RESOURCE_GROUP --name PropHunt --startup-file "npm start"
