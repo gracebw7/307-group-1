@@ -110,7 +110,7 @@ function ReviewForm(props) {
 
   function postReview(prop_id, review) {
     const promise = fetch(
-      `http://localhost:8000/properties/${prop_id}/reviews`,
+      `https://prophuntapi.azurewebsites.net/properties/${prop_id}/reviews`,
       {
         method: "POST",
         headers: addAuthHeader({
@@ -119,6 +119,7 @@ function ReviewForm(props) {
         body: JSON.stringify(review)
       }
     );
+    props.onClose();
 
     props.onClose();
     return promise;

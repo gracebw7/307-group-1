@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Review from "../../models/review";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import Property from "../../models/property";
-import { a, body } from "framer-motion/client";
+//import { a, body } from "framer-motion/client";
 
 let mongoServer;
 
