@@ -9,6 +9,8 @@ import {
 import { useNavigate } from "react-router-dom";
 
 function Login(props) {
+  const navigate = useNavigate();
+
   const [creds, setCreds] = useState({
     username: "",
     pwd: ""
