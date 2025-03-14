@@ -11,6 +11,7 @@ import SignUp from "./pages/SignUp";
 import PropertyPage from "./pages/PropertyPage";
 import Home from "./pages/Home";
 import PHLogo from "./assets/PHLogo.png";
+import { ReviewsProvider } from "./reviewsContext";
 
 const API_PREFIX = "https://prophuntapi.azurewebsites.net";
 
