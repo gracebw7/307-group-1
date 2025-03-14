@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Box, Heading, Input, Button, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Input,
+  Button,
+  Text
+} from "@chakra-ui/react";
 
 function Login(props) {
   const [creds, setCreds] = useState({
@@ -59,7 +65,13 @@ function Login(props) {
         </Button>
       </form>
       {loginStatus && (
-        <Text mt={3} color={loginStatus.includes("success") ? "green.500" : "red.500"}>
+        <Text
+          mt={3}
+          color={
+            loginStatus.includes("success")
+              ? "green.500"
+              : "red.500"
+          }>
           {loginStatus}
         </Text>
       )}

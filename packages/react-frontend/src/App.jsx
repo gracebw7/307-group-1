@@ -1,8 +1,4 @@
-import {
-  ChakraProvider,
-  Box,
-  Image
-} from "@chakra-ui/react";
+import { ChakraProvider, Box, Image } from "@chakra-ui/react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -137,7 +133,6 @@ function App() {
                 }}>
                 Logout
               </Link>
-
             </Box>
 
             <Routes>
