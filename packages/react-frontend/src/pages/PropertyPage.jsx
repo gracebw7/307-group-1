@@ -36,13 +36,10 @@ export default function PropertyPage({ propertyId }) {
   console.log("Final Property ID:", propertyId);
   const constantPropertyId = useRef(propertyId).current;
   const [property, setProperty] = useState(null);
-
   const [reviews, setReviews] = useState([]);
+
   function fetchReviews(prop_id) {
-    const promise = fetch(
-      `${API_PREFIX}/properties/${propertyId}/reviews`
-    );
-    return promise;
+    return fetch(`${API_PREFIX}/properties/${prop_id}/reviews`);
   }
 
   function buildReviewList(id_list) {
@@ -58,17 +55,17 @@ export default function PropertyPage({ propertyId }) {
   console.log("Constant Property ID:", constantPropertyId);
 
   useEffect(() => {
-    if (!propertyId) return;
+    if (!constantPropertyId) return;
     fetch(`${API_PREFIX}/properties/${constantPropertyId}`)
       .then((res) => res.json())
       .then(setProperty)
       .catch((err) =>
         console.error("Error fetching property:", err)
       );
-  }, [propertyId, constantPropertyId]);
+  }, [constantPropertyId]);
 
   useEffect(() => {
-    fetchReviews(propertyId)
+    fetchReviews(constantPropertyId)
       .then((res) => res.json())
       .then((obj) => {
         console.log(obj["review_ids"]);
@@ -81,16 +78,15 @@ export default function PropertyPage({ propertyId }) {
       .catch((error) => {
         console.log(error);
       });
-  }, [constantPropertyId, propertyId]);
+  }, [constantPropertyId]);
 
   function updateProperty() {
-    if (!propertyId) return;
+    if (!constantPropertyId) return;
     fetch(`${API_PREFIX}/properties/${constantPropertyId}`)
       .then((res) => res.json())
       .then((prop) => {
         setProperty(prop);
-        console.log("Logging Prop");
-        console.log(prop);
+        console.log("Updated Property:", prop);
       })
       .catch((err) =>
         console.error("Error fetching property:", err)
@@ -98,8 +94,14 @@ export default function PropertyPage({ propertyId }) {
   }
 
   function addNewReviewState(new_review) {
-    setReviews([...reviews, new_review]);
+    setReviews((prevReviews) => [...prevReviews, new_review]);
+    updateProperty(); // Ensure property summary updates after a new review
   }
+
+  // Refresh property summary whenever reviews change
+  useEffect(() => {
+    updateProperty();
+  }, [reviews]);
 
   if (!propertyId)
     return <Text>Error: Property ID is missing</Text>;
