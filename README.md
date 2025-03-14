@@ -26,6 +26,9 @@ Backend: Node & Express
 Database: MongoDB
 Libraries: Chakra UI, Jest, Prettier, ESLint, Nodemon
 
+Front-End UI Design: ![Figma](https://www.figma.com/design/NNPZxfRapXiMazvOvlxQG0/Prop-Hunt?node-id=605-9&t=6ZRI2hH1O82MYkJh-1)
+Last Updated: 2/14
+
 **Authentication Implementation:**
 ![token-exchange-auth](https://github.com/user-attachments/assets/e9a21570-2173-4660-9209-e7afe8dcce95)
 ![password-hashing](https://github.com/user-attachments/assets/4b91a79c-db37-4c80-b386-aed9a669bcf3)
