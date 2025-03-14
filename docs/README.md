@@ -20,9 +20,9 @@ Database: MongoDB Libraries: Chakra UI, Jest, Prettier, ESLint,
 Nodemon
 
 **[Docs](https://github.com/gracebw7/307-group-1/blob/main/docs):**
-[UML Diagram](https://github.com/gracebw7/307-group-1/blob/main/docs/UML.md)
-[Architecture](https://github.com/gracebw7/307-group-1/blob/main/docs/architecture.md)
-[Authentication](https://github.com/gracebw7/307-group-1/blob/main/docs/auth.md)
+[UML Diagram](https://github.com/gracebw7/307-group-1/blob/main/docs/UML.md),
+[Architecture](https://github.com/gracebw7/307-group-1/blob/main/docs/architecture.md),
+[Authentication](https://github.com/gracebw7/307-group-1/blob/main/docs/auth.md),
 [Contributing](https://github.com/gracebw7/307-group-1/blob/main/docs/contributing.md)
 
 **Front-End UI Design:**
