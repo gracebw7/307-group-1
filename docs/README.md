@@ -1,7 +1,7 @@
 # 307-group-1
 
-**Developers:** Matt Acarregui Grace Boye-Williams Edgar Garcia
-Kyle Lin Weston Patrick Nick Riley
+**Developers:** Matt Acarregui, Grace Boye-Williams, Edgar Garcia,
+Kyle Lin, Weston Patrick, & Nick Riley
 
 **Project Idea:** For students who are looking for off-campus
 housing, **PropHunt** is a review site that allows users to post
