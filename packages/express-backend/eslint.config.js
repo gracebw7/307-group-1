@@ -1,4 +1,3 @@
-// packages/express-backend/eslint.config.js
 import js from "@eslint/js";
 
 export default [
@@ -13,7 +12,8 @@ export default [
       }
     },
     rules: {
-      ...js.configs.recommended.rules
+      ...js.configs.recommended.rules,
+      "no-unused-vars": "off" // Disable the rule
     }
   }
 ];

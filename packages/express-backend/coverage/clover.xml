@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741634499373" clover="3.2.0">
-  <project timestamp="1741634499373" name="All files">
-    <metrics statements="65" coveredstatements="61" conditionals="16" coveredconditionals="15" methods="12" coveredmethods="11" elements="93" coveredelements="87" complexity="0" loc="65" ncloc="65" packages="2" files="4" classes="4"/>
+<coverage generated="1741730993640" clover="3.2.0">
+  <project timestamp="1741730993640" name="All files">
+    <metrics statements="67" coveredstatements="63" conditionals="16" coveredconditionals="15" methods="12" coveredmethods="11" elements="95" coveredelements="89" complexity="0" loc="67" ncloc="67" packages="2" files="5" classes="5"/>
     <package name="models">
-      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="property.js" path="C:\Users\ginny\Classes-Other\CSC307\307-group-1\packages\express-backend\models\property.js">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="property.js" path="/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/models/property.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="3" type="stmt"/>
         <line num="30" count="3" type="stmt"/>
       </file>
-      <file name="review.js" path="C:\Users\ginny\Classes-Other\CSC307\307-group-1\packages\express-backend\models\review.js">
+      <file name="review.js" path="/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/models/review.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="2" type="stmt"/>
         <line num="33" count="2" type="stmt"/>
       </file>
+      <file name="user.js" path="/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/models/user.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+      </file>
     </package>
     <package name="services">
       <metrics statements="61" coveredstatements="57" conditionals="16" coveredconditionals="15" methods="12" coveredmethods="11"/>
-      <file name="property-service.js" path="C:\Users\ginny\Classes-Other\CSC307\307-group-1\packages\express-backend\services\property-service.js">
+      <file name="property-service.js" path="/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/services/property-service.js">
         <metrics statements="25" coveredstatements="24" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="7"/>
         <line num="4" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
@@ -45,7 +50,7 @@
         <line num="60" count="1" type="stmt"/>
         <line num="77" count="0" type="stmt"/>
       </file>
-      <file name="review-service.js" path="C:\Users\ginny\Classes-Other\CSC307\307-group-1\packages\express-backend\services\review-service.js">
+      <file name="review-service.js" path="/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/services/review-service.js">
         <metrics statements="36" coveredstatements="33" conditionals="14" coveredconditionals="13" methods="4" coveredmethods="4"/>
         <line num="4" count="1" type="stmt"/>
         <line num="8" count="2" type="stmt"/>

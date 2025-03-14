@@ -1,6 +1,6 @@
 {
-  "C:\\Users\\ginny\\Classes-Other\\CSC307\\307-group-1\\packages\\express-backend\\models\\property.js": {
-    "path": "C:\\Users\\ginny\\Classes-Other\\CSC307\\307-group-1\\packages\\express-backend\\models\\property.js",
+  "/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/models/property.js": {
+    "path": "/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/models/property.js",
     "statementMap": {
       "0": {
         "start": { "line": 3, "column": 23 },
@@ -17,10 +17,10 @@
     "f": {},
     "b": {},
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "0f57dbd50651d1146a48522e8d13bcbe3b9334cc"
+    "hash": "f96f5b8bebb293643e56815d3f760758971447d0"
   },
-  "C:\\Users\\ginny\\Classes-Other\\CSC307\\307-group-1\\packages\\express-backend\\models\\review.js": {
-    "path": "C:\\Users\\ginny\\Classes-Other\\CSC307\\307-group-1\\packages\\express-backend\\models\\review.js",
+  "/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/models/review.js": {
+    "path": "/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/models/review.js",
     "statementMap": {
       "0": {
         "start": { "line": 3, "column": 21 },
@@ -37,10 +37,30 @@
     "f": {},
     "b": {},
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "37ceb030f60581cc9c421396916b90c8ddf1d547"
+    "hash": "76571cb8cdb1936a71d93ffd89a400efd3108009"
   },
-  "C:\\Users\\ginny\\Classes-Other\\CSC307\\307-group-1\\packages\\express-backend\\services\\property-service.js": {
-    "path": "C:\\Users\\ginny\\Classes-Other\\CSC307\\307-group-1\\packages\\express-backend\\services\\property-service.js",
+  "/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/models/user.js": {
+    "path": "/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/models/user.js",
+    "statementMap": {
+      "0": {
+        "start": { "line": 3, "column": 17 },
+        "end": { "line": 10, "column": 2 }
+      },
+      "1": {
+        "start": { "line": 12, "column": 13 },
+        "end": { "line": 12, "column": 47 }
+      }
+    },
+    "fnMap": {},
+    "branchMap": {},
+    "s": { "0": 1, "1": 1 },
+    "f": {},
+    "b": {},
+    "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    "hash": "f751c5ff9cdfc80bad1733f7665bec5770b9fc73"
+  },
+  "/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/services/property-service.js": {
+    "path": "/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/services/property-service.js",
     "statementMap": {
       "0": {
         "start": { "line": 4, "column": 0 },
@@ -300,10 +320,10 @@
     },
     "b": { "0": [1, 1] },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "cf6fbc6c0eb63b347332cf7a43d5bcc8af83da33"
+    "hash": "f2d0580da7671a3de8d8240d79c8a8b3cb8a0adf"
   },
-  "C:\\Users\\ginny\\Classes-Other\\CSC307\\307-group-1\\packages\\express-backend\\services\\review-service.js": {
-    "path": "C:\\Users\\ginny\\Classes-Other\\CSC307\\307-group-1\\packages\\express-backend\\services\\review-service.js",
+  "/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/services/review-service.js": {
+    "path": "/Users/mattacarregui/Documents/307/307-group-1/packages/express-backend/services/review-service.js",
     "statementMap": {
       "0": {
         "start": { "line": 4, "column": 0 },
@@ -659,6 +679,6 @@
       "6": [1, 1]
     },
     "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    "hash": "29baf05fbccea343cbbafe8d6447955fba8f0591"
+    "hash": "43901d6a2f839b6781d62041d5ae2799536a8a63"
   }
 }

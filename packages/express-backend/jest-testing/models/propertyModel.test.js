@@ -16,8 +16,6 @@ afterAll(async () => {
   await mongoServer.stop();
 });
 
-/* Apartment, Pet friendly */
-
 describe("Property Model", () => {
   it("should create a new property with required fields", async () => {
     const propertyData = {

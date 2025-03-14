@@ -3,15 +3,6 @@ import propertyModel from "../models/property.js";
 
 mongoose.set("debug", true);
 
-/*
-mongoose
-  .connect("mongodb://localhost:27017/users", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .catch((error) => console.log(error));
-*/
-
 function getProps() {
   return propertyModel.find();
 }
@@ -60,18 +51,6 @@ async function addPropertyReview(id, review_id) {
     console.error("Error adding review:", error);
   }
 }
-
-/*
-  const property = findPropertyById(id);
-  console.log(`Property found ${property}`);
-  if (property.reviews == undefined) {
-    property.reviews = [review_id];
-  } else {
-    property.reviews.push(review_id);
-  }
-  const promise = property.save();
-  return promise;
-  */
 
 function getPropertyReviewsById(id) {
   const property = findPropertyById(id);

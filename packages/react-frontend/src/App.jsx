@@ -1,38 +1,20 @@
-import {
-  ChakraProvider,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  FormControl,
-  FormLabel,
-  FormHelperText,
-  Input,
-  Button,
-  useDisclosure,
-  Box,
-  Image
-} from "@chakra-ui/react";
+import { ChakraProvider, Box, Image } from "@chakra-ui/react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Link
 } from "react-router-dom";
-import AddProperty from "./unused/AddProperty";
 import { useState, useEffect } from "react";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ReviewForm from "./components/ReviewForm";
-import { ReviewsProvider } from "./unused/reviewsContext";
+import { ReviewsProvider } from "./reviewsContext";
 import PropertyPage from "./pages/PropertyPage";
 import Home from "./pages/Home";
 import PHLogo from "./assets/PHLogo.png";
 
-const API_PREFIX = "http://localhost:8000";
+const API_PREFIX = "https://prophuntapi.azurewebsites.net";
 
 function App() {
   const INVALID_TOKEN = "INVALID_TOKEN";
@@ -94,7 +76,6 @@ function App() {
   const logoutUser = () => {
     localStorage.removeItem("token");
     setToken(INVALID_TOKEN);
-    window.location.href = "/login";
   };
 
   const linkStyle = {
@@ -142,6 +123,7 @@ function App() {
                 Log in
               </Link>
               <Link
+                to="/"
                 onClick={logoutUser}
                 style={{
                   ...linkStyle,
@@ -149,13 +131,6 @@ function App() {
                 }}>
                 Logout
               </Link>
-              {/*
-              <Link
-                to="/propertypagedemo"
-                style={{ marginLeft: "20px" }}>
-                Property Page Demo
-              </Link>
-              */}
             </Box>
 
             <Routes>
@@ -164,10 +139,7 @@ function App() {
                 element={<PropertyPage />}
               />
               <Route path="/" element={<Home />} />
-              <Route
-                path="/properties/:propertyId"
-                element={<PropertyPage />}
-              />
+
               <Route
                 path="/login"
                 element={<Login handleSubmit={loginUser} />}

@@ -27,6 +27,8 @@ PropertyPage.propTypes = {
   propertyId: PropTypes.string.isRequired
 };
 
+const API_PREFIX = "https://prophuntapi.azurewebsites.net";
+
 export default function PropertyPage({ propertyId }) {
   const params = useParams();
   propertyId = propertyId || params.propertyId;
@@ -39,7 +41,7 @@ export default function PropertyPage({ propertyId }) {
   function fetchReviews(prop_id) {
     //const promise = fetch(`http://localhost:8000/properties/${prop_id}/reviews`);
     const promise = fetch(
-      `http://localhost:8000/properties/${propertyId}/reviews`
+      `${API_PREFIX}/properties/${propertyId}/reviews`
     );
     return promise;
   }
@@ -47,8 +49,8 @@ export default function PropertyPage({ propertyId }) {
   function buildReviewList(id_list) {
     return Promise.all(
       id_list.map((c_id) =>
-        fetch(`http://localhost:8000/reviews/${c_id}`).then(
-          (res) => res.json()
+        fetch(`${API_PREFIX}/reviews/${c_id}`).then((res) =>
+          res.json()
         )
       )
     );
@@ -58,9 +60,7 @@ export default function PropertyPage({ propertyId }) {
 
   useEffect(() => {
     if (!propertyId) return;
-    fetch(
-      `http://localhost:8000/properties/${constantPropertyId}`
-    )
+    fetch(`${API_PREFIX}/properties/${constantPropertyId}`)
       .then((res) => res.json())
       .then(setProperty)
       .catch((err) =>
@@ -84,11 +84,9 @@ export default function PropertyPage({ propertyId }) {
       });
   }, [constantPropertyId, propertyId]);
 
-  async function updateProperty() {
+  function updateProperty() {
     if (!propertyId) return;
-    fetch(
-      `http://localhost:8000/properties/${constantPropertyId}`
-    )
+    fetch(`${API_PREFIX}/properties/${constantPropertyId}`)
       .then((res) => res.json())
       .then((prop) => {
         setProperty(prop);

@@ -36,6 +36,9 @@ app.get("/search", async (req, res) => {
     return res
       .status(400)
       .json({ error: "Address is required" });
+    return res
+      .status(400)
+      .json({ error: "Address is required" });
   }
 
   try {
@@ -97,7 +100,9 @@ app.get("/properties/search", async (req, res) => {
 
   if (!address) {
     return res
+
       .status(400)
+
       .json({ error: "Address is required" });
   }
 
@@ -107,6 +112,9 @@ app.get("/properties/search", async (req, res) => {
     });
 
     if (matchingProperties.length === 0) {
+      return res
+        .status(404)
+        .json({ error: "No properties found" });
       return res
         .status(404)
         .json({ error: "No properties found" });
@@ -247,8 +255,6 @@ app.post(
   }
 );
 
-app.listen(port, () => {
-  console.log(
-    `Example app listening at http://localhost:${port}`
-  );
+app.listen(process.env.PORT || port, () => {
+  console.log("REST API is listening.");
 });
