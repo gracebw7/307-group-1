@@ -5,7 +5,6 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import PropertyPageDemo from "./pages/PropertyPageDemo";
 import AddProperty from "./pages/AddProperty";
 import { useState, useEffect } from "react";
 import Login from "./Login";
@@ -148,10 +147,6 @@ function App() {
               <Route
                 path="/properties/:propertyId"
                 element={<PropertyPage />}
-              />
-              <Route
-                path="/propertypagedemo"
-                element={<PropertyPageDemo />}
               />
               <Route
                 path="/create-review/:id"
