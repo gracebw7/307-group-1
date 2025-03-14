@@ -1,18 +1,5 @@
 import {
   ChakraProvider,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  FormControl,
-  FormLabel,
-  FormHelperText,
-  Input,
-  Button,
-  useDisclosure,
   Box,
   Image
 } from "@chakra-ui/react";
@@ -22,7 +9,6 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Reviews from "./components/Reviews";
 import PropertyPageDemo from "./pages/PropertyPageDemo";
 import AddProperty from "./pages/AddProperty";
 import { useState, useEffect } from "react";
@@ -136,25 +122,6 @@ function App() {
                   style={{ height: "3em", width: "auto" }}
                 />
               </Link>
-              {/*
-              <Link
-                to="properties/67ac37ff87bbc59ba2e00dbb"
-                style={linkStyle}>
-                Reviews
-              </Link>
-
-              {/*
-              <Link
-                to="/add-property"
-                style={{ marginRight: "20px" }}>
-                Add Property
-              </Link>
-              <Link
-                to={`/create-review/67ac37ff87bbc59ba2e00dbb`}
-                style={{ marginRight: "20px" }}>
-                Create Review
-              </Link>
-              */}
               <Link to="/signup" style={linkStyle}>
                 Sign up
               </Link>
@@ -171,13 +138,6 @@ function App() {
                 Logout
               </Link>
 
-              {/*
-              <Link
-                to="/propertypagedemo"
-                style={{ marginLeft: "20px" }}>
-                Property Page Demo
-              </Link>
-              */}
             </Box>
 
             <Routes>
