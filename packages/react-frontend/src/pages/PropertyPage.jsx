@@ -84,17 +84,23 @@ export default function PropertyPage({ propertyId }) {
       });
   }, [constantPropertyId, propertyId]);
 
-  function addNewReviewState(new_review) {
-    setReviews([...reviews, new_review]);
+  function updateProperty() {
     if (!propertyId) return;
     fetch(
       `http://localhost:8000/properties/${constantPropertyId}`
     )
       .then((res) => res.json())
-      .then(setProperty)
+      .then((prop) => {
+        setProperty(prop);
+        console.log(prop);
+      })
       .catch((err) =>
         console.error("Error fetching property:", err)
       );
+  }
+
+  function addNewReviewState(new_review) {
+    setReviews([...reviews, new_review]);
   }
 
   if (!propertyId)
@@ -114,6 +120,7 @@ export default function PropertyPage({ propertyId }) {
             tags={property.tags}
             id={propertyId}
             setNewReview={addNewReviewState}
+            updateProperty={updateProperty}
           />
         </Center>
 

@@ -33,7 +33,8 @@ import PropTypes from "prop-types";
 ReviewForm.propTypes = {
   prop_id: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
-  setNewReview: PropTypes.func.isRequired
+  setNewReview: PropTypes.func.isRequired,
+  updateProperty: PropTypes.func.isRequired
 };
 
 function addAuthHeader(otherHeaders = {}) {
@@ -92,6 +93,8 @@ function ReviewForm(props) {
       })
       .then((review) => {
         props.setNewReview(review);
+        console.log("Updating Property");
+        props.updateProperty();
       })
       .catch((error) => {
         console.log(error);
