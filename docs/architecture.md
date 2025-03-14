@@ -1,3 +1,17 @@
+App Info:
+We used prettier and ESLint throughout the project. 'npm run dev' starts the backend and the frontend using concurrently. 'npm start' will start the backend and build the frontend. 'npm run test' will run the jest tests in the backend workplace.
+
+Backend Info:
+We used MongoDB as our database, we also used Express and Node to handle our API calls. We separated our models and services and connected everything in our backend.js file.
+We used Jest for at least 80% coverage for testing our backend models and services.
+We also used cors, nodemon, & cross-env for backend scripts and debugging.
+'npm run test' will run the jest tests in the backend. 'npm start' will start the backend. 'npm run lint' will run linting.
+
+Frontend Info:
+We used React & Vite as our frontend framework. We used Chakra UI as our frontend component library. 'npm run build' will build our frontend. 'npm run lint' will run linting.
+
+
+File Structure:
 |-.github
 |-|-workflows (for deployment w/ every push)
 |-docs (readme, contributing, architecture, other info)
