@@ -31,11 +31,9 @@ app.get("/search", async (req, res) => {
   console.log("Search endpoint reached!");
   console.log("Query parameters:", req.query);
 
+
   const { address } = req.query;
   if (!address) {
-    return res
-      .status(400)
-      .json({ error: "Address is required" });
     return res
       .status(400)
       .json({ error: "Address is required" });
@@ -44,11 +42,15 @@ app.get("/search", async (req, res) => {
   try {
     const matchingProperties = await Property.find({
       address: { $regex: new RegExp(address, "i") }
+      address: { $regex: new RegExp(address, "i") }
     });
 
     console.log("Found properties:", matchingProperties);
 
     if (matchingProperties.length === 0) {
+      return res
+        .status(404)
+        .json({ error: "No properties found" });
       return res
         .status(404)
         .json({ error: "No properties found" });
@@ -100,21 +102,17 @@ app.get("/properties/search", async (req, res) => {
 
   if (!address) {
     return res
-
       .status(400)
-
       .json({ error: "Address is required" });
   }
 
   try {
     const matchingProperties = await Property.find({
       address: { $regex: new RegExp(address, "i") }
+      address: { $regex: new RegExp(address, "i") }
     });
 
     if (matchingProperties.length === 0) {
-      return res
-        .status(404)
-        .json({ error: "No properties found" });
       return res
         .status(404)
         .json({ error: "No properties found" });
@@ -230,6 +228,11 @@ const updatePropertyStats = (propertyId) => {
 //POST new review
 //endpoint requries property id, this id is added to the review
 //the review is additionally added to its property review list
+app.post(
+  "/properties/:_id/reviews",
+  authenticateUser,
+  (req, res) => {
+    const _id = req.params["_id"];
 app.post(
   "/properties/:_id/reviews",
   authenticateUser,
