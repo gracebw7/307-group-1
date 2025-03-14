@@ -30,21 +30,25 @@ app.use(express.json());
 app.get("/search", async (req, res) => {
   console.log("Search endpoint reached!");
   console.log("Query parameters:", req.query);
-  
+
   const { address } = req.query;
   if (!address) {
-    return res.status(400).json({ error: "Address is required" });
+    return res
+      .status(400)
+      .json({ error: "Address is required" });
   }
 
   try {
     const matchingProperties = await Property.find({
-      address: { $regex: new RegExp(address, "i") },
+      address: { $regex: new RegExp(address, "i") }
     });
 
     console.log("Found properties:", matchingProperties);
 
     if (matchingProperties.length === 0) {
-      return res.status(404).json({ error: "No properties found" });
+      return res
+        .status(404)
+        .json({ error: "No properties found" });
     }
 
     res.json(matchingProperties);
@@ -92,16 +96,20 @@ app.get("/properties/search", async (req, res) => {
   const { address } = req.query;
 
   if (!address) {
-    return res.status(400).json({ error: "Address is required" });
+    return res
+      .status(400)
+      .json({ error: "Address is required" });
   }
 
   try {
     const matchingProperties = await Property.find({
-      address: { $regex: new RegExp(address, "i") },
+      address: { $regex: new RegExp(address, "i") }
     });
 
     if (matchingProperties.length === 0) {
-      return res.status(404).json({ error: "No properties found" });
+      return res
+        .status(404)
+        .json({ error: "No properties found" });
     }
 
     res.json(matchingProperties);
@@ -161,8 +169,6 @@ app.get("/reviews", (req, res) => {
     .catch(console.log((error) => console.error(error)));
 });
 
-
-
 /* POST REQUESTS */
 
 //Signup POST
@@ -216,93 +222,30 @@ const updatePropertyStats = (propertyId) => {
 //POST new review
 //endpoint requries property id, this id is added to the review
 //the review is additionally added to its property review list
-app.post("/properties/:_id/reviews", authenticateUser, (req, res) => {
-  const _id = req.params["_id"];
+app.post(
+  "/properties/:_id/reviews",
+  authenticateUser,
+  (req, res) => {
+    const _id = req.params["_id"];
 
-  const reviewToAdd = { ...req.body };
-  //reviewToAdd.property = _id;
-  review_service
-    .addReview(reviewToAdd, _id)
-    .then((review) => {
-      property_service
-        .addPropertyReview(_id, review["_id"])
-        .then((review) => {
-          return updatePropertyStats(_id).then(() => review);
-        })
-        .then(
-          res
-            .status(201)
-            .send(JSON.stringify(review.toObject()))
-        );
-    })
-    .catch(console.log((error) => console.error(error)));
-});
-
-/* DELETE REQUESTS */
-
-/*
-//delete review by id
-app.delete("/reviews/:_id", (req, res) => {
-  const _id = req.params["_id"]; //or req.params.id
-
-  console.log("Running Delete");
-
-  let rev_obj = undefined;
-  review_service
-    .getReviewById(_id)
-    .then((rev) => {
-      rev_obj = rev.toObject();
-      const prop_id = rev_obj["property"];
-      console.log(`Prop Id: ${prop_id}`);
-      property_service.removePropReview(prop_id, _id);
-    })
-    .catch(console.log((error) => console.error(error)));
-
-  if (_id == undefined) {
-    res.status(404).send("Resource not found.");
-  } else {
+    const reviewToAdd = { ...req.body };
+    //reviewToAdd.property = _id;
     review_service
-      .deleteReviewById(_id)
-      .then(() => res.status(204).send())
-      .catch(console.log((error) => console.error(error)));
-  }
-});
-
-//delete property by id
-//note, this will also delete all reviews attached to the property
-app.delete("/properties/_id", (req, res) => {
-  const _id = req.params["_id"]; //or req.params.id
-
-  if (_id == undefined) {
-    res.status(404).send("Resource not found.");
-  } else {
-    //pull up property review list
-    let rev_list = undefined;
-    property_service
-      .findPropertyById(_id)
-      .then((property) => {
-        rev_list = property.toObject()["reviews"];
-        if (rev_list === undefined) {
-          res.status(404).send("Resource not found.");
-        } else {
-          console.log(`${rev_list}`);
-        }
+      .addReview(reviewToAdd, _id)
+      .then((review) => {
+        return property_service
+          .addPropertyReview(_id, review["_id"])
+          .then(() => review);
       })
-      .catch(console.log((error) => console.error(error)));
-
-    rev_list.forEach((rev_id) =>
-      review_service
-        .deleteReviewById(rev_id)
-        .catch(console.log((error) => console.error(error)))
-    );
-
-    property_service
-      .deletePropertyById(_id)
-      .then(() => res.status(204).send())
+      .then((review) => {
+        return updatePropertyStats(_id).then(() => review);
+      })
+      .then((review) =>
+        res.status(201).send(JSON.stringify(review.toObject()))
+      )
       .catch(console.log((error) => console.error(error)));
   }
-});
-*/
+);
 
 app.listen(port, () => {
   console.log(

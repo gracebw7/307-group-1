@@ -65,7 +65,11 @@ function PropertySummary({
 
       {/* Average Rating */}
       <Text fontWeight="bold" mt={2}>
-        ⭐ {averageRating.toFixed(1)} / 5
+        {averageRating === 0 ? (
+          <i>No Reviews Yet</i>
+        ) : (
+          `⭐ ${averageRating.toFixed(1)} / 5`
+        )}
       </Text>
 
       {/* Tags */}

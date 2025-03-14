@@ -22,14 +22,12 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Reviews from "./components/Reviews";
-import PropertyPageDemo from "./pages/PropertyPageDemo";
-import AddProperty from "./pages/AddProperty";
+import AddProperty from "./unused/AddProperty";
 import { useState, useEffect } from "react";
-import Login from "./Login";
-import SignUp from "./SignUp";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import ReviewForm from "./components/ReviewForm";
-import { ReviewsProvider } from "./reviewsContext";
+import { ReviewsProvider } from "./unused/reviewsContext";
 import PropertyPage from "./pages/PropertyPage";
 import Home from "./pages/Home";
 import PHLogo from "./assets/PHLogo.png";
@@ -137,25 +135,6 @@ function App() {
                   style={{ height: "3em", width: "auto" }}
                 />
               </Link>
-              {/*
-              <Link
-                to="properties/67ac37ff87bbc59ba2e00dbb"
-                style={linkStyle}>
-                Reviews
-              </Link>
-
-              {/*
-              <Link
-                to="/add-property"
-                style={{ marginRight: "20px" }}>
-                Add Property
-              </Link>
-              <Link
-                to={`/create-review/67ac37ff87bbc59ba2e00dbb`}
-                style={{ marginRight: "20px" }}>
-                Create Review
-              </Link>
-              */}
               <Link to="/signup" style={linkStyle}>
                 Sign up
               </Link>
@@ -186,20 +165,8 @@ function App() {
               />
               <Route path="/" element={<Home />} />
               <Route
-                path="/add-property"
-                element={<AddProperty />}
-              />
-              <Route
                 path="/properties/:propertyId"
                 element={<PropertyPage />}
-              />
-              <Route
-                path="/propertypagedemo"
-                element={<PropertyPageDemo />}
-              />
-              <Route
-                path="/create-review/:id"
-                element={<ReviewForm />}
               />
               <Route
                 path="/login"

@@ -84,7 +84,7 @@ export default function PropertyPage({ propertyId }) {
       });
   }, [constantPropertyId, propertyId]);
 
-  function updateProperty() {
+  async function updateProperty() {
     if (!propertyId) return;
     fetch(
       `http://localhost:8000/properties/${constantPropertyId}`
@@ -92,6 +92,7 @@ export default function PropertyPage({ propertyId }) {
       .then((res) => res.json())
       .then((prop) => {
         setProperty(prop);
+        console.log("Logging Prop");
         console.log(prop);
       })
       .catch((err) =>

@@ -56,7 +56,11 @@ const PropertyForm = ({ onSubmit }) => {
     });
   };
 
-  const handleNumberChange = (valueAsString, valueAsNumber, name) => {
+  const handleNumberChange = (
+    valueAsString,
+    valueAsNumber,
+    name
+  ) => {
     setFormData({
       ...formData,
       [name]: valueAsNumber
@@ -125,30 +129,36 @@ const PropertyForm = ({ onSubmit }) => {
             />
           </Box>
           <Box>
-            <FormLabel>Bedrooms</FormLabel>
+            <FormLabel>Bedrooms (If Applicable)</FormLabel>
             <NumberInput
               min={0}
               name="bedrooms"
               value={formData.bedrooms}
               onChange={(valueAsString, valueAsNumber) =>
-                handleNumberChange(valueAsString, valueAsNumber, "bedrooms")
+                handleNumberChange(
+                  valueAsString,
+                  valueAsNumber,
+                  "bedrooms"
+                )
               }
-              required
-            >
+              required>
               <NumberInputField />
             </NumberInput>
           </Box>
           <Box>
-            <FormLabel>Bathrooms</FormLabel>
+            <FormLabel>Bathrooms (If Applicable)</FormLabel>
             <NumberInput
               min={0}
               name="bathrooms"
               value={formData.bathrooms}
               onChange={(valueAsString, valueAsNumber) =>
-                handleNumberChange(valueAsString, valueAsNumber, "bathrooms")
+                handleNumberChange(
+                  valueAsString,
+                  valueAsNumber,
+                  "bathrooms"
+                )
               }
-              required
-            >
+              required>
               <NumberInputField />
             </NumberInput>
           </Box>
@@ -165,11 +175,12 @@ const PropertyForm = ({ onSubmit }) => {
                 <PopoverBody>
                   <CheckboxGroup
                     value={formData.tags}
-                    onChange={handleTagsChange}
-                  >
+                    onChange={handleTagsChange}>
                     <Stack spacing={2}>
                       {tagOptions.map((option) => (
-                        <Checkbox key={option.value} value={option.value}>
+                        <Checkbox
+                          key={option.value}
+                          value={option.value}>
                           {option.label}
                         </Checkbox>
                       ))}
@@ -178,8 +189,9 @@ const PropertyForm = ({ onSubmit }) => {
                 </PopoverBody>
                 <PopoverFooter>
                   <Button
-                    onClick={() => setFormData({ ...formData, tags: [] })}
-                  >
+                    onClick={() =>
+                      setFormData({ ...formData, tags: [] })
+                    }>
                     Clear All
                   </Button>
                 </PopoverFooter>
@@ -191,7 +203,9 @@ const PropertyForm = ({ onSubmit }) => {
               <WrapItem key={index}>
                 <Tag>
                   <TagLabel>{tag}</TagLabel>
-                  <TagCloseButton onClick={() => handleTagRemove(tag)} />
+                  <TagCloseButton
+                    onClick={() => handleTagRemove(tag)}
+                  />
                 </Tag>
               </WrapItem>
             ))}
@@ -206,7 +220,9 @@ const PropertyForm = ({ onSubmit }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Login Required</ModalHeader>
-          <ModalBody>You must log in to post a review.</ModalBody>
+          <ModalBody>
+            You must log in to post a review.
+          </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" onClick={onClose}>
               Close

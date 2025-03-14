@@ -67,6 +67,7 @@ function ReviewForm(props) {
   }, []);
 
   const handleSubmit = (e) => {
+    console.log("Submit!!");
     e.preventDefault();
 
     if (!isAuthenticated) {
@@ -92,9 +93,11 @@ function ReviewForm(props) {
         return res.json();
       })
       .then((review) => {
-        props.setNewReview(review);
         console.log("Updating Property");
+        console.log("Updating Reviews");
+        props.setNewReview(review);
         props.updateProperty();
+        console.log("Updating Property");
       })
       .catch((error) => {
         console.log(error);
