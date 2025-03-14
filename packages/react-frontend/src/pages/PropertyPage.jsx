@@ -130,18 +130,6 @@ export default function PropertyPage({ propertyId }) {
             <Reviews reviews={reviews} />
           </Box>
         </Center>
-
-        {/* Reviews Section
-      <VStack spacing={4} align="stretch">
-        {reviews.length > 0 ? (
-          reviews.map((review, index) => (
-            <ReviewCard key={index} {...review} />
-          ))
-        ) : (
-          <Text>No reviews yet.</Text>
-        )}
-      </VStack>
-      */}
       </Box>
     </Center>
   );
