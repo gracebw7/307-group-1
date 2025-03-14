@@ -34,7 +34,7 @@ function Login(props) {
       await props.handleSubmit(creds);
       setLoginStatus("You have successfully logged in!");
       setCreds({ username: "", pwd: "" });
-      navigate(`/Home`);
+      navigate(`/`);
     } catch (error) {
       setLoginStatus("Login failed. Please try again.");
     }
