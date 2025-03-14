@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Box, Heading, Input, Button } from "@chakra-ui/react";
+import { Box, Heading, Input, Button, Text } from "@chakra-ui/react";
 
 function Login(props) {
   const [creds, setCreds] = useState({
     username: "",
     pwd: ""
   });
+  const [loginStatus, setLoginStatus] = useState(null);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -19,9 +20,14 @@ function Login(props) {
     }
   }
 
-  function submitForm() {
-    props.handleSubmit(creds);
-    setCreds({ username: "", pwd: "" });
+  async function submitForm() {
+    try {
+      await props.handleSubmit(creds);
+      setLoginStatus("You have successfully logged in!");
+      setCreds({ username: "", pwd: "" });
+    } catch (error) {
+      setLoginStatus("Login failed. Please try again.");
+    }
   }
 
   return (
@@ -52,7 +58,13 @@ function Login(props) {
           {props.buttonLabel || "Log In"}
         </Button>
       </form>
+      {loginStatus && (
+        <Text mt={3} color={loginStatus.includes("success") ? "green.500" : "red.500"}>
+          {loginStatus}
+        </Text>
+      )}
     </Box>
   );
 }
+
 export default Login;
