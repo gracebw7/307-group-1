@@ -8,8 +8,6 @@ import {
 import { useState, useEffect } from "react";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import ReviewForm from "./components/ReviewForm";
-import { ReviewsProvider } from "./reviewsContext";
 import PropertyPage from "./pages/PropertyPage";
 import Home from "./pages/Home";
 import PHLogo from "./assets/PHLogo.png";
