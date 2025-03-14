@@ -20,15 +20,6 @@ function Reviews(props) {
 
   return (
     <Box>
-      {/*<Box
-        p={8}
-        bg="gray.100"
-        maxW="80vw"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        overflowX="auto"
-        w="100%"> */}
       <VStack spacing={4} align="stretch" w="100%" mx="auto">
         {reviews.length > 0 ? (
           reviews.map((review, index) => (
@@ -38,18 +29,6 @@ function Reviews(props) {
           <Text>No reviews yet.</Text>
         )}
       </VStack>
-      {/*
-        <SimpleGrid
-          columns={{ base: 1, md: 2 }}
-          spacing={150}
-          maxW="80%"
-          w="100%">
-          {reviews.map((review, index) => (
-            <ReviewCard key={index} {...review} />
-          ))}
-        </SimpleGrid>
-        */}
-      {/*</Box> */}
     </Box>
   );
 }
