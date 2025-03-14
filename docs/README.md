@@ -19,11 +19,12 @@ Customers can leave reviews and view reviews.
 Database: MongoDB Libraries: Chakra UI, Jest, Prettier, ESLint,
 Nodemon
 
-**![Docs](https://github.com/gracebw7/307-group-1/blob/main/docs)**
-![UML Diagram](https://github.com/gracebw7/307-group-1/blob/main/docs/UML.md)
-![Architecture](https://github.com/gracebw7/307-group-1/blob/main/docs/architecture.md)
-![Authentication](https://github.com/gracebw7/307-group-1/blob/main/docs/auth.md)
-![Contributing](https://github.com/gracebw7/307-group-1/blob/main/docs/contributing.md)
-Front-End UI Design:
-![Figma](https://www.figma.com/design/NNPZxfRapXiMazvOvlxQG0/Prop-Hunt?node-id=605-9&t=6ZRI2hH1O82MYkJh-1)
+**[Docs](https://github.com/gracebw7/307-group-1/blob/main/docs):**
+[UML Diagram](https://github.com/gracebw7/307-group-1/blob/main/docs/UML.md)
+[Architecture](https://github.com/gracebw7/307-group-1/blob/main/docs/architecture.md)
+[Authentication](https://github.com/gracebw7/307-group-1/blob/main/docs/auth.md)
+[Contributing](https://github.com/gracebw7/307-group-1/blob/main/docs/contributing.md)
+
+**Front-End UI Design:**
+[Figma](https://www.figma.com/design/NNPZxfRapXiMazvOvlxQG0/Prop-Hunt?node-id=605-9&t=6ZRI2hH1O82MYkJh-1)
 Last Updated: 2/14
