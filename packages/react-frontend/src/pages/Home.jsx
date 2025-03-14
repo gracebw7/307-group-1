@@ -48,7 +48,7 @@ function Home() {
     const fetchProperties = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/properties"
+          "https://prophuntapi.azurewebsites.net/properties"
         );
         if (!response.ok) {
           throw new Error("Failed to fetch properties");
@@ -70,7 +70,7 @@ function Home() {
   const handlePropertySubmit = async (formData) => {
     try {
       const response = await fetch(
-        "http://localhost:8000/properties",
+        "https://prophuntapi.azurewebsites.net/properties",
         {
           method: "POST",
           headers: addAuthHeader({

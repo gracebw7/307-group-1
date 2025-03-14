@@ -37,9 +37,8 @@ export default function PropertyPage({ propertyId }) {
 
   const [reviews, setReviews] = useState([]);
   function fetchReviews(prop_id) {
-    //const promise = fetch(`http://localhost:8000/properties/${prop_id}/reviews`);
     const promise = fetch(
-      `http://localhost:8000/properties/${propertyId}/reviews`
+      `https://prophuntapi.azurewebsites.net/properties/${propertyId}/reviews`
     );
     return promise;
   }
@@ -47,9 +46,9 @@ export default function PropertyPage({ propertyId }) {
   function buildReviewList(id_list) {
     return Promise.all(
       id_list.map((c_id) =>
-        fetch(`http://localhost:8000/reviews/${c_id}`).then(
-          (res) => res.json()
-        )
+        fetch(
+          `https://prophuntapi.azurewebsites.net/reviews/${c_id}`
+        ).then((res) => res.json())
       )
     );
   }
@@ -59,7 +58,7 @@ export default function PropertyPage({ propertyId }) {
   useEffect(() => {
     if (!propertyId) return;
     fetch(
-      `http://localhost:8000/properties/${constantPropertyId}`
+      `https://prophuntapi.azurewebsites.net/properties/${constantPropertyId}`
     )
       .then((res) => res.json())
       .then(setProperty)

@@ -111,8 +111,8 @@ a:hover {
 }
 
 .fraction {
-  font-family: Consolas, "Liberation Mono", Menlo, Courier,
-    monospace;
+  font-family:
+    Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 10px;
   color: #555;
   background: #e8e8e8;
