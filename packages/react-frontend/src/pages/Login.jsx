@@ -6,8 +6,11 @@ import {
   Button,
   Text
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 function Login(props) {
+  const navigate = useNavigate();
+
   const [creds, setCreds] = useState({
     username: "",
     pwd: ""
@@ -31,6 +34,7 @@ function Login(props) {
       await props.handleSubmit(creds);
       setLoginStatus("You have successfully logged in!");
       setCreds({ username: "", pwd: "" });
+      navigate(`/`);
     } catch (error) {
       setLoginStatus("Login failed. Please try again.");
     }

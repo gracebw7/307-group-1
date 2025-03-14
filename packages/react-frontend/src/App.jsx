@@ -5,15 +5,13 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import AddProperty from "./pages/AddProperty";
 import { useState, useEffect } from "react";
-import Login from "./Login";
-import SignUp from "./SignUp";
-import ReviewForm from "./components/ReviewForm";
-import { ReviewsProvider } from "./reviewsContext";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import PropertyPage from "./pages/PropertyPage";
 import Home from "./pages/Home";
 import PHLogo from "./assets/PHLogo.png";
+import { ReviewsProvider } from "./reviewsContext";
 
 const API_PREFIX = "https://prophuntapi.azurewebsites.net";
 
@@ -140,18 +138,7 @@ function App() {
                 element={<PropertyPage />}
               />
               <Route path="/" element={<Home />} />
-              <Route
-                path="/add-property"
-                element={<AddProperty />}
-              />
-              <Route
-                path="/properties/:propertyId"
-                element={<PropertyPage />}
-              />
-              <Route
-                path="/create-review/:id"
-                element={<ReviewForm />}
-              />
+
               <Route
                 path="/login"
                 element={<Login handleSubmit={loginUser} />}

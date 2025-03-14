@@ -129,7 +129,7 @@ const PropertyForm = ({ onSubmit }) => {
             />
           </Box>
           <Box>
-            <FormLabel>Bedrooms</FormLabel>
+            <FormLabel>Bedrooms (If Applicable)</FormLabel>
             <NumberInput
               min={0}
               name="bedrooms"
@@ -146,7 +146,7 @@ const PropertyForm = ({ onSubmit }) => {
             </NumberInput>
           </Box>
           <Box>
-            <FormLabel>Bathrooms</FormLabel>
+            <FormLabel>Bathrooms (If Applicable)</FormLabel>
             <NumberInput
               min={0}
               name="bathrooms"

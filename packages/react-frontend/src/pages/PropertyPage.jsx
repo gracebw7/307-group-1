@@ -27,6 +27,8 @@ PropertyPage.propTypes = {
   propertyId: PropTypes.string.isRequired
 };
 
+const API_PREFIX = "https://prophuntapi.azurewebsites.net";
+
 export default function PropertyPage({ propertyId }) {
   const params = useParams();
   propertyId = propertyId || params.propertyId;
@@ -34,21 +36,18 @@ export default function PropertyPage({ propertyId }) {
   console.log("Final Property ID:", propertyId);
   const constantPropertyId = useRef(propertyId).current;
   const [property, setProperty] = useState(null);
-
   const [reviews, setReviews] = useState([]);
+
   function fetchReviews(prop_id) {
-    const promise = fetch(
-      `https://prophuntapi.azurewebsites.net/properties/${propertyId}/reviews`
-    );
-    return promise;
+    return fetch(`${API_PREFIX}/properties/${prop_id}/reviews`);
   }
 
   function buildReviewList(id_list) {
     return Promise.all(
       id_list.map((c_id) =>
-        fetch(
-          `https://prophuntapi.azurewebsites.net/reviews/${c_id}`
-        ).then((res) => res.json())
+        fetch(`${API_PREFIX}/reviews/${c_id}`).then((res) =>
+          res.json()
+        )
       )
     );
   }
@@ -56,19 +55,17 @@ export default function PropertyPage({ propertyId }) {
   console.log("Constant Property ID:", constantPropertyId);
 
   useEffect(() => {
-    if (!propertyId) return;
-    fetch(
-      `https://prophuntapi.azurewebsites.net/properties/${constantPropertyId}`
-    )
+    if (!constantPropertyId) return;
+    fetch(`${API_PREFIX}/properties/${constantPropertyId}`)
       .then((res) => res.json())
       .then(setProperty)
       .catch((err) =>
         console.error("Error fetching property:", err)
       );
-  }, [propertyId, constantPropertyId]);
+  }, [constantPropertyId]);
 
   useEffect(() => {
-    fetchReviews(propertyId)
+    fetchReviews(constantPropertyId)
       .then((res) => res.json())
       .then((obj) => {
         console.log(obj["review_ids"]);
@@ -81,11 +78,30 @@ export default function PropertyPage({ propertyId }) {
       .catch((error) => {
         console.log(error);
       });
-  }, [constantPropertyId, propertyId]);
+  }, [constantPropertyId]);
+
+  function updateProperty() {
+    if (!constantPropertyId) return;
+    fetch(`${API_PREFIX}/properties/${constantPropertyId}`)
+      .then((res) => res.json())
+      .then((prop) => {
+        setProperty(prop);
+        console.log("Updated Property:", prop);
+      })
+      .catch((err) =>
+        console.error("Error fetching property:", err)
+      );
+  }
 
   function addNewReviewState(new_review) {
-    setReviews([...reviews, new_review]);
+    setReviews((prevReviews) => [...prevReviews, new_review]);
+    updateProperty(); // Ensure property summary updates after a new review
   }
+
+  // Refresh property summary whenever reviews change
+  useEffect(() => {
+    updateProperty();
+  }, [reviews]);
 
   if (!propertyId)
     return <Text>Error: Property ID is missing</Text>;
@@ -104,6 +120,7 @@ export default function PropertyPage({ propertyId }) {
             tags={property.tags}
             id={propertyId}
             setNewReview={addNewReviewState}
+            updateProperty={updateProperty}
           />
         </Center>
 
@@ -114,18 +131,6 @@ export default function PropertyPage({ propertyId }) {
             <Reviews reviews={reviews} />
           </Box>
         </Center>
-
-        {/* Reviews Section
-      <VStack spacing={4} align="stretch">
-        {reviews.length > 0 ? (
-          reviews.map((review, index) => (
-            <ReviewCard key={index} {...review} />
-          ))
-        ) : (
-          <Text>No reviews yet.</Text>
-        )}
-      </VStack>
-      */}
       </Box>
     </Center>
   );

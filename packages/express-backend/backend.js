@@ -49,6 +49,9 @@ app.get("/search", async (req, res) => {
       return res
         .status(404)
         .json({ error: "No properties found" });
+      return res
+        .status(404)
+        .json({ error: "No properties found" });
     }
 
     res.json(matchingProperties);
@@ -233,17 +236,16 @@ app.post(
     review_service
       .addReview(reviewToAdd, _id)
       .then((review) => {
-        property_service
+        return property_service
           .addPropertyReview(_id, review["_id"])
-          .then((review) => {
-            return updatePropertyStats(_id).then(() => review);
-          })
-          .then(
-            res
-              .status(201)
-              .send(JSON.stringify(review.toObject()))
-          );
+          .then(() => review);
       })
+      .then((review) => {
+        return updatePropertyStats(_id).then(() => review);
+      })
+      .then((review) =>
+        res.status(201).send(JSON.stringify(review.toObject()))
+      )
       .catch(console.log((error) => console.error(error)));
   }
 );
