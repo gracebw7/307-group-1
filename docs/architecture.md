@@ -19,7 +19,7 @@ Frontend Info: We used React & Vite as our frontend framework.
 We used Chakra UI as our frontend component library. 'npm run
 build' will build our frontend. 'npm run lint' will run linting.
 
-Deployment: Deployment is from the 'CI/CD' branch.
+Deployment: Deployment is from the 'CI/CD' branch, all pushes to this branch will be deployed to backend deployment and static frontend deployment.
 
 Structure:
 The app is structured to use a Router to navigate the different pages, which in turn use the different components.
