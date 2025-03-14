@@ -31,7 +31,6 @@ app.get("/search", async (req, res) => {
   console.log("Search endpoint reached!");
   console.log("Query parameters:", req.query);
 
-
   const { address } = req.query;
   if (!address) {
     return res
@@ -41,7 +40,6 @@ app.get("/search", async (req, res) => {
 
   try {
     const matchingProperties = await Property.find({
-      address: { $regex: new RegExp(address, "i") }
       address: { $regex: new RegExp(address, "i") }
     });
 
@@ -108,7 +106,6 @@ app.get("/properties/search", async (req, res) => {
 
   try {
     const matchingProperties = await Property.find({
-      address: { $regex: new RegExp(address, "i") }
       address: { $regex: new RegExp(address, "i") }
     });
 
@@ -228,11 +225,6 @@ const updatePropertyStats = (propertyId) => {
 //POST new review
 //endpoint requries property id, this id is added to the review
 //the review is additionally added to its property review list
-app.post(
-  "/properties/:_id/reviews",
-  authenticateUser,
-  (req, res) => {
-    const _id = req.params["_id"];
 app.post(
   "/properties/:_id/reviews",
   authenticateUser,
